@@ -1,0 +1,17 @@
+.footer {
+    background-color: #0f4082; /* Dark blue background */
+    color: white;
+    text-align: left;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    box-sizing: border-box;
+  }
+  
+  .footer p {
+    margin: 0;
+    padding: 10px 0;
+    font-size: 1em;
+  }
+  

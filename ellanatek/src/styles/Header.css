@@ -1,0 +1,41 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #0f4082; /* Deep blue color to match the background */
+  padding: 20px 40px; /* Increase padding for a larger header */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it appears above other elements */
+  display: flex;
+  justify-content: space-between; /* Space between logo and social media */
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 60px; /* Set a specific height */
+  width: 200px; /* Set a specific width */
+  max-height: 100%; /* Ensure the logo is properly contained */
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+}
+
+.social-media {
+  display: flex;
+  align-items: center;
+}
+
+.social-media a {
+  margin-left: 20px; /* Increase margin for better spacing */
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.social-media a:hover {
+  transform: scale(1.2);
+}

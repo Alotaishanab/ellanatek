@@ -6,7 +6,7 @@
   left: 50%;
   bottom: 5rem; /* Adjust this value to raise the button vertically */
   transform: translateX(-50%);
-  background-color: rgb(182, 142, 113);
+  background-color: #b0b0b0; /* Neutral gray color */
   border: none;
   border-radius: 5rem;
   outline: none;
@@ -26,7 +26,7 @@
 }
 
 body[data-nav="true"] #nav-toggle {
-  background-color: rgb(85, 130, 149);
+  background-color: #8e8e8e; /* Slightly darker gray for active state */
 }
 
 /* Ensure only one icon is visible at a time */
@@ -35,7 +35,7 @@ body[data-nav="true"] #nav-toggle {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(0.9);
-  color: rgb(246, 231, 224);
+  color: #f6e7e0; /* Light color for icons */
   font-size: 1.75rem;
   opacity: 1; /* Ensure icons are visible */
   transition: transform, opacity;

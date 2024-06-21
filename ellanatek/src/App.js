@@ -7,6 +7,7 @@ import AdvertiseWithUs from './components/AdvertiseWithUs';
 import RideWithUs from './components/RideWithUs';
 import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
+import Header from './components/Header'; // Import the Header component
 
 const App = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -35,6 +36,7 @@ const App = () => {
 
   return (
     <div className={`App ${navOpen ? 'nav-open' : ''}`}>
+      <Header /> {/* Include the Header component */}
       <ToggleButton toggleNav={toggleNav} navOpen={navOpen} />
       <div className={`screen-container ${navOpen ? 'screen-container-open' : ''}`}>
         {screens[currentScreen]}

@@ -56,6 +56,9 @@ nav.nav-open {
   font-size: 1.25rem;
   margin: 0;
   text-transform: uppercase;
+  background-color: #0f4082; /* Updated background color */
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .nav-link-image {
@@ -75,7 +78,6 @@ nav.nav-open {
   left: 50%;
   bottom: 5rem; /* Adjust this value to raise the button vertically */
   transform: translateX(-50%);
-  background-color: rgb(182, 142, 113);
   border: none;
   border-radius: 5rem;
   outline: none;
