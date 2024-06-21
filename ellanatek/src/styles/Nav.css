@@ -1,0 +1,127 @@
+/* Ensure the body and html styling is appropriate */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+  color: white;
+  transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
+}
+
+.App.nav-open .screen-container {
+  transform: translateY(-50vh);
+}
+
+.screen-container {
+  transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
+}
+
+/* Navigation bar styling */
+nav {
+  height: 50vh;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+  background-color: black;
+  transform: translateY(100%);
+  transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
+}
+
+nav.nav-open {
+  transform: translateY(0);
+}
+
+#nav-links {
+  display: flex;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin-top: clamp(2rem, 2vw, 3rem);
+  padding: 0rem clamp(1rem, 2vw, 2rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-link {
+  text-decoration: none;
+  cursor: pointer;
+  scroll-snap-align: center;
+}
+
+.nav-link-label {
+  color: white;
+  font-size: 1.25rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.nav-link-image {
+  width: max(20vw, 400px);
+  aspect-ratio: 1.8 / 1;
+  border-radius: 0.5rem;
+  margin-top: 0.75rem;
+  object-fit: cover;
+}
+
+/* Nav toggle button styling */
+#nav-toggle {
+  height: 5rem;
+  width: 5rem;
+  position: fixed;
+  z-index: 15; /* Ensure it's above the nav bar and footer */
+  left: 50%;
+  bottom: 5rem; /* Adjust this value to raise the button vertically */
+  transform: translateX(-50%);
+  background-color: rgb(182, 142, 113);
+  border: none;
+  border-radius: 5rem;
+  outline: none;
+  box-shadow: 0rem 0rem 4rem rgba(0 0 0 / 35%);
+  cursor: pointer;
+  transition: transform, background-color;
+  transition-timing-function: ease;
+  transition-duration: 400ms;
+}
+
+#nav-toggle:hover {
+  transform: translateX(-50%) scale(1.04);
+}
+
+#nav-toggle:active {
+  transform: translateX(-50%) scale(0.96);
+}
+
+body[data-nav="true"] > #nav-toggle {
+  background-color: rgb(85, 130, 149);
+}
+
+/* Ensure only one icon is visible at a time */
+#nav-toggle > .icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  color: rgb(246, 231, 224);
+  font-size: 1.75rem;
+  opacity: 0;
+  transition: transform, opacity;
+  transition-timing-function: ease;
+  transition-duration: 400ms;
+}
+
+#nav-toggle > .open {
+  opacity: 1;
+}
+
+body[data-nav="true"] > #nav-toggle > .open {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body[data-nav="true"] > #nav-toggle > .close {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
