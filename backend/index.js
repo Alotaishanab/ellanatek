@@ -50,37 +50,73 @@ app.post('/api/contact', async (req, res) => {
     await newContact.save();
     console.log('Saved new contact to MongoDB');
 
-    // Read the logo image file
-    const logoPath = path.join(__dirname, 'images', 'logo.JPG');
-    if (!fs.existsSync(logoPath)) {
-      console.error('Logo file not found:', logoPath);
-      return res.status(500).send('Logo file not found');
+    // Define the image paths
+    const logoPath = '/Users/School/ellanatek/backend/images/logo.JPG';
+    const instagramLogoPath = '/Users/School/ellanatek/backend/images/Instagram.JPG';
+    const linkedinLogoPath = '/Users/School/ellanatek/backend/images/LinkedIn.JPG';
+    const tiktokLogoPath = '/Users/School/ellanatek/backend/images/Tiktok.JPG';
+
+    // Check if all image files exist
+    const files = [logoPath, instagramLogoPath, linkedinLogoPath, tiktokLogoPath];
+    let missingFiles = [];
+
+    files.forEach(file => {
+      if (!fs.existsSync(file)) {
+        missingFiles.push(file);
+      }
+    });
+
+    if (missingFiles.length > 0) {
+      console.error('One or more logo files not found:', missingFiles);
+      return res.status(500).send(`One or more logo files not found: ${missingFiles.join(', ')}`);
     }
 
     // Send email to the user
     const userMailOptions = {
       from: 'info@ellanatek.com',
       to: email,
-      subject: 'Thank you for contacting Ellanatek',
+      subject: 'Welcome to Ellanatek',
       html: `
-        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-          <h1>Dear ${name},</h1>
-          <p>Thank you for reaching out to Ellanatek. We have received your message and appreciate your interest in our mobile advertising solutions. Our team will review your inquiry and get back to you shortly.</p>
-          <p>Best regards,<br/>The Ellanatek Team</p>
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; text-align: center;">
+          <h1><strong>Dear ${name},</strong></h1>
+          <p>Welcome to Ellanatek! We are thrilled to have you with us. Thank you for reaching out to us.</p>
+          <p>We have received your message and appreciate your interest in our mobile advertising solutions. Our team will review your inquiry and get back to you shortly.</p>
+          <p><strong><em>Where your brand is everywhere and seen by all.</em></strong></p>
+          <p><em>Best regards,<br/>The Ellanatek Team</em></p>
           <br/>
           <img src="cid:logo@ellanatek.com" alt="Ellanatek Logo" style="width: 300px; height: auto; display: block; margin: 0 auto;"/>
+          <p style="font-size: 12px; color: grey; text-align: center; margin-top: 10px;">
+            This is an automated response. Please do not reply to this email.
+          </p>
           <div style="text-align: center; margin-top: 20px;">
-            <a href="https://instagram.com/yourprofile"><img src="https://yourdomain.com/instagram.png" alt="Instagram" style="width: 40px; height: auto; margin: 0 10px;"/></a>
-            <a href="https://linkedin.com/yourprofile"><img src="https://yourdomain.com/linkedin.png" alt="LinkedIn" style="width: 40px; height: auto; margin: 0 10px;"/></a>
-            <a href="https://tiktok.com/@yourprofile"><img src="https://yourdomain.com/tiktok.png" alt="TikTok" style="width: 40px; height: auto; margin: 0 10px;"/></a>
+            <a href="https://instagram.com/ellanatek"><img src="cid:instagramLogo@ellanatek.com" alt="Instagram" style="width: 40px; height: 40px; margin: 0 10px;"/></a>
+            <a href="https://www.linkedin.com/company/ellanatek/about/"><img src="cid:linkedinLogo@ellanatek.com" alt="LinkedIn" style="width: 40px; height: 40px; margin: 0 10px;"/></a>
+            <a href="https://tiktok.com/@yourprofile"><img src="cid:tiktokLogo@ellanatek.com" alt="TikTok" style="width: 40px; height: 40px; margin: 0 10px;"/></a>
           </div>
         </div>
       `,
-      attachments: [{
-        filename: 'logo.JPG',
-        path: logoPath,
-        cid: 'logo@ellanatek.com' // same cid value as in the html img src
-      }]
+      attachments: [
+        {
+          filename: 'logo.JPG',
+          path: logoPath,
+          cid: 'logo@ellanatek.com' // same cid value as in the html img src
+        },
+        {
+          filename: 'Instagram.JPG',
+          path: instagramLogoPath,
+          cid: 'instagramLogo@ellanatek.com' // same cid value as in the html img src
+        },
+        {
+          filename: 'LinkedIn.JPG',
+          path: linkedinLogoPath,
+          cid: 'linkedinLogo@ellanatek.com' // same cid value as in the html img src
+        },
+        {
+          filename: 'Tiktok.JPG',
+          path: tiktokLogoPath,
+          cid: 'tiktokLogo@ellanatek.com' // same cid value as in the html img src
+        }
+      ]
     };
 
     transporter.sendMail(userMailOptions, (error, info) => {
