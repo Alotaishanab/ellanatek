@@ -47,6 +47,7 @@ const ContactForm = () => {
           <path d="M12 0L15.09 7.36L23 8.64L17 14.57L18.18 22.63L12 19.25L5.82 22.63L7 14.57L1 8.64L8.91 7.36L12 0Z" fill="#0f4082"/>
         </svg>
         <p className="company-email">info@ellanatek.com</p>
+        <p className='company-number'>+966556655562</p>
         <div className="social-icons">
           <a href="https://instagram.com" target="_blank" className="social-icon"><FaInstagram /></a>
           <a href="https://linkedin.com" target="_blank" className="social-icon"><FaLinkedin /></a>

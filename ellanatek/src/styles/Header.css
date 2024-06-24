@@ -1,4 +1,5 @@
 .header {
+  height: 8%;
   position: fixed;
   top: 0;
   left: 0;
@@ -11,6 +12,11 @@
   justify-content: space-between; /* Space between logo and social media */
   align-items: center;
   box-sizing: border-box;
+  transition: top 0.3s ease; /* Smooth transition for hiding/showing */
+}
+
+.header--hidden {
+  top: -100px; /* Move header out of view */
 }
 
 .logo-container {
@@ -34,8 +40,11 @@
   margin-left: 20px; /* Increase margin for better spacing */
   color: white;
   transition: transform 0.3s ease;
+  text-decoration: none; /* Ensure no underline by default */
 }
 
 .social-media a:hover {
   transform: scale(1.2);
+  text-decoration: underline;
+  text-decoration-color: white; /* Set the underline color to white */
 }
