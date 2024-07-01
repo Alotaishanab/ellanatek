@@ -4,7 +4,6 @@ import Nav from './components/Nav';
 import ToggleButton from './components/ToggleButton';
 import Home from './components/Home';
 import AdvertiseWithUs from './components/AdvertiseWithUs';
-import RideWithUs from './components/RideWithUs';
 import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
 import Header from './components/Header'; // Import the Header component
@@ -25,7 +24,6 @@ const App = () => {
   const screens = [
     <Home key="home" />,
     <AdvertiseWithUs key="advertise-with-us" />,
-    <RideWithUs key="ride-with-us" />,
     <AboutUs key="about-us" />,
   ];
 

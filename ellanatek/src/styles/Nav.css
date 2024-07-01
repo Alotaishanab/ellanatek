@@ -49,6 +49,7 @@ nav.nav-open {
   text-decoration: none;
   cursor: pointer;
   scroll-snap-align: center;
+  flex-grow: 1;
 }
 
 .nav-link-label {
