@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -10,26 +11,32 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve WebGL files from the 'assets' directory
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/mycompany', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+// Define schema and model
 const contactSchema = new mongoose.Schema({
   name: String,
   companyname: String,
   email: String,
   message: String,
 });
-
 const Contact = mongoose.model('Contact', contactSchema);
 
 // Create a transporter
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'info@ellanatek.com', // your Gmail account
-    pass: 'Foodjet4248@', // your Gmail password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -41,6 +48,7 @@ transporter.verify((error, success) => {
   }
 });
 
+// Handle contact form submission
 app.post('/api/contact', async (req, res) => {
   const { name, companyname, email, message } = req.body;
   console.log('Received request:', req.body);
@@ -50,30 +58,28 @@ app.post('/api/contact', async (req, res) => {
     await newContact.save();
     console.log('Saved new contact to MongoDB');
 
-    // Define the image paths
-    const logoPath = '/Users/School/ellanatek/backend/images/logo.JPG';
-    const instagramLogoPath = '/Users/School/ellanatek/backend/images/Instagram.JPG';
-    const linkedinLogoPath = '/Users/School/ellanatek/backend/images/LinkedIn.JPG';
-    const tiktokLogoPath = '/Users/School/ellanatek/backend/images/Tiktok.JPG';
+    // Define the image paths (if needed)
+    // const logoPath = path.join(__dirname, 'images', 'logo.JPG');
+    // const instagramLogoPath = path.join(__dirname, 'images', 'Instagram.JPG');
+    // const linkedinLogoPath = path.join(__dirname, 'images', 'LinkedIn.JPG');
+    // const tiktokLogoPath = path.join(__dirname, 'images', 'Tiktok.JPG');
 
-    // Check if all image files exist
-    const files = [logoPath, instagramLogoPath, linkedinLogoPath, tiktokLogoPath];
-    let missingFiles = [];
+    // Check if all image files exist (if needed)
+    // const files = [logoPath, instagramLogoPath, linkedinLogoPath, tiktokLogoPath];
+    // let missingFiles = [];
+    // files.forEach(file => {
+    //   if (!fs.existsSync(file)) {
+    //     missingFiles.push(file);
+    //   }
+    // });
+    // if (missingFiles.length > 0) {
+    //   console.error('One or more logo files not found:', missingFiles);
+    //   return res.status(500).send(`One or more logo files not found: ${missingFiles.join(', ')}`);
+    // }
 
-    files.forEach(file => {
-      if (!fs.existsSync(file)) {
-        missingFiles.push(file);
-      }
-    });
-
-    if (missingFiles.length > 0) {
-      console.error('One or more logo files not found:', missingFiles);
-      return res.status(500).send(`One or more logo files not found: ${missingFiles.join(', ')}`);
-    }
-
-    // Send email to the user
+    // Send email to the user (example)
     const userMailOptions = {
-      from: 'info@ellanatek.com',
+      from: process.env.EMAIL_USER,
       to: email,
       subject: 'Welcome to Ellanatek',
       html: `
@@ -96,26 +102,27 @@ app.post('/api/contact', async (req, res) => {
         </div>
       `,
       attachments: [
-        {
-          filename: 'logo.JPG',
-          path: logoPath,
-          cid: 'logo@ellanatek.com' // same cid value as in the html img src
-        },
-        {
-          filename: 'Instagram.JPG',
-          path: instagramLogoPath,
-          cid: 'instagramLogo@ellanatek.com' // same cid value as in the html img src
-        },
-        {
-          filename: 'LinkedIn.JPG',
-          path: linkedinLogoPath,
-          cid: 'linkedinLogo@ellanatek.com' // same cid value as in the html img src
-        },
-        {
-          filename: 'Tiktok.JPG',
-          path: tiktokLogoPath,
-          cid: 'tiktokLogo@ellanatek.com' // same cid value as in the html img src
-        }
+        // Example attachments (adjust as needed)
+        // {
+        //   filename: 'logo.JPG',
+        //   path: logoPath,
+        //   cid: 'logo@ellanatek.com'
+        // },
+        // {
+        //   filename: 'Instagram.JPG',
+        //   path: instagramLogoPath,
+        //   cid: 'instagramLogo@ellanatek.com'
+        // },
+        // {
+        //   filename: 'LinkedIn.JPG',
+        //   path: linkedinLogoPath,
+        //   cid: 'linkedinLogo@ellanatek.com'
+        // },
+        // {
+        //   filename: 'Tiktok.JPG',
+        //   path: tiktokLogoPath,
+        //   cid: 'tiktokLogo@ellanatek.com'
+        // }
       ]
     };
 
@@ -127,10 +134,10 @@ app.post('/api/contact', async (req, res) => {
       console.log('Email sent to user:', info.response);
     });
 
-    // Send email to the company
+    // Send email to the company (example)
     const companyMailOptions = {
-      from: 'info@ellanatek.com',
-      to: 'info@ellanatek.com', // your company's email
+      from: process.env.EMAIL_USER,
+      to: process.env.COMPANY_EMAIL,
       subject: 'New Contact Form Submission',
       text: `New contact form submission received:\n\nName: ${name}\nCompany: ${companyname}\nEmail: ${email}\nMessage: ${message}\n\nPlease follow up with this inquiry as soon as possible.`,
     };

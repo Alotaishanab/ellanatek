@@ -1,29 +1,58 @@
-/* src/styles/Home.css */
 .home {
-  background-color: white; /* Adjust this color to match your logo background */
-  min-height: 100vh; /* Use min-height instead of height */
-  width: 100vw;
+  background: linear-gradient(to bottom right, #0F4082);
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden; /* Ensure no horizontal scroll */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Change to flex-start to align content to the top */
-  color: black;
-  overflow: auto; /* Ensures content can scroll if it exceeds the viewport */
+  justify-content: flex-start;
+  min-height: 100vh;
+}
+
+.main-section {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 80px; /* Space for header */
 }
 
 .model-viewer {
   width: 100%;
-  height: 50vh; /* Maintain height as 50% of the viewport height */
-  margin-bottom: 2rem; /* Add margin for spacing between sections */
+  text-align: center;
+  margin-bottom: 4rem;
+  overflow: hidden; /* Ensure models don't overflow */
+  height: 100vh; /* Set the height to 80% of the viewport height */
 }
 
-.content {
-  padding: 2rem;
-  width: 100%; /* Ensure it takes the full width */
+
+.model-viewer canvas {
+  width: 100%;
+  height: auto;
 }
 
-.additional-content {
-  width: 100%; /* Match width of other sections */
-  padding: 2rem;
-  margin-top: 1rem; /* Space between content sections */
+.message {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.vibrate {
+  display: inline-block;
+  animation: vibrate 0.3s linear infinite;
+}
+
+@keyframes vibrate {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
 }

@@ -1,17 +1,17 @@
 .footer {
-    background-color: #0f4082; /* Dark blue background */
-    color: white;
-    text-align: left;
-    padding: 20px;
-    width: 100%;
-    position: relative;
-    bottom: 0;
-    box-sizing: border-box;
-  }
-  
-  .footer p {
-    margin: 0;
-    padding: 10px 0;
-    font-size: 1em;
-  }
-  
+  background-color: white; /* Ensure the background is white */
+  color: white; /* This will set the default text color within the footer */
+  text-align: left;
+  padding: 20px;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  box-sizing: border-box;
+}
+
+.footer p {
+  color: black; /* Set the paragraph text color to black */
+  margin: 0;
+  padding: 10px 0;
+  font-size: 1em;
+}
