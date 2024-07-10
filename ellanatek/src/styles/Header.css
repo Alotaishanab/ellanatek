@@ -4,15 +4,16 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #0f4082; /* Deep blue color to match the background */
-  padding: 20px 40px; /* Increase padding for a larger header */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #0F4082; /* Matches the deep blue color of the background gradient */
+  padding: 10px 40px; /* Adjusted padding for a sleeker look */
+  box-shadow: none; /* Remove the box shadow for a seamless look */
   z-index: 1000; /* Ensure it appears above other elements */
   display: flex;
   justify-content: space-between; /* Space between logo and social media */
   align-items: center;
   box-sizing: border-box;
   transition: top 0.3s ease; /* Smooth transition for hiding/showing */
+  border-bottom: none; /* Remove any border */
 }
 
 .header--hidden {
@@ -26,7 +27,7 @@
 
 .logo {
   height: 60px; /* Set a specific height */
-  width: 200px; /* Set a specific width */
+  width: 200px; /* Maintain aspect ratio */
   max-height: 100%; /* Ensure the logo is properly contained */
   object-fit: cover; /* Cover the container while maintaining aspect ratio */
 }
