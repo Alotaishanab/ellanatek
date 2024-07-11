@@ -1,58 +1,56 @@
-.home {
-  background: linear-gradient(to bottom right, #0F4082);
-  color: white;
+/* Common styles */
+body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  overflow-x: hidden; /* Ensure no horizontal scroll */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
+  color: black; /* Black text for visibility */
+  background-color: white; /* White background */
 }
 
-.main-section {
+/* White theme styles */
+.white-theme {
+  background-color: white; /* White background for the entire page */
+  color: black; /* Black text for contrast */
+}
+
+.main-content {
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  margin: 0 auto; /* Center the content */
+  padding-top: 120px; /* Space for fixed header */
+}
+
+.main-section, .content-section, .model-section {
   width: 100%;
   max-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 80px; /* Space for header */
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 20px; /* Space between sections */
 }
 
-.model-viewer {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 4rem;
-  overflow: hidden; /* Ensure models don't overflow */
-  height: 100vh; /* Set the height to 80% of the viewport height */
-}
-
-
-.model-viewer canvas {
-  width: 100%;
-  height: auto;
+model-viewer {
+  width: 80%; /* Full width for centered placement */
+  height: 600px; /* Adjust height as needed */
+  background-color: transparent; /* Transparent background directly on model-viewer */
+  border-radius: 8px; /* Slightly rounded corners */
+  outline: none; /* Remove default outline */
 }
 
 .message {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: red;
-  font-size: 1.2em;
+  margin-top: 20px; /* Space between model and message */
   text-align: center;
+  font-size: 1.2rem;
 }
 
-.vibrate {
-  display: inline-block;
-  animation: vibrate 0.3s linear infinite;
+.content-section h2 {
+  margin-bottom: 1rem;
 }
 
-@keyframes vibrate {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-2px); }
-  50% { transform: translateX(2px); }
-  75% { transform: translateX(-2px); }
-  100% { transform: translateX(0); }
+.content-section p {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 800px;
 }

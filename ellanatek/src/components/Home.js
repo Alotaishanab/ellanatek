@@ -1,72 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import Viewer from './Viewer';
+import React from 'react';
+import '@google/model-viewer'; // Ensure model-viewer is imported
 import '../styles/Home.css';
 
 const Home = () => {
-  const [showMessage, setShowMessage] = useState(true);
-
-  useEffect(() => {
-    let startX;
-    let startY;
-
-    const handleTouchStart = (e) => {
-      const touch = e.touches[0];
-      startX = touch.clientX;
-      startY = touch.clientY;
-    };
-
-    const handleTouchMove = (e) => {
-      const touch = e.touches[0];
-      const deltaX = Math.abs(touch.clientX - startX);
-      const deltaY = Math.abs(touch.clientY - startY);
-
-      if (deltaX > 20 || deltaY > 20) {
-        setShowMessage(false);
-        document.removeEventListener('touchmove', handleTouchMove);
-      }
-    };
-
-    const modelViewers = document.querySelectorAll('.model-viewer');
-    modelViewers.forEach((viewer) => {
-      viewer.addEventListener('touchstart', handleTouchStart);
-      viewer.addEventListener('touchmove', handleTouchMove);
-    });
-
-    return () => {
-      modelViewers.forEach((viewer) => {
-        viewer.removeEventListener('touchstart', handleTouchStart);
-        viewer.removeEventListener('touchmove', handleTouchMove);
-      });
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const contentSections = document.querySelectorAll('.content, .additional-content');
-      contentSections.forEach((section) => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if (sectionTop < window.innerHeight * 0.8) {
-          section.classList.add('visible');
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call initially to check elements on load
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <div className="home">
-      <Header />
-      <div className="main-section">
-        <div className="model-viewer">
-          <Viewer modelPath="/Bike.glb" />
-        </div>
-        <div className="model-viewer">
-          <Viewer modelPath="/BoxCentered.glb" />
-        </div>
+    <div className="home white-theme">
+      <div className="main-content">
+        <section className="main-section">
+          <model-viewer
+            src="/Bike.glb" // Assuming Bike.glb is in the public folder
+            camera-controls
+            interaction-prompt="none" // Disable interaction prompt
+            disable-zoom // Disable zoom
+            style={{ width: '80%', height: '600px' }}
+            camera-orbit="45deg 75deg 5m" // Zoom out the initial view
+          ></model-viewer>
+          <div className="message">
+            Swipe the Motorbike to view from each direction
+          </div>
+        </section>
+
+        <section className="content-section">
+          <h2>About the Motorbike</h2>
+          <p>
+            Here you can add additional content that complements the 3D motorbike model. This section can include text, images, or any other elements you want to display.
+          </p>
+        </section>
+
+        <section className="model-section">
+          <model-viewer
+            src="/BoxCentered.glb" // Assuming BoxCentered.glb is in the public folder
+            camera-controls
+            interaction-prompt="none" // Disable interaction prompt
+            disable-zoom // Disable zoom
+            style={{ width: '80%', height: '600px' }}
+            camera-orbit="45deg 75deg 3m" // Set desired initial view
+          ></model-viewer>
+        </section>
       </div>
     </div>
   );

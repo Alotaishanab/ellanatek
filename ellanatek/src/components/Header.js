@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/Header.css';
-import logoVideo from '../assets/logo.MOV'; // Adjust the path to your video file
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faLinkedin, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import logoPNG from '../assets/logo.png'; // Adjust the path to your logo image file
+import igSVG from '../assets/ig.svg'; // Instagram SVG icon
+import tiktokSVG from '../assets/tiktok.svg'; // TikTok SVG icon
+import linkedinSVG from '../assets/linkedin.svg'; // LinkedIn SVG icon
 
 const Header = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -14,8 +15,8 @@ const Header = () => {
       if (st > lastScrollTop) {
         // Downscroll
         setShowHeader(false);
-      } else if (st < lastScrollTop && st === 0) {
-        // Upscroll to the top
+      } else if (st < lastScrollTop) {
+        // Upscroll
         setShowHeader(true);
       }
       lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
@@ -30,20 +31,17 @@ const Header = () => {
   return (
     <header className={`header ${showHeader ? '' : 'header--hidden'}`}>
       <div className="logo-container">
-        <video autoPlay loop muted className="logo">
-          <source src={logoVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <img src={logoPNG} alt="Logo" className="logo" />
       </div>
       <div className="social-media">
-        <a href="https://instagram.com/ellanatek" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faInstagram} size="2x" />
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+          <img src={igSVG} alt="Instagram" className="social-icon" />
         </a>
-        <a href="https://www.linkedin.com/company/ellanatek/about/" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faLinkedin} size="2x" />
+        <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
+          <img src={tiktokSVG} alt="TikTok" className="social-icon" />
         </a>
-        <a href="https://tiktok.com/@yourprofile" target="_blank" rel="noopener noreferrer">
-          <FontAwesomeIcon icon={faTiktok} size="2x" />
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+          <img src={linkedinSVG} alt="LinkedIn" className="social-icon" />
         </a>
       </div>
     </header>
