@@ -5,8 +5,7 @@ import '../styles/Snapshot.css'; // New CSS file for styling snapshots
 const HomeSnapshot = () => {
   return (
     <div className="snapshot">
-      <Viewer modelPath="/rusty_motorbike.glb" />
-      
+      <Viewer modelPath="/Bike.glb" />
     </div>
   );
 };

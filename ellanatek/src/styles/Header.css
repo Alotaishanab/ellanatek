@@ -1,15 +1,23 @@
+/* Common styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: black; /* Black text for visibility */
+  background-color: white; /* White background */
+}
+
+/* Header styles */
 .header {
-  height: 8%;
+  height: 15%; /* Increased height for a larger header */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #0F4082; /* Matches the deep blue color of the background gradient */
-  padding: 10px 40px; /* Adjusted padding for a sleeker look */
-  box-shadow: none; /* Remove the box shadow for a seamless look */
+  background-color: white; /* White color for header background */
+  padding: 20px 40px; /* Adjusted padding for a sleeker look */
   z-index: 1000; /* Ensure it appears above other elements */
   display: flex;
-  justify-content: space-between; /* Space between logo and social media */
+  justify-content: space-between; /* Space between social media and logo */
   align-items: center;
   box-sizing: border-box;
   transition: top 0.3s ease; /* Smooth transition for hiding/showing */
@@ -21,13 +29,14 @@
 }
 
 .logo-container {
-  display: flex;
-  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .logo {
-  height: 60px; /* Set a specific height */
-  width: 200px; /* Maintain aspect ratio */
+  height: 80px; /* Set a specific height */
+  width: auto; /* Maintain aspect ratio */
   max-height: 100%; /* Ensure the logo is properly contained */
   object-fit: cover; /* Cover the container while maintaining aspect ratio */
 }
@@ -39,13 +48,101 @@
 
 .social-media a {
   margin-left: 20px; /* Increase margin for better spacing */
-  color: white;
-  transition: transform 0.3s ease;
+  color: black; /* Black color for links */
+  transition: transform 0.3s ease, text-decoration-color 0.3s ease;
   text-decoration: none; /* Ensure no underline by default */
 }
 
 .social-media a:hover {
   transform: scale(1.2);
   text-decoration: underline;
-  text-decoration-color: white; /* Set the underline color to white */
+  text-decoration-color: black; /* Set the underline color to black */
+}
+
+.social-media a::after {
+  content: ''; /* Add a decorative element */
+  display: block;
+  width: 0;
+  height: 2px;
+  background: black;
+  transition: width 0.3s;
+}
+
+.social-media a:hover::after {
+  width: 100%;
+}
+
+.social-icon {
+  height: 40px; /* Set height for social media icons */
+  width: auto; /* Maintain aspect ratio */
+  margin-left: 10px; /* Adjust margin as needed */
+}
+
+/* White theme styles */
+.white-theme {
+  background-color: white; /* White background for the entire page */
+  color: black; /* Black text for contrast */
+}
+
+.main-section {
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  display: flex;
+  flex-direction: column; /* Arrange model and message vertically */
+  align-items: center; /* Center models vertically */
+  justify-content: center; /* Center models horizontally */
+  padding-top: 120px; /* Space for fixed header */
+  position: relative;
+  margin-bottom: 20px; /* Space between sections */
+}
+
+.model-section {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+model-viewer {
+  width: 80%; /* Full width for centered placement */
+  height: 600px; /* Adjust height as needed */
+  background-color: transparent; /* Transparent background directly on model-viewer */
+  border-radius: 8px; /* Slightly rounded corners */
+  outline: none; /* Remove default outline */
+}
+
+.message {
+  margin-top: 20px; /* Space between model and message */
+  text-align: center;
+  color: black; /* Black color for the message text */
+  font-size: 1.2rem;
+}
+
+.content-section {
+  width: 100%;
+  max-width: 1200px;
+  color: black; /* Black text for content section */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
+
+.content-section h2 {
+  margin-bottom: 1rem;
+  color: black; /* Black color for the headings */
+}
+
+.content-section p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: black; /* Black color for the text */
+  text-align: center; /* Centered text */
+  max-width: 800px;
 }
