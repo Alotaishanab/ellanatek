@@ -7,73 +7,27 @@ body {
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal scrolling */
   font-family: 'Rubik', sans-serif;
-  background-color: #002b5c; /* Deep blue color matching the logo background */
+  background-color: black; /* Ensure the background is black */
   color: white;
+  height: 100%; /* Ensure the body spans the full height */
+}
+
+#root {
+  height: 100%; /* Ensure the root spans the full height */
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  min-height: 100vh;
+  min-height: 100vh; /* Ensure the container spans the viewport height */
+  background-color: black; /* Ensure the background is black */
 }
 
 .screen-container {
-  flex: 1;
-  padding-top: 60px; /* Adjust based on the height of your header */
-  background-color: #002b5c; /* Deep blue color matching the logo background */
+  flex: 1; /* Allow the screen-container to grow and take up remaining space */
+  padding-top: 20px; /* Adjust padding to ensure no overlap */
   color: white; /* Ensure text is white for contrast */
   position: relative;
   z-index: 1;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-}
-
-/* Additional styles for header */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #002b5c; /* Deep blue color to match the background */
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure it appears above other elements */
-  display: flex;
-  align-items: center;
-  margin: 0; /* Ensure no margin */
-}
-
-.logo {
-  height: 40px; /* Adjust size as needed */
-}
-
-/* Styles for nav bar links */
-.nav-link {
-  display: inline-block;
-  width: calc(100% / 4); /* Adjust based on the number of links */
-  height: 300px; /* Adjust height as needed */
-  overflow: hidden;
-  cursor: pointer;
-  background-color: #002b5c; /* Deep blue color */
-  color: white; /* Ensure text color contrasts with the background */
-}
-
-.nav-open .nav-link {
-  background-color: #557e96; /* Light blue color that complements the existing scheme */
-}
-
-.nav-link-label {
-  padding: 10px;
-  font-size: 1.2em;
-  text-align: center;
-  color: white; /* Ensure text color contrasts with the background */
+  background-color: black; /* Ensure the background is black */
 }

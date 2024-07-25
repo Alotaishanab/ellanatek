@@ -6,7 +6,7 @@ import Home from './components/Home';
 import AdvertiseWithUs from './components/AdvertiseWithUs';
 import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
-import Header from './components/Header'; // Import the Header component
+
 
 const App = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -21,20 +21,19 @@ const App = () => {
     setNavOpen(!navOpen);
   };
 
-  const screens = [
-    <Home key="home" />,
-    <AdvertiseWithUs key="advertise-with-us" />,
-    <AboutUs key="about-us" />,
-  ];
-
   const handleNavClick = (index) => {
     setCurrentScreen(index);
     setNavOpen(false);
   };
 
+  const screens = [
+    <Home key="home" onNavigate={handleNavClick} />,
+    <AdvertiseWithUs key="advertise-with-us" />,
+    <AboutUs key="about-us" />,
+  ];
+
   return (
     <div className={`App ${navOpen ? 'nav-open' : ''}`}>
-      <Header /> {/* Include the Header component */}
       <ToggleButton toggleNav={toggleNav} navOpen={navOpen} />
       <div className={`screen-container ${navOpen ? 'screen-container-open' : ''}`}>
         {screens[currentScreen]}
