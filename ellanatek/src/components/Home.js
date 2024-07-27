@@ -46,32 +46,90 @@ const Home = ({ onNavigate }) => {
         </section>
 
         <section className="model-section">
-          <div className="model-container">
-            <model-viewer
-              src="/BoxCentered.glb" // Assuming BoxCentered.glb is in the public folder
-              camera-controls
-              interaction-prompt="none" // Disable interaction prompt
-              disable-zoom // Disable zoom
-              className="box-model"
-              style={{ width: '80%', height: '600px' }}
-              camera-orbit="45deg 75deg 3m" // Set desired initial view
-            ></model-viewer>
-            <div className="info-box">
-              <h3>LED Module Specifications</h3>
-              <ul>
-                <li>Module Size: 336mm x 384mm</li>
-                <li>Display Size: 1008mm x 384mm</li>
-                <li>Resolution: 336 pixels x 128 pixels</li>
-                <li>Brightness: >4500nits</li>
-                <li>Refresh Rate: >1920hz</li>
-                <li>Viewing Distance: 3 - 100 meters</li>
-                <li>Operating Temperature: -30°C to 80°C</li>
-                <li>Operating Humidity: 10% - 80% RH</li>
-              </ul>
+          <div className="box-container">
+            <div className="adbox-section">
+              <h3 className="adbox-title">The AdBox</h3>
+              <p className="adbox-subtitle">Sleek, Mobile Advertising</p>
+              <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+                <model-viewer
+                  src="/BoxCentered.glb" // Assuming BoxCentered.glb is in the public folder
+                  camera-controls
+                  interaction-prompt="none" // Disable interaction prompt
+                  disable-zoom // Disable zoom
+                  className="box-model"
+                  style={{ width: '731px', height: '541px' }} // Set desired initial view
+                ></model-viewer>
+                <div className="info-box">
+                  <ul>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <span>LED Module Size: 336mm x 384mm</span>
+                      </div>
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <span>Operating Humidity: 10% - 80% RH</span>
+                      </div>
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <span>LED Display Size: 1008mm x 384mm</span>
+                      </div>
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <span>Full Screen Resolution: 336 pixels x 128 pixels</span>
+                      </div>
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <span>Brightness: >4500 nits</span>
+                      </div>
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <span>Refresh Rate: >1920Hz</span>
+                      </div>
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <span>Viewing Distance: 3 - 100 meters</span>
+                      </div>
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <span>Operating Temperature: -30°C to 80°C</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div className="connector"></div>
           </div>
-          <img src="assets/Image.jpg" alt="Sample" className="connected-image" />
         </section>
       </div>
     </div>
