@@ -70,21 +70,23 @@ body {
   height: 60px;
   margin-top: 20px;
   text-align: center;
-  color: black;
-  font-size: 20px;
-  font-family: Roboto;
+  color: rgb(0, 0, 0); /* Text color */
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
-  background-color: #61A0FF;
+  text-transform: uppercase; /* Make text all uppercase */
+  background: #7dacf7; 
   border: none;
   border-radius: 120px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .get-in-touch:hover {
-  background-color: #4285f4;
-  transform: scale(1.05);
-  }
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.get-in-touch:hover {
+  font-weight: bold;
+  background: linear-gradient(to right, #61A0FF, #ffffff); /* Gradient background on hover */
+  transform: scale(1.15);
+}
   
   .model-wrapper {
   width: 100%; /* Ensure the model takes full width /
@@ -103,19 +105,22 @@ body {
   }
   
   .model-message {
-  margin-top: 10px;
-  font-size: 18px;
-  color: #61A0FF;
-  text-align: center;
-  font-family: ‘Courier New’, Courier, monospace;
-  animation: fadeIn 2s ease-in-out;
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    animation: fadeIn 2s ease-in-out;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    background: linear-gradient(to right, #4285f4, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
   .model-message:hover {
-  color: #4285f4;
-  transform: scale(1.1);
+    background: linear-gradient(to right, #4285f4, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transform: scale(1.1);
   }
   
   .model-section {
@@ -533,133 +538,238 @@ body {
     color: #6E6E73;
     }
     
+    .info-box ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .info-box ul li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px; /* Increase spacing between items */
+    }
+    
+    .info-box ul li svg {
+      margin-right: 10px; /* Space between icon and text */
+      flex-shrink: 0;
+    }
+    
     .info-box ul li .info-box-item {
-    color: #F5F5F5;
+      color: #F5F5F5;
+      font-family: Jost;
+      font-size: 19px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 34.68px;
+      text-align: left;
+    }
+    
+    .info-box ul li:nth-child(odd) {
+      margin-left: 20px; /* Indent odd items */
+    }
+    
+    .info-box ul li:nth-child(even) {
+      margin-left: 40px; /* Indent even items more */
+    }
+    
+    .box-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    
+    .box-model {
+      width: 500px;
+      height: 400px;
+      margin-right: 20px; /* Add some margin to the right for spacing */
+    }
+    
+    .info-box {
+      flex: 1; /* Make the info box take up the remaining space */
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      color: white;
+      animation: fadeIn 1s ease-in-out;
+      transition: transform 0.3s ease;
+      font-family: 'Jost', sans-serif; 
+    }
+
+    @media (max-width: 992px) {
+    .intro-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    }
+    
+    .intro-text {
+    width: 100%;
+    }
+    
+    .model-wrapper {
+    width: 100%;
+    margin-top: 150px; /* Adjust margin for tablet */
+    }
+    
+    .bike-model {
+    width: 80%;
+    height: 600px; /* Keep the size consistent */
+    }
+    }
+    
+    @media (max-width: 768px) {
+    .intro-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    }
+    
+    .intro-text, .admotion-text {
+    font-size: 75px;
+    line-height: 75px;
+    }
+    
+    .sub-text {
+    font-size: 20px;
+    text-align: left; /* Ensure text is left-aligned */
+    }
+    
+    .get-in-touch {
+    width: 200px;
+    height: 60px;
+    font-size: 20px;
+    align-self: flex-start; /* Align button to the left /
+    margin-top: 20px; / Ensure spacing above the button */
+    }
+    
+    .model-message {
+    font-size: 18px;
+    }
+    
+    .bike-model {
+    width: 80%;
+    height: 600px; /* Keep the size consistent */
+    }
+    
+    .model-section {
+    flex-direction: column;
+    align-items: center;
+    }
+    
+    .info-box {
+    margin-top: 20px;
+    }
+    }
+    
+    @media (max-width: 576px) {
+    .intro-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    }
+    
+    .intro-text, .admotion-text {
+    font-size: 75px;
+    line-height: 75px;
+    }
+    
+    .sub-text {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column; /* Ensure the sub-text and button stack /
+    align-items: flex-start; / Align text and button to the left */
+    }
+    
+    .get-in-touch {
+    width: 200px;
+    height: 60px;
+    font-size: 20px;
+    align-self: flex-start; /* Align button to the left /
+    margin-top: 10px; / Ensure spacing above the button */
+    }
+    
+    .model-wrapper {
+    width: 100%;
+    margin-top: 100px; /* Adjust margin for mobile to move the model higher */
+    }
+    
+    .bike-model {
+    width: 80%;
+    height: 600px; /* Keep the size consistent */
+    }
+    
+    .model-message {
+    font-size: 18px;
+    }
+    
+    .model-section {
+    flex-direction: column;
+    align-items: center;
+    }
+    
+    .info-box {
+    margin-top: 20px;
+    }
+    }
+    
+    .admotion-text {
+    font-family: Jost;
+    font-size: 75px;
+    font-weight: 600;
+    line-height: 75px;
+    text-align: center;
+    margin: 20px auto;
+    color: white;
+    }
+    
+    @keyframes fadeIn {
+    0% {
+    opacity: 0;
+    }
+    100% {
+    opacity: 1;
+    }
+    }
+    
+    /* New styles for the AdBox section */
+    .adbox-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+    }
+    
+    /* Updated styles */
+    .adbox-title {
+    width: 556.59px;
+    height: 0px;
+    top: 51px;
+    left: 673.91px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Jost;
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -0.2800000011920929px;
+    text-align: center;
+    }
+    
+    .adbox-subtitle {
+    width: 566.03px;
+    height: 65px;
+    top: 118px;
+    left: 661px;
+    gap: 25px;
+    opacity: 0px;
     font-family: Jost;
     font-size: 19px;
-    font-style: normal;
     font-weight: 400;
-    line-height: 34.68px;
-    text-align: left;
-    }
-    
-    /* Layout for text1 */
-    .info-box ul li:nth-child(1) .info-box-item {
-    width: 257px;
-    height: 38px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    /* Layout for text2 */
-    .info-box ul li:nth-child(2) .info-box-item {
-    width: 263px;
-    height: 55px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    /* Layout for text3 */
-    .info-box ul li:nth-child(3) .info-box-item {
-    width: 206px;
-    height: 80px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    /* Layout for text4 */
-    .info-box ul li:nth-child(4) .info-box-item {
-    width: 203px;
-    height: 173px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    /* Layout for text5 */
-    .info-box ul li:nth-child(5) .info-box-item {
-    width: 246px;
-    height: 102px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    /* Layout for text6 */
-    .info-box ul li:nth-child(6) .info-box-item {
-    width: 265px;
-    height: 72px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    /* Layout for text7 */
-    .info-box ul li:nth-child(7) .info-box-item {
-    width: 252px;
-    height: 88px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    /* Layout for text8 */
-    .info-box ul li:nth-child(8) .info-box-item {
-    width: 265px;
-    height: 78px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    /* Eclipse layout */
-    .info-box ul li:nth-child(1) svg {
-    width: 25px;
-    height: 24px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    .info-box ul li:nth-child(2) svg {
-    width: 25px;
-    height: 24px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    .info-box ul li:nth-child(3) svg {
-    width: 25px;
-    height: 24px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    .info-box ul li:nth-child(4) svg {
-    width: 25px;
-    height: 24px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    .info-box ul li:nth-child(5) svg {
-    width: 25px;
-    height: 24px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    .info-box ul li:nth-child(6) svg {
-    width: 25px;
-    height: 24px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    .info-box ul li:nth-child(7) svg {
-    width: 25px;
-    height: 24px;
-    gap: 0px;
-    opacity: 0px;
-    }
-    
-    .info-box ul li:nth-child(8) svg {
-    width: 25px;
-    height: 24px;
-    gap: 0px;
-    opacity: 0px;
+    line-height: 31px;
+    letter-spacing: 0.1120000034570694px;
+    text-align: center;
+    color: #6E6E73;
     }
