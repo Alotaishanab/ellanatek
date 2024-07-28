@@ -66,14 +66,8 @@ const Home = ({ onNavigate }) => {
                         <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
                       </svg>
                       <div className="info-box-item">
-                        <span>LED Module Size: 336mm x 384mm</span>
-                      </div>
-                    </li>
-                    <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
-                      </svg>
-                      <div className="info-box-item">
+                        <span>LED Module Size: 336mm x 384mm </span>
+                        <span> & </span>
                         <span>Operating Humidity: 10% - 80% RH</span>
                       </div>
                     </li>
@@ -83,13 +77,7 @@ const Home = ({ onNavigate }) => {
                       </svg>
                       <div className="info-box-item">
                         <span>LED Display Size: 1008mm x 384mm</span>
-                      </div>
-                    </li>
-                    <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
-                      </svg>
-                      <div className="info-box-item">
+                        <span> & </span>
                         <span>Full Screen Resolution: 336 pixels x 128 pixels</span>
                       </div>
                     </li>
@@ -98,15 +86,9 @@ const Home = ({ onNavigate }) => {
                         <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
                       </svg>
                       <div className="info-box-item">
-                        <span>Brightness: >4500 nits</span>
-                      </div>
-                    </li>
-                    <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
-                      </svg>
-                      <div className="info-box-item">
-                        <span>Refresh Rate: >1920Hz</span>
+                        <span>Brightness: 4500 nits</span>
+                        <span> & </span>
+                        <span>Refresh Rate: 1920Hz</span>
                       </div>
                     </li>
                     <li>
@@ -115,13 +97,7 @@ const Home = ({ onNavigate }) => {
                       </svg>
                       <div className="info-box-item">
                         <span>Viewing Distance: 3 - 100 meters</span>
-                      </div>
-                    </li>
-                    <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
-                      </svg>
-                      <div className="info-box-item">
+                        <span> & </span>
                         <span>Operating Temperature: -30°C to 80°C</span>
                       </div>
                     </li>
