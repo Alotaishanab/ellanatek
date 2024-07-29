@@ -107,6 +107,18 @@ const Home = ({ onNavigate }) => {
             </div>
           </div>
         </section>
+
+        {/* New section for rectangular box with text and images */}
+        <section className="rectangular-box">
+          <div className="rectangular-box-text">
+            <p>• Deliver your ads in designated location within the city of Khobar 24/7</p>
+            <p>• Dynamic content allocation: upload preferred ads and choose preferred locations</p>
+            <p>• Target your chosen audience and offer exclusive offers</p>
+          </div>
+          <div className="rectangular-box-image-1">
+            <div className="rectangular-box-image-2"></div>
+          </div>
+        </section>
       </div>
     </div>
   );
