@@ -38,13 +38,6 @@ const Home = ({ onNavigate }) => {
           </div>
         </section>
 
-        <section className="content-section">
-          <h2>About the Motorbike</h2>
-          <p>
-            Here you can add additional content that complements the 3D motorbike model. This section can include text, images, or any other elements you want to display.
-          </p>
-        </section>
-
         <section className="model-section">
           <div className="box-container">
             <div className="adbox-section">
@@ -59,52 +52,87 @@ const Home = ({ onNavigate }) => {
                   className="box-model"
                   style={{ width: '731px', height: '541px' }} // Set desired initial view
                 ></model-viewer>
-                <div className="info-box">
-                  <ul>
-                    <li>
+                
+                <div className="info-box" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', alignItems: 'center' }}>
+                  <ul style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', listStyleType: 'none', padding: 0 }}>
+                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
                         <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
                       </svg>
                       <div className="info-box-item">
-                        <span>LED Module Size: 336mm x 384mm </span>
-                        <span> & </span>
-                        <span>Operating Humidity: 10% - 80% RH</span>
+                        <div>LED Module Size:</div>
+                        <div>336mm x 384mm</div>
                       </div>
                     </li>
-                    <li>
+                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
                         <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
                       </svg>
                       <div className="info-box-item">
-                        <span>LED Display Size: 1008mm x 384mm</span>
-                        <span> & </span>
-                        <span>Full Screen Resolution: 336 pixels x 128 pixels</span>
+                        <div>Brightness:</div>
+                        <div>4500 nits</div>
                       </div>
                     </li>
-                    <li>
+                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
                         <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
                       </svg>
                       <div className="info-box-item">
-                        <span>Brightness: 4500 nits</span>
-                        <span> & </span>
-                        <span>Refresh Rate: 1920Hz</span>
+                        <div>Operating Humidity:</div>
+                        <div>10% - 80% RH</div>
                       </div>
                     </li>
-                    <li>
+                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item" style={{ marginTop: '50px' }}>
+                        <div>Refresh Rate:</div>
+                        <div>1920Hz</div>
+                      </div>
+                    </li>
+                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
                         <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
                       </svg>
                       <div className="info-box-item">
-                        <span>Viewing Distance: 3 - 100 meters</span>
-                        <span> & </span>
-                        <span>Operating Temperature: -30°C to 80°C</span>
+                        <div>LED Display Size:</div>
+                        <div>1008mm x 384mm</div>
                       </div>
+                    </li>
+                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <div>Viewing Distance:</div>
+                        <div>3 - 100 meters</div>
+                      </div>
+                    </li>
+                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <div>Full Screen Resolution:</div>
+                        <div>336 pixels x 128 pixels</div>
+                      </div>
+                    </li>
+                    <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      </svg>
+                      <div className="info-box-item">
+                        <div>Operating Temperature:</div>
+                        <div>-30°C to 80°C</div>
+                      </div>
+                      
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
+            
           </div>
         </section>
 
