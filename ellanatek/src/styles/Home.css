@@ -189,15 +189,15 @@ body {
 .rectangular-box {
   width: 1100px;
   height: 487px;
-  border-radius: 53px 0px 0px 0px;
-  background: linear-gradient(180deg, #61A0FF 0%, #164A97 80.5%, #003078 100%);
+  border-radius: 53px 53px 53px 53px;
+  background: linear-gradient(180deg, #001b28 0%, #000B49 .5%, #000000 100%);
   box-shadow: -30px 30px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-  margin-top: 20px;
+  margin-top: 100px;
   margin-bottom: 100px; /* Add margin-bottom to prevent overlap with footer */
   animation: fadeIn 1s ease-in-out;
 }
@@ -207,7 +207,7 @@ body {
   height: 465px;
   color: #FFF;
   font-family: Jost;
-  font-size: 20px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 31.2px;
@@ -218,10 +218,11 @@ body {
 }
 
 .rectangular-box-image-1 {
-  width: 443px;
-  height: 526px;
+  width: 400px;
+  height: 525px;
   background: url('/Users/School/ellanatek/ellanatek/src/assets/mapBackground.png') lightgray 50% / cover no-repeat;
   position: relative;
+  left: -50px;
 }
 
 .rectangular-box-image-2 {
@@ -229,7 +230,7 @@ body {
   height: 335px;
   position: absolute;
   top: 58px; /* Adjusted to position correctly inside the rectangular box */
-  left: 72px; /* Adjusted to position correctly inside the rectangular box */
+  left: 50px; /* Adjusted to position correctly inside the rectangular box */
   background: url('/Users/School/ellanatek/ellanatek/src/assets/map.png') lightgray 50% / cover no-repeat;
 }
 
@@ -376,7 +377,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 100px;
     }
     
     /* Updated styles */
