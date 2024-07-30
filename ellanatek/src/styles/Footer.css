@@ -2,10 +2,11 @@
   background-color: black; /* Ensure the background is white */
   color: white; /* This will set the default text color within the footer */
   text-align: left;
-  padding: 20px;
+  padding: 2px;
   width: 100%;
   position: relative;
   bottom: 0;
+  left: 10px;
   box-sizing: border-box;
 }
 
