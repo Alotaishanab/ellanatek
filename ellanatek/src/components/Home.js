@@ -51,20 +51,20 @@ const Home = ({ onNavigate }) => {
             <strong><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg> Cost-Effective</strong><br/>
             Maximize your budget! Motorbike ads offer a more economical option compared to traditional billboards and digital advertising, providing excellent value for money.
           </p>
-          <p>
+{/*           <p>
             <strong><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg> Versatility</strong><br/>
             Unleash your creativity with motorbike ads. From digital screens to vibrant banners and posters, the possibilities for eye-catching campaigns are endless.
-          </p>
-          <p>
+          </p> */}
+{/*           <p>
             <strong><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg> Flexibility</strong><br/>
             Adapt and conquer. Motorbikes can be quickly rerouted and deployed in various locations, offering unmatched flexibility for your advertising strategies.
-          </p>
-          <p>
+          </p> */}
+{/*           <p>
             <strong><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18" /></svg> Engagement</strong><br/>
             Capture attention like never before. The unique and mobile nature of motorbike ads creates memorable impressions, boosting brand recognition and customer engagement.
-          </p>
+          </p> */}
           <p>
-            <strong><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18" /></svg> Local Impact</strong><br/>
+          <strong><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18" /></svg> Local Impact</strong><br/>
             Support and strengthen community ties. Motorbike ads are perfect for promoting local businesses, events, and special offers, making a positive impact within the community.
           </p>
           <p>
