@@ -30,7 +30,7 @@ const AboutUs = () => {
       <section className="section who-we-are" data-section="who-we-are">
         <div className="content">
           <h2>Who We Are</h2>
-          <p>At Ellanatek, we specialize in taking your message to the streets, literally. With our innovative mobile advertising solutions, we bring your brand, promotion, or campaign directly to your target audience, maximizing visibility and impact. With our commitment to creativity, technology, and exceptional service, we're your partner in driving towards results and a lasting impression.</p>
+          <p>At AdMotion, we specialize in taking your message to the streets, literally. With our innovative mobile advertising solutions, we bring your brand, promotion, or campaign directly to your target audience, maximizing visibility and impact. With our commitment to creativity, technology, and exceptional service, we're your partner in driving towards results and a lasting impression.</p>
         </div>
         <div className="additional-content">
           <div className="animated-icon-container">

@@ -4,7 +4,8 @@
   justify-content: center;
   align-items: flex-start; /* Align items to the top */
   padding: 20px;
-  background-color: white;
+  background-color: black; /* Ensure background is black */
+  min-height: 100vh; /* Ensure the container spans the viewport height */
 }
 
 .advertise-with-us-content {
@@ -12,37 +13,53 @@
   max-width: 1200px;
   margin: 0 auto;
   overflow-x: hidden; /* Prevent horizontal scroll */
+  background-color: black; /* Ensure background is black */
 }
+
+/* Add this to your existing CSS file */
+
+.animation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.animation-container h2 {
+  margin-top: 20px;
+}
+
 
 /* Contact Section */
 .contact-section {
   display: flex;
   gap: 20px;
   width: 100%; /* Take full width of parent container */
-  padding: 50px;
-  background: #fff;
   justify-content: center; /* Center elements horizontally */
   align-items: stretch; /* Stretch items vertically */
   flex-wrap: wrap; /* Wrap items on smaller screens */
+  position: relative; /* Ensure z-index works properly */
 }
 
 .left-card {
   flex: 1; /* Take remaining space */
-  max-width: 491px;
+  max-width: 1196px;
   background: linear-gradient(0deg, #011C2B 0%, #011C2B 100%);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: white; /* Ensure text color is white for contrast */
   padding: 30px; /* Add padding for spacing */
   box-sizing: border-box;
   width: 100%; /* Ensure full width on mobile */
+  z-index: 2; /* Ensure it stays above other elements */
 }
 
 .right-card {
-  flex: 1; /* Take remaining space */
   max-width: 1196px;
-  background: white;
+  background: black; /* Ensures the right-card background is black */
   box-shadow: 0px 0px 60px 30px rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   padding: 20px;
@@ -50,8 +67,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px; /* Space between elements */
-  color: #011C2A; /* Text color */
+  color: white; /* Text color should be white */
   width: 100%; /* Ensure full width on mobile */
+  z-index: 3; /* Ensure it stays above other elements */
 }
 
 .contact-title {
@@ -103,7 +121,7 @@
   background-color: transparent;
   font-size: 14px;
   font-family: 'Poppins', sans-serif;
-  color: #011C2A;
+  color: white;
   box-sizing: border-box;
   border-bottom: 1px solid #8D8D8D;
 }
@@ -117,7 +135,7 @@
 .send-button {
   width: fit-content;
   padding: 15px 48px;
-  background: #011C2A;
+  background: #7dacf7;
   color: white;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
@@ -126,19 +144,27 @@
   align-self: flex-end;
   cursor: pointer;
   position: relative;
+  z-index: 4; /* Ensure it stays above other elements */
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.send-button:hover {
+  font-weight: bold;
+  background: linear-gradient(to right, #61A0FF, #ffffff); /* Gradient background on hover */
+  transform: scale(1.15);
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 75px; /* Space between contact info items */
-  margin-top: 50px;
+  gap: 20px; /* Space between contact info items */
+  margin-top: 20px;
 }
 
 .contact-info-item {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 20px;
 }
 
 .icon-wrapper {
@@ -165,6 +191,7 @@
   margin-top: auto; /* Align social media icons to the bottom */
   display: flex;
   justify-content: center; /* Center align social media icons */
+  margin-left: 800px;
   gap: 20px; /* Space between social media icons */
 }
 
@@ -218,13 +245,16 @@
 
   .contact-info {
     align-items: center; /* Center the contact info items on mobile */
+    display: flex;
   }
 
   .contact-info-item {
     justify-content: center; /* Center the contact info items on mobile */
+    align-items: center;
   }
 
   .contact-text {
     text-align: center; /* Center the text on mobile */
   }
+
 }

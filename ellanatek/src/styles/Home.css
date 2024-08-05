@@ -125,9 +125,9 @@ body {
   
 .model-section {
   display: flex;
-  flex-direction: row; /* Change to row for side-by-side layout */
-  align-items: flex-start;
-  justify-content: flex-start; /* Align items to the left */
+  flex-direction: column; /* Change to column for mobile view */
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 1200px;
   margin-top: 20px;
@@ -135,15 +135,15 @@ body {
   
 .box-container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
+  flex-direction: column; /* Change to column for mobile view */
+  align-items: center;
+  justify-content: center;
 }
   
 .box-model {
   width: 731px;
   height: 541px;
-  margin-right: 20px; /* Add some margin to the right for spacing */
+  margin-bottom: 20px; /* Add some margin to the bottom for spacing */
 }
   
 .info-box {
@@ -220,7 +220,7 @@ body {
 .rectangular-box-image-1 {
   width: 400px;
   height: 525px;
-  background: url('/Users/School/ellanatek/ellanatek/src/assets/mapBackground.png') lightgray 50% / cover no-repeat;
+  background: url('../assets/mapBackground.png') lightgray 50% / cover no-repeat;
   position: relative;
   left: -50px;
 }
@@ -231,7 +231,7 @@ body {
   position: absolute;
   top: 58px; /* Adjusted to position correctly inside the rectangular box */
   left: 50px; /* Adjusted to position correctly inside the rectangular box */
-  background: url('/Users/School/ellanatek/ellanatek/src/assets/map.png') lightgray 50% / cover no-repeat;
+  background: url('../assets/map.png') lightgray 50% / cover no-repeat;
 }
 
 @media (max-width: 992px) {
@@ -253,6 +253,11 @@ body {
   .bike-model {
     width: 80%;
     height: 600px; /* Keep the size consistent */
+  }
+  .box-model {
+    width: 731px;
+    height: 541px;
+    margin-left: 750px; /* Add some margin to the right for spacing */
   }
 }
 
@@ -349,6 +354,19 @@ body {
     .info-box {
     margin-top: 20px;
     }
+    .info-box-item {
+      color: #F5F5F5;
+      font-family: Jost;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 34.68px;
+      text-align: left;
+    }
+    .box-model {
+      width: 80%;
+      height: 600px; /* Keep the size consistent */
+    }
     }
     
     .admotion-text {
@@ -411,3 +429,35 @@ body {
     text-align: center;
     color: #6E6E73;
     }
+
+/* Desktop view - Two columns */
+@media (min-width: 993px) {
+  .info-box ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .info-box ul li {
+    margin-bottom: 50px; /* Vertical space */
+    margin-right: 50px;  /* Horizontal space */
+  }
+}
+
+/* Mobile view - Single column */
+@media (max-width: 992px) {
+  .info-box {
+    width: 100%;
+    text-align: center; /* Center align the text */
+  }
+  .info-box ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .info-box ul li {
+    width: 100%;
+    justify-content: center; /* Center the content within each list item */
+    margin-bottom: 20px; /* Vertical space */
+  }
+}
