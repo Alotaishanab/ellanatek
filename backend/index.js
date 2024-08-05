@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
-const fs = require('fs');
 const path = require('path');
 
 const app = express();
@@ -24,9 +23,12 @@ mongoose.connect('mongodb://localhost:27017/mycompany', { useNewUrlParser: true,
 
 // Define schema and model
 const contactSchema = new mongoose.Schema({
-  name: String,
-  companyname: String,
+  firstName: String,
+  lastName: String,
   email: String,
+  phoneNumber: String,
+  businessName: String,
+  inquiryType: String,
   message: String,
 });
 const Contact = mongoose.model('Contact', contactSchema);
@@ -50,80 +52,31 @@ transporter.verify((error, success) => {
 
 // Handle contact form submission
 app.post('/api/contact', async (req, res) => {
-  const { name, companyname, email, message } = req.body;
+  const { firstName, lastName, email, phoneNumber, businessName, inquiryType, message } = req.body;
   console.log('Received request:', req.body);
 
   try {
-    const newContact = new Contact({ name, companyname, email, message });
+    const newContact = new Contact({ firstName, lastName, email, phoneNumber, businessName, inquiryType, message });
     await newContact.save();
     console.log('Saved new contact to MongoDB');
-
-    // Define the image paths (if needed)
-    // const logoPath = path.join(__dirname, 'images', 'logo.JPG');
-    // const instagramLogoPath = path.join(__dirname, 'images', 'Instagram.JPG');
-    // const linkedinLogoPath = path.join(__dirname, 'images', 'LinkedIn.JPG');
-    // const tiktokLogoPath = path.join(__dirname, 'images', 'Tiktok.JPG');
-
-    // Check if all image files exist (if needed)
-    // const files = [logoPath, instagramLogoPath, linkedinLogoPath, tiktokLogoPath];
-    // let missingFiles = [];
-    // files.forEach(file => {
-    //   if (!fs.existsSync(file)) {
-    //     missingFiles.push(file);
-    //   }
-    // });
-    // if (missingFiles.length > 0) {
-    //   console.error('One or more logo files not found:', missingFiles);
-    //   return res.status(500).send(`One or more logo files not found: ${missingFiles.join(', ')}`);
-    // }
 
     // Send email to the user (example)
     const userMailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
-      subject: 'Welcome to Ellanatek',
+      subject: 'Welcome to AdMotion',
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; text-align: center;">
-          <h1><strong>Dear ${name},</strong></h1>
-          <p>Welcome to Ellanatek! We are thrilled to have you with us. Thank you for reaching out to us.</p>
+          <h1><strong>Dear ${firstName},</strong></h1>
+          <p>Welcome to AdMotion! We are thrilled to have you with us. Thank you for reaching out to us.</p>
           <p>We have received your message and appreciate your interest in our mobile advertising solutions. Our team will review your inquiry and get back to you shortly.</p>
           <p><strong><em>Where your brand is everywhere and seen by all.</em></strong></p>
-          <p><em>Best regards,<br/>The Ellanatek Team</em></p>
-          <br/>
-          <img src="cid:logo@ellanatek.com" alt="Ellanatek Logo" style="width: 300px; height: auto; display: block; margin: 0 auto;"/>
+          <p><em>Best regards,<br/>The AdMotion Team</em></p>
           <p style="font-size: 12px; color: grey; text-align: center; margin-top: 10px;">
             This is an automated response. Please do not reply to this email.
           </p>
-          <div style="text-align: center; margin-top: 20px;">
-            <a href="https://instagram.com/ellanatek"><img src="cid:instagramLogo@ellanatek.com" alt="Instagram" style="width: 40px; height: 40px; margin: 0 10px;"/></a>
-            <a href="https://www.linkedin.com/company/ellanatek/about/"><img src="cid:linkedinLogo@ellanatek.com" alt="LinkedIn" style="width: 40px; height: 40px; margin: 0 10px;"/></a>
-            <a href="https://tiktok.com/@yourprofile"><img src="cid:tiktokLogo@ellanatek.com" alt="TikTok" style="width: 40px; height: 40px; margin: 0 10px;"/></a>
-          </div>
         </div>
-      `,
-      attachments: [
-        // Example attachments (adjust as needed)
-        // {
-        //   filename: 'logo.JPG',
-        //   path: logoPath,
-        //   cid: 'logo@ellanatek.com'
-        // },
-        // {
-        //   filename: 'Instagram.JPG',
-        //   path: instagramLogoPath,
-        //   cid: 'instagramLogo@ellanatek.com'
-        // },
-        // {
-        //   filename: 'LinkedIn.JPG',
-        //   path: linkedinLogoPath,
-        //   cid: 'linkedinLogo@ellanatek.com'
-        // },
-        // {
-        //   filename: 'Tiktok.JPG',
-        //   path: tiktokLogoPath,
-        //   cid: 'tiktokLogo@ellanatek.com'
-        // }
-      ]
+      `
     };
 
     transporter.sendMail(userMailOptions, (error, info) => {
@@ -139,7 +92,7 @@ app.post('/api/contact', async (req, res) => {
       from: process.env.EMAIL_USER,
       to: process.env.COMPANY_EMAIL,
       subject: 'New Contact Form Submission',
-      text: `New contact form submission received:\n\nName: ${name}\nCompany: ${companyname}\nEmail: ${email}\nMessage: ${message}\n\nPlease follow up with this inquiry as soon as possible.`,
+      text: `New contact form submission received:\n\nFirst Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nPhone Number: ${phoneNumber}\nBusiness Name: ${businessName}\nInquiry Type: ${inquiryType}\nMessage: ${message}\n\nPlease follow up with this inquiry as soon as possible.`,
     };
 
     transporter.sendMail(companyMailOptions, (error, info) => {

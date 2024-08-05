@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import '../styles/AdvertiseWithUs.css';
 import EmailIcon from '../assets/svg/email.svg';
-import PhoneIcon from '../assets/svg/phone.svg';
 import LocationIcon from '../assets/svg/location.svg';
-import instagram from '../assets/svg/ig.svg';
-import linkedin from '../assets/svg/linkedin.svg';
-import tiktok from '../assets/svg/tiktok.svg';
+import Lottie from 'lottie-react';
+import checkAnimation from '../assets/animations/check.json';
 
-const AdvertiseWithUs = () => {
+const AdvertiseWithUs = ({ onNavigate }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -17,6 +15,8 @@ const AdvertiseWithUs = () => {
     inquiryType: '',
     message: '',
   });
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +38,10 @@ const AdvertiseWithUs = () => {
       });
 
       if (response.ok) {
-        alert('Message sent successfully!');
+        setIsSubmitted(true);
+        setTimeout(() => {
+          onNavigate(0); // Navigate to home after 3 seconds
+        }, 3000); // 3 seconds delay
       } else {
         alert('Failed to send message');
       }
@@ -50,88 +53,78 @@ const AdvertiseWithUs = () => {
   return (
     <div className="advertise-with-us-container">
       <div className="advertise-with-us-content">
-        <section className="contact-section">
-          <div className="left-card">
-            <div className="contact-title">Contact us</div>
-            <div className="contact-subtitle">Contact us and we will be right back!</div>
-            <div className="contact-info">
-              <div className="contact-info-item">
-                <div className="icon-wrapper">
-                  <img src={PhoneIcon} alt="Phone Icon" />
+        {!isSubmitted ? (
+          <section className="contact-section">
+            <div className="left-card">
+              <div className="contact-title">Get in Touch</div>
+              <div className="contact-subtitle">Contact us and we will get back to you!</div>
+              <div className="contact-info">
+                <div className="contact-info-item">
+                  <div className="icon-wrapper">
+                    <img src={EmailIcon} alt="Email Icon" />
+                  </div>
+                  <div className="contact-text">info@admotion.com</div>
                 </div>
-                <div className="contact-text">+966 55 66 55562</div>
-              </div>
-              <div className="contact-info-item">
-                <div className="icon-wrapper">
-                  <img src={EmailIcon} alt="Email Icon" />
+                <div className="contact-info-item">
+                  <div className="icon-wrapper">
+                    <img src={LocationIcon} alt="Location Icon" />
+                  </div>
+                  <div className="contact-text">Al-Khobar, Saudi Arabia</div>
                 </div>
-                <div className="contact-text">admotion@gmail.com</div>
-              </div>
-              <div className="contact-info-item">
-                <div className="icon-wrapper">
-                  <img src={LocationIcon} alt="Location Icon" />
-                </div>
-                <div className="contact-text">Al-Khobar, Saudi Arabia</div>
               </div>
             </div>
-            <div className="social-media-icons">
-              <div className="icon-wrapper">
-                <img src={tiktok} alt="Tiktok Icon" />
-              </div>
-              <div className="icon-wrapper">
-                <img src={linkedin} alt="Linkedin Icon" />
-              </div>
-              <div className="icon-wrapper">
-                <img src={instagram} alt="Instagram Icon" />
-              </div>
-            </div>
-          </div>
 
-          <div className="right-card">
-            <div className="input-group">
-              <div className="input-field">
-                <label>First Name</label>
-                <input type="text" name="firstName" onChange={handleChange} />
+            <div className="right-card">
+              <div className="input-group">
+                <div className="input-field">
+                  <label>First Name</label>
+                  <input type="text" name="firstName" onChange={handleChange} required />
+                </div>
+                <div className="input-field">
+                  <label>Last Name</label>
+                  <input type="text" name="lastName" onChange={handleChange} required />
+                </div>
+              </div>
+              <div className="input-group">
+                <div className="input-field">
+                  <label>Email</label>
+                  <input type="email" name="email" onChange={handleChange} required />
+                </div>
+                <div className="input-field">
+                  <label>Phone Number</label>
+                  <input type="tel" name="phoneNumber" onChange={handleChange} />
+                </div>
+              </div>
+              <div className="input-group">
+                <div className="input-field">
+                  <label>Business Name</label>
+                  <input type="text" name="businessName" onChange={handleChange} />
+                </div>
+                <div className="input-field">
+                  <label>Inquiry Type</label>
+                  <select name="inquiryType" onChange={handleChange} required>
+                    <option value="">Select...</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="ad">Ad Inquiry</option>
+                  </select>
+                </div>
               </div>
               <div className="input-field">
-                <label>Last Name</label>
-                <input type="text" name="lastName" onChange={handleChange} />
+                <label>Message</label>
+                <textarea name="message" onChange={handleChange}></textarea>
               </div>
+              <div className="send-button" onClick={handleSubmit}>Send Message</div>
             </div>
-            <div className="input-group">
-              <div className="input-field">
-                <label>Email</label>
-                <input type="email" name="email" onChange={handleChange} />
-              </div>
-              <div className="input-field">
-                <label>Phone Number</label>
-                <input type="tel" name="phoneNumber" onChange={handleChange} />
-              </div>
-            </div>
-            <div className="input-group">
-              <div className="input-field">
-                <label>Business Name</label>
-                <input type="text" name="businessName" onChange={handleChange} />
-              </div>
-              <div className="input-field">
-                <label>Inquiry Type</label>
-                <select name="inquiryType" onChange={handleChange}>
-                  <option value="">Select...</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="ad">Ad Inquiry</option>
-                </select>
-              </div>
-            </div>
-            <div className="input-field">
-              <label>Message</label>
-              <textarea name="message" onChange={handleChange}></textarea>
-            </div>
-            <div className="send-button" onClick={handleSubmit}>Send Message</div>
+          </section>
+        ) : (
+          <div className="animation-container">
+            <Lottie animationData={checkAnimation} loop={false} />
+            <div className="success-message">Contact Form Sent</div>
           </div>
-        </section>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default AdvertiseWithUs;

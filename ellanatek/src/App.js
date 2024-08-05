@@ -7,7 +7,6 @@ import AdvertiseWithUs from './components/AdvertiseWithUs';
 import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
 
-
 const App = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(0);
@@ -28,7 +27,7 @@ const App = () => {
 
   const screens = [
     <Home key="home" onNavigate={handleNavClick} />,
-    <AdvertiseWithUs key="advertise-with-us" />,
+    <AdvertiseWithUs key="advertise-with-us" onNavigate={handleNavClick} />,
     <AboutUs key="about-us" />,
   ];
 

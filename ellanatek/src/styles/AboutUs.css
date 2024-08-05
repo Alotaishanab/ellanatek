@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
 
 body {
-  font-family: 'League Spartan', sans-serif; /* Use League Spartan font */
+  font-family: 'Jost', sans-serif; /* Use Jost font */
 }
 
 .about-us {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'League Spartan', sans-serif;
-  background-color: #f0f0f0; /* Light background color for the whole page */
+  font-family: 'Jost', sans-serif;
+  background-color: #121212; /* Darker background color for the whole page */
 }
 
 .section {
@@ -40,10 +40,12 @@ body {
 
 .section .content {
   max-width: 50%; /* Ensure content takes up half the width */
+  align-items: center;
+  justify-content: center;
 }
 
 .section .additional-content {
-  max-width: 50%; /* Ensure additional content takes up half the width */
+  max-width: 100%; /* Ensure additional content takes up half the width */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,24 +78,24 @@ body {
 }
 
 .who-we-are {
-  background-color: #002b5c; /* Deep blue */
+  background-color: #1a1a1a; /* Dark gray */
   color: white;
 }
 
 .our-mission {
-  background-color: #1e90ff; /* Light blue */
+  background-color: #333333; /* Medium dark gray */
   color: white;
-  background: linear-gradient(120deg, #1e90ff 25%, #b3e0ff 100%);
+  background: linear-gradient(120deg, #333333 25%, #4d4d4d 100%);
 }
 
 .our-vision {
-  background-color: white; /* White background */
-  color: #002b5c; /* Deep blue text */
+  background-color: #4d4d4d; /* Medium gray */
+  color: white;
 }
 
 .our-services {
-  background-color: #b0e0e6; /* Light blue */
-  color: #002b5c; /* Deep blue text */
+  background-color: #666666; /* Light gray */
+  color: white;
 }
 
 h2 {
@@ -140,9 +142,10 @@ p {
   justify-content: space-between;
   margin-bottom: 40px; /* Increase space between items */
   padding: 20px;
-  background: white; /* Background box */
+  background: #1a1a1a; /* Dark background box */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 75%; /* Make service items wider */
 }
 
 .service-icon {
@@ -154,6 +157,7 @@ p {
   text-align: left;
   flex-grow: 1;
   margin-left: 20px; /* Space between text and icon */
+  color: white; /* Ensure service text is white */
 }
 
 .service-text h3 {
@@ -186,6 +190,9 @@ p {
 
   .service-item {
     flex-direction: column;
+    width: 100%; /* Make service items full width on mobile */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    margin: 0 10px 20px; /* Add margin to avoid overflow and vertical space between items */
   }
 
   .animated-icon-container {
@@ -202,5 +209,20 @@ p {
 
   .button {
     font-size: 1em;
+  }
+}
+
+/* Centering Our Services Section in Desktop View */
+@media (min-width: 993px) {
+  .our-services .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .our-services .service-item {
+    width: 100%; /* Make service items wider */
   }
 }

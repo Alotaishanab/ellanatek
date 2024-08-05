@@ -7,7 +7,7 @@ body {
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal scrolling */
   font-family: 'Rubik', sans-serif;
-  background-color: black; /* Ensure the background is black */
+  background-color: black; /* Change background to black */
   color: white;
   height: 100%; /* Ensure the body spans the full height */
 }
@@ -20,7 +20,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Ensure the container spans the viewport height */
-  background-color: black; /* Ensure the background is black */
 }
 
 .screen-container {
@@ -29,5 +28,4 @@ body {
   color: white; /* Ensure text is white for contrast */
   position: relative;
   z-index: 1;
-  background-color: black; /* Ensure the background is black */
 }

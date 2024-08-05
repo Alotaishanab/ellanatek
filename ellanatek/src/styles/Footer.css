@@ -1,7 +1,7 @@
 .footer {
   background-color: black; /* Ensure the background is white */
   color: white; /* This will set the default text color within the footer */
-  text-align: left;
+  text-align: center;
   padding: 2px;
   width: 100%;
   position: relative;
