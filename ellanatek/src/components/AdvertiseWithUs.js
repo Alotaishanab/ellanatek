@@ -63,7 +63,7 @@ const AdvertiseWithUs = ({ onNavigate }) => {
                   <div className="icon-wrapper">
                     <img src={EmailIcon} alt="Email Icon" />
                   </div>
-                  <div className="contact-text">info@admotion.com</div>
+                  <div className="contact-text">info@admotionsa.com</div>
                 </div>
                 <div className="contact-info-item">
                   <div className="icon-wrapper">
