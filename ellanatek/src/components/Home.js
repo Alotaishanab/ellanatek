@@ -40,7 +40,7 @@ const Home = ({ onNavigate }) => {
         <section className="model-section">
           <div className="box-container">
             <div className="adbox-section">
-              <h3 className="adbox-title">The AdBox</h3>
+              <p className="adbox-title">The AdBox</p>
               <p className="adbox-subtitle">Sleek, Mobile Advertising</p>
               <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
                 <Suspense fallback={<div>Loading Box Model...</div>}>
