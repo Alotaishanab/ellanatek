@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import '@google/model-viewer'; // Ensure model-viewer is imported
 import '../styles/Home.css';
+
+// Lazily load the 3D models to improve initial load performance
+const BikeModel = lazy(() => import('./BikeModel')); // Create a separate component for BikeModel
+const BoxModel = lazy(() => import('./BoxModel')); // Create a separate component for BoxModel
+
 
 const Home = ({ onNavigate }) => {
   const handleGetInTouchClick = () => {
@@ -23,15 +28,9 @@ const Home = ({ onNavigate }) => {
             </div>
           </div>
           <div className="model-wrapper">
-            <model-viewer
-              src="/Bike.glb" // Assuming Bike.glb is in the public folder
-              camera-controls
-              interaction-prompt="none" // Disable interaction prompt
-              disable-zoom // Disable zoom
-              className="bike-model"
-              style={{ width: '80%', height: '600px' }}
-              camera-orbit="45deg 75deg 5m" // Zoom out the initial view
-            ></model-viewer>
+            <Suspense fallback={<div>Loading Bike Model...</div>}>
+              <BikeModel />
+            </Suspense>
             <div className="model-message">
               Swipe to explore the 3D model
             </div>
@@ -44,14 +43,9 @@ const Home = ({ onNavigate }) => {
               <h3 className="adbox-title">The AdBox</h3>
               <p className="adbox-subtitle">Sleek, Mobile Advertising</p>
               <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-                <model-viewer
-                  src="/BoxCentered.glb" // Assuming BoxCentered.glb is in the public folder
-                  camera-controls
-                  interaction-prompt="none" // Disable interaction prompt
-                  disable-zoom // Disable zoom
-                  className="box-model"
-                  style={{ width: '731px', height: '541px' }} // Set desired initial view
-                ></model-viewer>
+                <Suspense fallback={<div>Loading Box Model...</div>}>
+                  <BoxModel />
+                </Suspense>
                 <div className="info-box">
                   <ul className="info-list">
                     <li>
