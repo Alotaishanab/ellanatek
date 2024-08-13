@@ -1,13 +1,14 @@
+// ContactUs.js
 import React from 'react';
-import '../styles/Snapshot.css';
-import AboutUs from '../components/AboutUs';
 
-const AboutSnapshot = () => {
+const ContactUs = () => {
   return (
-    <div className="snapshot">
-      <AboutUs />
+    <div className="contact-us">
+      <h2>Who We Are</h2>
+      <p>Hear from Us!</p>
+      {/* Add more details as needed */}
     </div>
   );
 };
 
-export default AboutSnapshot;
+export default ContactUs;

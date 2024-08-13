@@ -1,13 +1,14 @@
+// ContactUs.js
 import React from 'react';
-import '../styles/Snapshot.css';
-import AdvertiseWithUs from '../components/AdvertiseWithUs';
 
-const AdvertiseSnapshot = () => {
+const ContactUs = () => {
   return (
-    <div className="snapshot">
-      <AdvertiseWithUs />
+    <div className="contact-us">
+      <h2>Contact Us</h2>
+      <p>We would love to hear from you!</p>
+      {/* Add more details as needed */}
     </div>
   );
 };
 
-export default AdvertiseSnapshot;
+export default ContactUs;
