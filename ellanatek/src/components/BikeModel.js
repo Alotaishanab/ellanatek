@@ -3,7 +3,7 @@ import '@google/model-viewer';
 
 const BikeModel = () => (
   <model-viewer
-    src="/Bike.glb" // Assuming Bike.glb is in the public folder
+    src="/Biker.glb" // Assuming Bike.glb is in the public folder
     camera-controls
     interaction-prompt="none" // Disable interaction prompt
     disable-zoom // Disable zoom

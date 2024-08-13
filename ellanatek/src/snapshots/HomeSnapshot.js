@@ -1,12 +1,11 @@
 import React from 'react';
-import Viewer from '../components/Viewer';
-import '../styles/Snapshot.css'; // New CSS file for styling snapshots
-import Home from '../components/Home';
+import '../styles/Snapshot.css'; // CSS file for styling snapshots
+import BikeModel from '../components/BikeModel'; // Ensure this is the component for the bike model
 
 const HomeSnapshot = () => {
   return (
     <div className="snapshot">
-      <Home />
+      <BikeModel />
     </div>
   );
 };

@@ -1,11 +1,28 @@
 /* Snapshot.css */
+
 .snapshot {
-  position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  background-color: white; /* Ensure the background is white */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  color: #fff;
 }
+
+.contact-us {
+  text-align: center;
+}
+
+.about-us {
+  text-align: center;
+}
+
+.bike-model {
+  width: 80%;
+  height: 500px;
+}
+
 
 .snapshot-content {
   transform: scale(0.5); /* Adjust the scale as needed */
@@ -26,4 +43,18 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+
+.contact-us {
+  text-align: center;
+}
+
+.about-us {
+  text-align: center;
+}
+
+.bike-model {
+  width: 80%;
+  height: 500px;
 }
