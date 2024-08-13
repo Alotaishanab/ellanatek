@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
 
+
 body {
   margin: 0;
   padding: 0;
@@ -10,23 +11,30 @@ body {
   overflow-x: hidden;
 }
 
-.home {
-  background-color: black;
+.admotion-text {
+  font-family: Jost;
+  font-size: 75px;
+  font-weight: 600;
+  line-height: 75px;
+  text-align: center;
+  margin: 20px auto;
   color: white;
+}
+
+.home {
   width: 100%;
-  min-height: 100vh; /* Ensure the home section spans the full height */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding-top: 60px; /* Add padding to prevent overlap */
+  padding-top: 60px;
 }
 
 .main-content {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,11 +52,8 @@ body {
 }
 
 .intro-text {
-  width: 500.73px;
-  height: auto; /* Adjusted height to auto to accommodate text */
-  position: relative;
-  top: -17px;
-  font-family: Jost;
+  width: 500px;
+  font-family: 'Jost', sans-serif;
   font-size: 75px;
   font-weight: 600;
   line-height: 75px;
@@ -61,8 +66,8 @@ body {
   font-weight: 400;
   line-height: 30px;
   margin-top: 20px;
-  text-align: left; /* Align text to the left */
-  width: 100%; /* Ensure it takes the full width */
+  text-align: left;
+  width: 100%;
 }
 
 .get-in-touch {
@@ -70,12 +75,12 @@ body {
   height: 60px;
   margin-top: 20px;
   text-align: center;
-  color: rgb(0, 0, 0); /* Text color */
+  color: rgb(0, 0, 0);
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
-  text-transform: uppercase; /* Make text all uppercase */
-  background: #7dacf7; 
+  text-transform: uppercase;
+  background: #7dacf7;
   border: none;
   border-radius: 120px;
   cursor: pointer;
@@ -84,380 +89,223 @@ body {
 
 .get-in-touch:hover {
   font-weight: bold;
-  background: linear-gradient(to right, #61A0FF, #ffffff); /* Gradient background on hover */
+  background: linear-gradient(to right, #61A0FF, #ffffff);
   transform: scale(1.15);
 }
-  
+
 .model-wrapper {
-  width: 100%; /* Ensure the model takes full width */
-  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  margin-top: 200px;
   animation: fadeIn 1s ease-in-out;
-  margin-top: 200px; /* Adjusted to move the 3D model higher */
 }
-  
-.bike-model {
+
+.bike-model, .box-model {
   width: 80%;
   height: 600px;
 }
-  
+
 .model-message {
   font-size: 18px;
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
   animation: fadeIn 2s ease-in-out;
   cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
   background: linear-gradient(to right, #4285f4, #ffffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  transition: transform 0.3s ease;
 }
-  
+
 .model-message:hover {
-  background: linear-gradient(to right, #4285f4, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   transform: scale(1.1);
 }
-  
+
 .model-section {
   display: flex;
-  flex-direction: column; /* Change to column for mobile view */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 1200px;
   margin-top: 20px;
 }
-  
+
 .box-container {
   display: flex;
-  flex-direction: column; /* Change to column for mobile view */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-  
-.box-model {
-  width: 731px;
-  height: 541px;
-  margin-bottom: 20px; /* Add some margin to the bottom for spacing */
-}
-  
+
 .info-box {
-  flex: 1; /* Make the info box take up the remaining space */
+  flex: 1;
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   color: white;
   animation: fadeIn 1s ease-in-out;
-  transition: transform 0.3s ease;
-  font-family: ‘Jost’, sans-serif; /* Apply Jost font */
+  font-family: 'Jost', sans-serif;
 }
-  
+
 .info-box ul {
   list-style-type: none;
   padding: 0;
 }
-  
+
 .info-box ul li {
   display: flex;
   align-items: center;
-  margin-bottom: 20px; /* Increase spacing between items */
+  margin-bottom: 20px;
   font-size: 18px;
   color: #ffffff;
 }
-  
+
 .info-box ul li svg {
   margin-right: 10px;
   flex-shrink: 0;
 }
-  
-.info-box ul li .info-box-item {
+
+.info-box-item {
   color: #F5F5F5;
-  font-family: Jost;
   font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
   line-height: 34.68px;
   text-align: left;
 }
-  
-/* New section for rectangular box with text and images */
-.rectangular-box {
-  width: 1100px;
-  height: 487px;
-  border-radius: 53px 53px 53px 53px;
-  background: linear-gradient(180deg, #001b28 0%, #000B49 .5%, #000000 100%);
-  box-shadow: -30px 30px 4px 0px rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  margin-top: 100px;
-  margin-bottom: 100px; /* Add margin-bottom to prevent overlap with footer */
-  animation: fadeIn 1s ease-in-out;
-}
 
-.rectangular-box-text {
-  width: 582px;
-  height: 465px;
-  color: #FFF;
-  font-family: Jost;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 31.2px;
-  text-align: left;
+.adbox-section {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 100px;
 }
 
-.rectangular-box-image-1 {
-  width: 400px;
-  height: 525px;
-  background: url('../assets/mapBackground.png') lightgray 50% / cover no-repeat;
-  position: relative;
-  left: -50px;
+.adbox-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 60px;
+  letter-spacing: -0.28px;
+  text-align: center;
 }
 
-.rectangular-box-image-2 {
-  width: 299px;
-  height: 335px;
-  position: absolute;
-  top: 58px; /* Adjusted to position correctly inside the rectangular box */
-  left: 50px; /* Adjusted to position correctly inside the rectangular box */
-  background: url('../assets/map.png') lightgray 50% / cover no-repeat;
+.adbox-subtitle {
+  font-family: 'Jost', sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 31px;
+  letter-spacing: 0.11px;
+  text-align: center;
+  color: #6E6E73;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Responsive Styles */
 @media (max-width: 992px) {
   .intro-section {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
-  
+
   .intro-text {
     width: 100%;
   }
-  
+
   .model-wrapper {
-    width: 100%;
-    margin-top: 150px; /* Adjust margin for tablet */
+    margin-top: 150px;
   }
-  
-  .bike-model {
-    width: 80%;
-    height: 600px; /* Keep the size consistent */
-  }
+
   .box-model {
-    width: 731px;
-    height: 541px;
-    margin-left: 750px; /* Add some margin to the right for spacing */
+    margin-left: 750px;
   }
 }
 
 @media (max-width: 768px) {
-  .intro-section {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  
   .intro-text, .admotion-text {
     font-size: 75px;
     line-height: 75px;
   }
-  
+
   .sub-text {
     font-size: 20px;
-    text-align: left; /* Ensure text is left-aligned */
   }
-  
-  .get-in-touch {
-    width: 200px;
-    height: 60px;
-    font-size: 20px;
-    align-self: flex-start; /* Align button to the left */
-    margin-top: 20px; /* Ensure spacing above the button */
-  }
-  
-  .model-message {
-    font-size: 18px;
-  }
-  
-  .bike-model {
-    width: 80%;
-    height: 600px; /* Keep the size consistent */
-  }
-  
-  .model-section {
-    flex-direction:column;
-    align-items: center;
-    }
-    
-    .info-box {
-    margin-top: 20px;
-    }
-    }
-    
-    @media (max-width: 576px) {
-    .intro-section {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    }
-    
-    .intro-text, .admotion-text {
-    font-size: 75px;
-    line-height: 75px;
-    }
-    
-    .sub-text {
-    font-size: 20px;
-    display: flex;
-    flex-direction: column; /* Ensure the sub-text and button stack /
-    align-items: flex-start; / Align text and button to the left */
-    }
-    
-    .get-in-touch {
-    width: 200px;
-    height: 60px;
-    font-size: 20px;
-    align-self: flex-start; /* Align button to the left /
-    margin-top: 10px; / Ensure spacing above the button */
-    }
-    
-    .model-wrapper {
-    width: 100%;
-    margin-top: 100px; /* Adjust margin for mobile to move the model higher */
-    }
-    
-    .bike-model {
-    width: 80%;
-    height: 600px; /* Keep the size consistent */
-    }
-    
-    .model-message {
-    font-size: 18px;
-    }
-    
-    .model-section {
-    flex-direction: column;
-    align-items: center;
-    }
-    
-    .info-box {
-    margin-top: 20px;
-    }
-    .info-box-item {
-      color: #F5F5F5;
-      font-family: Jost;
-      font-size: 24px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 34.68px;
-      text-align: left;
-    }
-    .box-model {
-      width: 80%;
-      height: 600px; /* Keep the size consistent */
-    }
-    }
-    
-    .admotion-text {
-    font-family: Jost;
-    font-size: 75px;
-    font-weight: 600;
-    line-height: 75px;
-    text-align: center;
-    margin: 20px auto;
-    color: white;
-    }
-    
-    @keyframes fadeIn {
-    0% {
-    opacity: 0;
-    }
-    100% {
-    opacity: 1;
-    }
-    }
-    
-    /* New styles for the AdBox section */
-    .adbox-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-top: 100px;
-    }
-    
-    /* Updated styles */
-    .adbox-title {
-    width: 556.59px;
-    height: 0px;
-    top: 51px;
-    left: 673.91px;
-    gap: 0px;
-    opacity: 0px;
-    font-family: Jost;
-    font-size: 56px;
-    font-weight: 400;
-    line-height: 60px;
-    letter-spacing: -0.2800000011920929px;
-    text-align: center;
-    }
-    
-    .adbox-subtitle {
-    width: 566.03px;
-    height: 65px;
-    top: 118px;
-    left: 661px;
-    gap: 25px;
-    opacity: 0px;
-    font-family: Jost;
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 31px;
-    letter-spacing: 0.1120000034570694px;
-    text-align: center;
-    color: #6E6E73;
-    }
 
-/* Desktop view - Two columns */
+  .get-in-touch {
+    font-size: 20px;
+    align-self: flex-start;
+  }
+
+  .model-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-box {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sub-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .get-in-touch {
+    margin-top: 10px;
+  }
+
+  .model-wrapper {
+    margin-top: 100px;
+  }
+
+  .info-box-item {
+    font-size: 24px;
+    line-height: 34.68px;
+  }
+}
+
 @media (min-width: 993px) {
   .info-box ul {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
-  
+
   .info-box ul li {
-    margin-bottom: 50px; /* Vertical space */
-    margin-right: 50px;  /* Horizontal space */
+    margin-bottom: 50px;
+    margin-right: 50px;
   }
 }
 
-/* Mobile view - Single column */
 @media (max-width: 992px) {
   .info-box {
     width: 100%;
-    text-align: center; /* Center align the text */
+    text-align: center;
   }
+
   .info-box ul {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   .info-box ul li {
     width: 100%;
-    justify-content: center; /* Center the content within each list item */
-    margin-bottom: 20px; /* Vertical space */
+    justify-content: center;
   }
 }
