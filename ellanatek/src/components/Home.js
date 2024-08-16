@@ -15,8 +15,14 @@ const Home = ({ onNavigate }) => {
     <div className="home">
       <Helmet>
         <title>AdMotion - Your Ads in Motion</title>
-        <meta name="description" content="AdMotion is a leading mobile advertising solution, reaching every destination with high-impact visual ads. Learn more about our services and how we can help grow your business." />
-        <meta name="keywords" content="Mobile Advertising, Marketing, Advertising, AdMotion, Targeted Campaigns" />
+        <meta
+          name="description"
+          content="AdMotion is a leading mobile advertising solution, reaching every destination with high-impact visual ads. Learn more about our services and how we can help grow your business."
+        />
+        <meta
+          name="keywords"
+          content="Mobile Advertising, Marketing, Advertising, AdMotion, Targeted Campaigns"
+        />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.admotionsa.com" />
 
@@ -38,7 +44,7 @@ const Home = ({ onNavigate }) => {
           `}
         </script>
       </Helmet>
-      
+
       <div className="admotion-text">AdMotion</div>
       <div className="main-content">
         <section className="intro-section">
@@ -46,7 +52,7 @@ const Home = ({ onNavigate }) => {
             <div>Your Ads In Motion</div>
             <div>Reaching every destination</div>
             <div className="sub-text">
-              Grow your Business With Us 
+              Grow your Business With Us
               <button className="get-in-touch" onClick={handleGetInTouchClick}>
                 Get in touch
               </button>
@@ -56,9 +62,7 @@ const Home = ({ onNavigate }) => {
             <Suspense fallback={<div>Loading Bike Model...</div>}>
               <BikeModel />
             </Suspense>
-            <div className="model-message">
-              Swipe to explore the 3D model
-            </div>
+            <div className="model-message">Swipe to explore the 3D model</div>
           </div>
         </section>
 
@@ -67,15 +71,21 @@ const Home = ({ onNavigate }) => {
             <div className="adbox-section">
               <p className="adbox-title">The AdBox</p>
               <p className="adbox-subtitle">Sleek, Mobile Advertising</p>
-              <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+              <div className="box-container">
                 <Suspense fallback={<div>Loading Box Model...</div>}>
                   <BoxModel />
                 </Suspense>
                 <div className="info-box">
                   <ul className="info-list">
                     <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="35"
+                        viewBox="0 0 36 35"
+                        fill="none"
+                      >
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
                       </svg>
                       <div className="info-box-item">
                         <div>LED Module Size:</div>
@@ -83,8 +93,14 @@ const Home = ({ onNavigate }) => {
                       </div>
                     </li>
                     <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="35"
+                        viewBox="0 0 36 35"
+                        fill="none"
+                      >
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
                       </svg>
                       <div className="info-box-item">
                         <div>Brightness:</div>
@@ -92,8 +108,14 @@ const Home = ({ onNavigate }) => {
                       </div>
                     </li>
                     <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="35"
+                        viewBox="0 0 36 35"
+                        fill="none"
+                      >
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
                       </svg>
                       <div className="info-box-item">
                         <div>Operating Humidity:</div>
@@ -101,8 +123,14 @@ const Home = ({ onNavigate }) => {
                       </div>
                     </li>
                     <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="35"
+                        viewBox="0 0 36 35"
+                        fill="none"
+                      >
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
                       </svg>
                       <div className="info-box-item">
                         <div>Refresh Rate:</div>
@@ -110,8 +138,14 @@ const Home = ({ onNavigate }) => {
                       </div>
                     </li>
                     <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="35"
+                        viewBox="0 0 36 35"
+                        fill="none"
+                      >
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
                       </svg>
                       <div className="info-box-item">
                         <div>LED Display Size:</div>
@@ -119,8 +153,14 @@ const Home = ({ onNavigate }) => {
                       </div>
                     </li>
                     <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="35"
+                        viewBox="0 0 36 35"
+                        fill="none"
+                      >
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
                       </svg>
                       <div className="info-box-item">
                         <div>Viewing Distance:</div>
@@ -128,8 +168,14 @@ const Home = ({ onNavigate }) => {
                       </div>
                     </li>
                     <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="35"
+                        viewBox="0 0 36 35"
+                        fill="none"
+                      >
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
                       </svg>
                       <div className="info-box-item">
                         <div>Full Screen Resolution:</div>
@@ -137,13 +183,19 @@ const Home = ({ onNavigate }) => {
                       </div>
                     </li>
                     <li>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none">
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9"/>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36"
+                        height="35"
+                        viewBox="0 0 36 35"
+                        fill="none"
+                      >
+                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
                       </svg>
                       <div className="info-box-item">
                         <div>Operating Temperature:</div>
                         <div>-30°C to 80°C</div>
-                      </div>        
+                      </div>
                     </li>
                   </ul>
                 </div>

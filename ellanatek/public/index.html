@@ -6,37 +6,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Uber+Move:wght@400;500;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="AdMotion - Your Ads in Motion, Reaching Every Destination"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <meta name="description" content="AdMotion - Your Ads in Motion, Reaching Every Destination" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>AdMotion</title>
 
-    <!-- Load reCAPTCHA v3 script -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LcR7ScqAAAAAD-_t1OTP__iJE-1zyfWxthCac3V"></script>
-    
-    <script>
-      function onRecaptchaLoad() {
-        grecaptcha.ready(function() {
-          grecaptcha.execute('6LcR7ScqAAAAAD-_t1OTP__iJE-1zyfWxthCac3V', { action: 'homepage' }).then(function(token) {
-            // Token is now available to use, typically passed to your backend
-            console.log('reCAPTCHA token:', token);
-            // Example of setting token in a hidden input to send with a form
-            var recaptchaTokenInput = document.getElementById('recaptcha-token');
-            if (recaptchaTokenInput) {
-              recaptchaTokenInput.value = token;
-            }
-          });
-        });
-      }
-      onRecaptchaLoad();
-    </script>
+    <!-- Load reCAPTCHA v2 script but without automatic rendering -->
+    <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
