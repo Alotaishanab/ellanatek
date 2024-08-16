@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import '../styles/AdvertiseWithUs.css';
 import EmailIcon from '../assets/svg/email.svg';
@@ -18,28 +18,6 @@ const AdvertiseWithUs = ({ onNavigate }) => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const recaptchaWidgetIdRef = useRef(null);
-
-  useEffect(() => {
-    if (window.grecaptcha && !recaptchaWidgetIdRef.current) {
-      recaptchaWidgetIdRef.current = window.grecaptcha.render('recaptcha-container', {
-        sitekey: '6LclYygqAAAAAOz9zfC5x-XklXxXO4eXYnc48lrq',
-        callback: handleRecaptchaChange,
-      });
-    }
-
-    return () => {
-      // Optional cleanup logic if necessary
-      if (recaptchaWidgetIdRef.current && window.grecaptcha) {
-        window.grecaptcha.reset(recaptchaWidgetIdRef.current);
-        recaptchaWidgetIdRef.current = null;
-      }
-    };
-  }, []);
-
-  const handleRecaptchaChange = (token) => {
-    console.log('reCAPTCHA token:', token);
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,14 +31,12 @@ const AdvertiseWithUs = ({ onNavigate }) => {
     e.preventDefault();
 
     try {
-      const recaptchaValue = window.grecaptcha.getResponse(recaptchaWidgetIdRef.current);
-
       const response = await fetch('http://localhost:5004/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, recaptchaValue }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -143,8 +119,6 @@ const AdvertiseWithUs = ({ onNavigate }) => {
                 <label>Message</label>
                 <textarea name="message" onChange={handleChange}></textarea>
               </div>
-
-              <div id="recaptcha-container" className="recaptcha-container"></div>
 
               <div className="send-button" onClick={handleSubmit}>Send Message</div>
             </div>
