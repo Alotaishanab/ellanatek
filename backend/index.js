@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
-const axios = require('axios'); // Import axios
+const axios = require('axios');
 const path = require('path');
 
 const app = express();
@@ -56,7 +56,7 @@ app.post('/api/contact', async (req, res) => {
   const { firstName, lastName, email, phoneNumber, businessName, inquiryType, message, recaptchaValue } = req.body;
   console.log('Received request:', req.body);
 
-  // Verify reCAPTCHA
+  // Verify reCAPTCHA v2
   try {
     const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY; // Use your secret key
     const recaptchaResponse = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, null, {
@@ -66,9 +66,9 @@ app.post('/api/contact', async (req, res) => {
       },
     });
 
-    const { success, score } = recaptchaResponse.data;
-    
-    if (!success || score < 0.5) {
+    const { success } = recaptchaResponse.data;
+
+    if (!success) {
       // reCAPTCHA failed
       return res.status(400).json({ message: 'reCAPTCHA verification failed' });
     }
@@ -94,7 +94,7 @@ app.post('/api/contact', async (req, res) => {
             This is an automated response. Please do not reply to this email.
           </p>
         </div>
-      `
+      `,
     };
 
     transporter.sendMail(userMailOptions, (error, info) => {
