@@ -1,4 +1,6 @@
+/* global grecaptcha */
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import '../styles/AdvertiseWithUs.css';
 import EmailIcon from '../assets/svg/email.svg';
 import LocationIcon from '../assets/svg/location.svg';
@@ -28,30 +30,49 @@ const AdvertiseWithUs = ({ onNavigate }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('http://localhost:5004/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (response.ok) {
-        setIsSubmitted(true);
-        setTimeout(() => {
-          onNavigate(0); // Navigate to home after 3 seconds
-        }, 3000); // 3 seconds delay
-      } else {
-        alert('Failed to send message');
+    // Execute reCAPTCHA v3 and get the token
+    grecaptcha.ready(async () => {
+      const token = await grecaptcha.execute('YOUR_RECAPTCHA_V3_SITE_KEY', { action: 'submit' });
+
+      try {
+        const response = await fetch('http://localhost:5004/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ...formData, recaptchaValue: token }),
+        });
+
+        if (response.ok) {
+          setIsSubmitted(true);
+          setTimeout(() => {
+            onNavigate(0); // Navigate to home after 3 seconds
+          }, 3000); // 3 seconds delay
+        } else {
+          alert('Failed to send message');
+        }
+      } catch (error) {
+        alert('Error sending message');
       }
-    } catch (error) {
-      alert('Error sending message');
-    }
+    });
   };
 
   return (
     <div className="advertise-with-us-container">
+      <Helmet>
+        <title>Advertise With Us - AdMotion</title>
+        <meta name="description" content="Get in touch with AdMotion to learn how our mobile advertising solutions can help grow your business. Contact us today!" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5JRG97M98"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-D5JRG97M98');
+          `}
+        </script>
+      </Helmet>
       <div className="advertise-with-us-content">
         {!isSubmitted ? (
           <section className="contact-section">
@@ -113,6 +134,7 @@ const AdvertiseWithUs = ({ onNavigate }) => {
                 <label>Message</label>
                 <textarea name="message" onChange={handleChange}></textarea>
               </div>
+
               <div className="send-button" onClick={handleSubmit}>Send Message</div>
             </div>
           </section>
