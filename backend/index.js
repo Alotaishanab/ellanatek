@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
+const axios = require('axios'); // Import axios
 const path = require('path');
 
 const app = express();
@@ -52,10 +53,27 @@ transporter.verify((error, success) => {
 
 // Handle contact form submission
 app.post('/api/contact', async (req, res) => {
-  const { firstName, lastName, email, phoneNumber, businessName, inquiryType, message } = req.body;
+  const { firstName, lastName, email, phoneNumber, businessName, inquiryType, message, recaptchaValue } = req.body;
   console.log('Received request:', req.body);
 
+  // Verify reCAPTCHA
   try {
+    const recaptchaSecretKey = process.env.RECAPTCHA_SECRET_KEY; // Use your secret key
+    const recaptchaResponse = await axios.post(`https://www.google.com/recaptcha/api/siteverify`, null, {
+      params: {
+        secret: recaptchaSecretKey,
+        response: recaptchaValue,
+      },
+    });
+
+    const { success, score } = recaptchaResponse.data;
+    
+    if (!success || score < 0.5) {
+      // reCAPTCHA failed
+      return res.status(400).json({ message: 'reCAPTCHA verification failed' });
+    }
+
+    // If reCAPTCHA is successful, proceed with saving the contact and sending emails
     const newContact = new Contact({ firstName, lastName, email, phoneNumber, businessName, inquiryType, message });
     await newContact.save();
     console.log('Saved new contact to MongoDB');

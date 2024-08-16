@@ -1,19 +1,44 @@
 import React, { Suspense, lazy } from 'react';
-import '@google/model-viewer'; // Ensure model-viewer is imported
+import '@google/model-viewer';
+import { Helmet } from 'react-helmet';
 import '../styles/Home.css';
 
-// Lazily load the 3D models to improve initial load performance
-const BikeModel = lazy(() => import('./BikeModel')); // Create a separate component for BikeModel
-const BoxModel = lazy(() => import('./BoxModel')); // Create a separate component for BoxModel
-
+const BikeModel = lazy(() => import('./BikeModel'));
+const BoxModel = lazy(() => import('./BoxModel'));
 
 const Home = ({ onNavigate }) => {
   const handleGetInTouchClick = () => {
-    onNavigate(1); // Assuming '1' is the index for AdvertiseWithUs
+    onNavigate(1);
   };
 
   return (
     <div className="home">
+      <Helmet>
+        <title>AdMotion - Your Ads in Motion</title>
+        <meta name="description" content="AdMotion is a leading mobile advertising solution, reaching every destination with high-impact visual ads. Learn more about our services and how we can help grow your business." />
+        <meta name="keywords" content="Mobile Advertising, Marketing, Advertising, AdMotion, Targeted Campaigns" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.admotionsa.com" />
+
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "AdMotion",
+              "url": "https://www.admotionsa.com",
+              "logo": "https://www.admotionsa.com/logo.png",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "info@admotionsa.com",
+                "contactType": "Customer Service"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+      
       <div className="admotion-text">AdMotion</div>
       <div className="main-content">
         <section className="intro-section">

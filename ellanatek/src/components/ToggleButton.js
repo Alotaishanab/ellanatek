@@ -10,28 +10,48 @@ const ToggleButton = ({ toggleNav, navOpen }) => {
     let scrollTimeout;
 
     const handleScroll = () => {
-      setIsVisible(true); // Show the button on scroll
+      setIsVisible(true);
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
-        setIsVisible(false); // Hide the button after 2 seconds of no scroll activity
-      }, 2000); // Adjust the timeout value as needed
+        setIsVisible(false);
+      }, 2000);
     };
 
-    const showButton = () => {
-      setIsVisible(true); // Show the button immediately when scrolling starts
+    const handleTouchStart = () => {
+      setIsVisible(true);
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
-        setIsVisible(false); // Hide the button after 2 seconds of no scroll activity
-      }, 2000); // Adjust the timeout value as needed
+        setIsVisible(false);
+      }, 2000);
+    };
+
+    const handleTouchMove = () => {
+      setIsVisible(true);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsVisible(false);
+      }, 2000);
+    };
+
+    const handleMouseMove = () => {
+      setIsVisible(true);
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        setIsVisible(false);
+      }, 2000);
     };
 
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('mousemove', showButton); // Listen for mouse movement as a proxy for touch or other user interaction
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchmove', handleTouchMove);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', showButton);
-      clearTimeout(scrollTimeout); // Cleanup on component unmount
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      clearTimeout(scrollTimeout);
     };
   }, []);
 

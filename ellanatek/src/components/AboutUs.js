@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import '../styles/AboutUs.css';
 
 const AboutUs = () => {
@@ -27,6 +28,25 @@ const AboutUs = () => {
 
   return (
     <div className="about-us">
+      <Helmet>
+        <title>About Us - AdMotion</title>
+        <meta name="description" content="Learn more about AdMotion, our mission, vision, and the services we offer. We are dedicated to bringing your brand to the forefront with our innovative mobile advertising solutions." />
+        <meta name="keywords" content="AdMotion, Mobile Advertising, Digital Advertising, Marketing, Billboard Advertising" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://www.admotionsa.com/about-us" />
+
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5JRG97M98"></script>
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-D5JRG97M98');
+          `}
+        </script>
+      </Helmet>
+
       <section className="section who-we-are" data-section="who-we-are">
         <div className="content">
           <h2>Who We Are</h2>
@@ -38,6 +58,7 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
+      
       <section className="section our-mission" data-section="our-mission">
         <div className="additional-content">
           <div className="animated-icon-container">
@@ -49,6 +70,7 @@ const AboutUs = () => {
           <p>Our mission is to empower businesses of all sizes to reach their target audiences with precision and impact through our innovative mobile advertising solutions. We are dedicated to delivering brand awareness, customer engagement, and revenue growth for our clients by providing the latest in technology, creativity, and strategic thinking.</p>
         </div>
       </section>
+
       <section className="section our-vision" data-section="our-vision">
         <div className="content">
           <h2>Our Vision</h2>
@@ -60,6 +82,7 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
+
       <section className="section our-services" data-section="our-services">
         <div className="content">
           <h2>Our Services</h2>
