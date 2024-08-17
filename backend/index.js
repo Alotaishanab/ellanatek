@@ -73,23 +73,32 @@ app.post('/api/contact', async (req, res) => {
         const transporter = await createTransporter();
 
         // Send email to the user
-        const userMailOptions = {
-            from: 'info@admotionsa.com', // The sender email address
-            to: email,
-            subject: 'Welcome to AdMotion',
-            html: `
-              <div style="font-family: Arial, sans-serif; line-height: 1.6; text-align: center;">
-                <h1><strong>Dear ${firstName},</strong></h1>
-                <p>Welcome to AdMotion! We are thrilled to have you with us. Thank you for reaching out to us.</p>
-                <p>We have received your message and appreciate your interest in our mobile advertising solutions. Our team will review your inquiry and get back to you shortly.</p>
-                <p><strong><em>Where your brand is everywhere and seen by all.</em></strong></p>
-                <p><em>Best regards,<br/>The AdMotion Team</em></p>
-                <p style="font-size: 12px; color: grey; text-align: center; margin-top: 10px;">
-                  This is an automated response. Please do not reply to this email.
-                </p>
-              </div>
-            `,
-        };
+        // Send email to the user
+const userMailOptions = {
+    from: 'info@admotionsa.com', // The sender email address
+    to: email,
+    subject: 'Welcome to AdMotion',
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; text-align: center;">
+        <h1><strong>Dear ${firstName},</strong></h1>
+        <p>Welcome to AdMotion! We are thrilled to have you with us. Thank you for reaching out to us.</p>
+        <p>We have received your message and appreciate your interest in our mobile advertising solutions. Our team will review your inquiry and get back to you shortly.</p>
+        <p><strong><em>Where your brand is everywhere and seen by all.</em></strong></p>
+        <p><em>Best regards,<br/>The AdMotion Team</em></p>
+        
+        <img src="cid:admotionLogo" alt="AdMotion Logo" style="width: 150px; margin-top: 20px;" />
+
+        <p style="font-size: 12px; color: grey; text-align: center; margin-top: 10px;">
+          This is an automated response. Please do not reply to this email.
+        </p>
+      </div>
+    `,
+    attachments: [{
+        filename: 'Admotion.png',
+        path: path.join(__dirname, 'backend/images/Admotion.png'),
+        cid: 'admotionLogo' // same CID as in the html img src
+    }]
+};
 
         await transporter.sendMail(userMailOptions);
         console.log('Email sent to user');
