@@ -95,7 +95,7 @@ const userMailOptions = {
     `,
     attachments: [{
         filename: 'Admotion.png',
-        path: path.join(__dirname, 'images/Admotion.png'),
+        path: path.join(__dirname, 'images/AdMotion.png'),
         cid: 'admotionLogo' // same CID as in the html img src
     }]
 };
