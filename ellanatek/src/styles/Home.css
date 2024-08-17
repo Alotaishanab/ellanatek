@@ -305,7 +305,46 @@ body {
     margin-bottom: 50px;
     margin-right: 50px;
   }
+
+  /* Add this new block of CSS */
+  .intro-section {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .model-wrapper {
+    margin-top: 0; /* Remove the top margin for desktop view */
+    margin-left: 20px; /* Adjust the margin to position next to the intro section */
+    flex: 1;
+  }
+
+  .intro-text {
+    flex: 1;
+    width: auto;
+  }
+  
+  .box-model {
+    width: 100%; /* Ensure it fits within the model wrapper */
+    height: 600px;
+    margin-left: 0; /* Reset margin for desktop */
+  }
+  .sub-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .get-in-touch {
+    align-self: flex-start;
+    margin-top: 10px; /* Adjust the margin to position it right under "Grow" */
+  }
 }
+
 
 /* Ensure proper stacking in mobile view */
 @media (max-width: 992px) {

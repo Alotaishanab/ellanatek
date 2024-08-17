@@ -8,7 +8,7 @@ const BikeModel = () => (
     interaction-prompt="none" // Disable interaction prompt
     disable-zoom // Disable zoom
     className="bike-model"
-    style={{ width: '80%', height: '600px' }}
+    style={{ width: '470px', height: '600px' }}
     camera-orbit="45deg 75deg 5m" // Zoom out the initial view
   ></model-viewer>
 );
