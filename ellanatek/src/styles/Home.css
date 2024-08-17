@@ -6,7 +6,6 @@ body {
   padding: 0;
   font-family: Arial, sans-serif;
   color: white;
-  background-color: black;
   box-sizing: border-box;
   overflow-x: hidden;
 }
@@ -22,13 +21,48 @@ body {
 }
 
 .home {
+  position: relative;
   width: 100%;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  color: white;
+  background: black;
+}
+
+.video-background-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+  z-index: -1;
+}
+
+.background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
   flex-direction: column;
-  padding-top: 60px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .main-content {
@@ -75,23 +109,25 @@ body {
   height: 60px;
   margin-top: 20px;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: #ffffff; /* White text color */
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  background: #7dacf7;
-  border: none;
+  background: transparent; /* Transparent background */
+  border: 2px solid #ffffff; /* White border */
   border-radius: 120px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .get-in-touch:hover {
   font-weight: bold;
-  background: linear-gradient(to right, #61A0FF, #ffffff);
+  background: rgba(255, 255, 255, 0.2); /* Light transparent white background */
+  color: white; /* Change text color to black on hover */
   transform: scale(1.15);
 }
+
 
 .model-wrapper {
   width: 100%;
@@ -105,7 +141,7 @@ body {
 .box-model {
   width: 80%;
   height: 600px;
-  margin-left: 100px; /* Move only the BoxModel to the right */
+  margin-left: 100px;
 }
 
 .model-message {
@@ -207,22 +243,6 @@ body {
   text-align: left;
 }
 
-/* Flexbox Styling */
-.flex-row {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.flex-column {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Responsive Styles */
 @media (max-width: 992px) {
   .intro-section {
     flex-direction: column;
@@ -239,7 +259,7 @@ body {
   }
 
   .box-model {
-    margin-left: 0; /* Reset margin for smaller screens */
+    margin-left: 0;
   }
 }
 
@@ -264,12 +284,12 @@ body {
   }
 
   .box-container {
-    margin-left: 0; /* Reset margin for smaller screens */
+    margin-left: 0;
   }
 
   .info-box {
     margin-top: 20px;
-    margin-left: 0; /* Reset margin for smaller screens */
+    margin-left: 0;
   }
 }
 
@@ -306,7 +326,6 @@ body {
     margin-right: 50px;
   }
 
-  /* Add this new block of CSS */
   .intro-section {
     display: flex;
     flex-direction: row;
@@ -318,8 +337,8 @@ body {
   }
 
   .model-wrapper {
-    margin-top: 0; /* Remove the top margin for desktop view */
-    margin-left: 20px; /* Adjust the margin to position next to the intro section */
+    margin-top: 0;
+    margin-left: 20px;
     flex: 1;
   }
 
@@ -329,10 +348,11 @@ body {
   }
   
   .box-model {
-    width: 100%; /* Ensure it fits within the model wrapper */
+    width: 100%;
     height: 600px;
-    margin-left: 0; /* Reset margin for desktop */
+    margin-left: 0;
   }
+
   .sub-text {
     display: flex;
     flex-direction: column;
@@ -341,26 +361,24 @@ body {
 
   .get-in-touch {
     align-self: flex-start;
-    margin-top: 10px; /* Adjust the margin to position it right under "Grow" */
+    margin-top: 10px;
   }
 }
 
-
-/* Ensure proper stacking in mobile view */
 @media (max-width: 992px) {
   .model-wrapper {
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
     align-items: center;
     margin-top: 20px;
   }
 
   .box-model {
-    margin-left: 0; /* Reset any left margin */
-    margin-right: 0; /* Ensure no right margin is applied */
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .info-box {
-    margin-top: 20px; /* Space between the 3D box and info box */
+    margin-top: 20px;
     margin-left: 0;
     width: 100%;
     max-width: 600px;
@@ -381,19 +399,17 @@ body {
 }
 
 @media (max-width: 768px) {
-  /* Further adjustments for smaller mobile screens */
   .info-box {
-    max-width: 90%; /* Slightly narrower for smaller screens */
+    max-width: 90%;
   }
 }
 
 @media (max-width: 576px) {
-  /* For the smallest screens */
   .info-box {
-    max-width: 100%; /* Utilize full width */
+    max-width: 100%;
   }
 
   .info-box-item {
-    font-size: 18px; /* Adjust font size for readability */
+    font-size: 18px;
   }
 }

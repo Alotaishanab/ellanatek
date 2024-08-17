@@ -1,9 +1,7 @@
 import React, { Suspense, lazy } from 'react';
-import '@google/model-viewer';
 import { Helmet } from 'react-helmet';
 import '../styles/Home.css';
 
-const BikeModel = lazy(() => import('./BikeModel'));
 const BoxModel = lazy(() => import('./BoxModel'));
 
 const Home = ({ onNavigate }) => {
@@ -45,164 +43,46 @@ const Home = ({ onNavigate }) => {
         </script>
       </Helmet>
 
-      <div className="admotion-text">AdMotion</div>
-      <div className="main-content">
-        <section className="intro-section">
-          <div className="intro-text">
-            <div>Your Ads In Motion</div>
-            <div>Reaching every destination</div>
-            <div className="sub-text">
-              Grow your Business With Us
-              <button className="get-in-touch" onClick={handleGetInTouchClick}>
-                Get in touch
-              </button>
+      <div className="content-wrapper">
+        <div className="admotion-text">AdMotion</div>
+        <div className="main-content">
+          <section className="intro-section">
+            <div className="intro-text">
+              <div>Your Ads In Motion</div>
+              <div>Reaching every destination</div>
+              <div className="sub-text">
+                Grow your Business With Us
+                <button className="get-in-touch" onClick={handleGetInTouchClick}>
+                  Get in touch
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="model-wrapper">
-            <Suspense fallback={<div>Loading Bike Model...</div>}>
-              <BikeModel />
-            </Suspense>
-            <div className="model-message">Swipe to explore the 3D model</div>
-          </div>
-        </section>
+            <div className="model-wrapper">
+              {/* Model content can be placed here if needed */}
+            </div>
+          </section>
 
-        <section className="model-section">
-          <div className="box-container">
-            <div className="adbox-section">
-              <p className="adbox-title">The AdBox</p>
-              <p className="adbox-subtitle">Sleek, Mobile Advertising</p>
-              <div className="box-container">
-                <Suspense fallback={<div>Loading Box Model...</div>}>
-                  <BoxModel />
-                </Suspense>
-                <div className="info-box">
-                  <ul className="info-list">
-                    <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36"
-                        height="35"
-                        viewBox="0 0 36 35"
-                        fill="none"
-                      >
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
-                      </svg>
-                      <div className="info-box-item">
-                        <div>LED Module Size:</div>
-                        <div>336mm x 384mm</div>
-                      </div>
-                    </li>
-                    <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36"
-                        height="35"
-                        viewBox="0 0 36 35"
-                        fill="none"
-                      >
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
-                      </svg>
-                      <div className="info-box-item">
-                        <div>Brightness:</div>
-                        <div>4500 nits</div>
-                      </div>
-                    </li>
-                    <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36"
-                        height="35"
-                        viewBox="0 0 36 35"
-                        fill="none"
-                      >
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
-                      </svg>
-                      <div className="info-box-item">
-                        <div>Operating Humidity:</div>
-                        <div>10% - 80% RH</div>
-                      </div>
-                    </li>
-                    <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36"
-                        height="35"
-                        viewBox="0 0 36 35"
-                        fill="none"
-                      >
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
-                      </svg>
-                      <div className="info-box-item">
-                        <div>Refresh Rate:</div>
-                        <div>1920Hz</div>
-                      </div>
-                    </li>
-                    <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36"
-                        height="35"
-                        viewBox="0 0 36 35"
-                        fill="none"
-                      >
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
-                      </svg>
-                      <div className="info-box-item">
-                        <div>LED Display Size:</div>
-                        <div>1008mm x 384mm</div>
-                      </div>
-                    </li>
-                    <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36"
-                        height="35"
-                        viewBox="0 0 36 35"
-                        fill="none"
-                      >
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
-                      </svg>
-                      <div className="info-box-item">
-                        <div>Viewing Distance:</div>
-                        <div>3 - 100 meters</div>
-                      </div>
-                    </li>
-                    <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36"
-                        height="35"
-                        viewBox="0 0 36 35"
-                        fill="none"
-                      >
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
-                      </svg>
-                      <div className="info-box-item">
-                        <div>Full Screen Resolution:</div>
-                        <div>336 pixels x 128 pixels</div>
-                      </div>
-                    </li>
-                    <li>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36"
-                        height="35"
-                        viewBox="0 0 36 35"
-                        fill="none"
-                      >
-                        <ellipse cx="18" cy="17.5" rx="18" ry="17.5" fill="#D9D9D9" />
-                      </svg>
-                      <div className="info-box-item">
-                        <div>Operating Temperature:</div>
-                        <div>-30°C to 80°C</div>
-                      </div>
-                    </li>
-                  </ul>
+          <section className="model-section">
+            <div className="box-container">
+              <div className="adbox-section">
+                <div className="video-background-wrapper">
+                  <video autoPlay loop muted playsInline className="background-video">
+                    <source src="/home.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+
+                <p className="adbox-title">The AdBox</p>
+                <p className="adbox-subtitle">Sleek, Mobile Advertising</p>
+                <div className="box-container">
+                  <Suspense fallback={<div>Loading Box Model...</div>}>
+                    <BoxModel />
+                  </Suspense>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
   );

@@ -26,9 +26,6 @@
   transform: translateX(-50%) scale(0.96);
 }
 
-body[data-nav="true"] #nav-toggle {
-  background-color: rgb(85, 130, 149);
-}
 
 .icon {
   position: absolute;
