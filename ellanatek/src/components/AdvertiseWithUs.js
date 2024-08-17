@@ -21,6 +21,12 @@ const AdvertiseWithUs = ({ onNavigate }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // Check if the field is the message and enforce the character limit
+    if (name === 'message' && value.length > 500) {
+      return; // Do nothing if the limit is exceeded
+    }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -119,7 +125,12 @@ const AdvertiseWithUs = ({ onNavigate }) => {
               </div>
               <div className="input-field">
                 <label>Message</label>
-                <textarea name="message" onChange={handleChange}></textarea>
+                <textarea
+                  name="message"
+                  onChange={handleChange}
+                  value={formData.message}
+                  maxLength="500" // HTML attribute to enforce character limit
+                ></textarea>
               </div>
 
               <div className="send-button" onClick={handleSubmit}>Send Message</div>
