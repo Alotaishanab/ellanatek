@@ -55,11 +55,11 @@ nav.nav-open {
 }
 
 .nav-link-label {
-  color: white;
+  color: black;
   font-size: 1.25rem;
   margin: 0;
   text-transform: uppercase;
-  background-color: #0f4082; /* Updated background color */
+  background-color: #ffffff; /* Updated background color */
   padding: 10px;
   border-radius: 5px;
 }

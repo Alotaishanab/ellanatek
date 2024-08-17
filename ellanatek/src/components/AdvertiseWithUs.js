@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import '../styles/AdvertiseWithUs.css';
-import EmailIcon from '../assets/svg/email.svg';
-import LocationIcon from '../assets/svg/location.svg';
 import Lottie from 'lottie-react';
 import checkAnimation from '../assets/animations/check.json';
 
@@ -18,6 +16,8 @@ const AdvertiseWithUs = ({ onNavigate }) => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +25,15 @@ const AdvertiseWithUs = ({ onNavigate }) => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setFormData({
+      ...formData,
+      inquiryType: option === 'General Inquiry' ? 'general' : 'ad',
+    });
+    setDropdownOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -64,20 +73,6 @@ const AdvertiseWithUs = ({ onNavigate }) => {
             <div className="left-card">
               <div className="contact-title">Get in Touch</div>
               <div className="contact-subtitle">Contact us and we will get back to you!</div>
-              <div className="contact-info">
-                <div className="contact-info-item">
-                  <div className="icon-wrapper">
-                    <img src={EmailIcon} alt="Email Icon" />
-                  </div>
-                  <div className="contact-text">info@admotionsa.com</div>
-                </div>
-                <div className="contact-info-item">
-                  <div className="icon-wrapper">
-                    <img src={LocationIcon} alt="Location Icon" />
-                  </div>
-                  <div className="contact-text">Al-Khobar, Saudi Arabia</div>
-                </div>
-              </div>
             </div>
 
             <div className="right-card">
@@ -106,13 +101,20 @@ const AdvertiseWithUs = ({ onNavigate }) => {
                   <label>Business Name</label>
                   <input type="text" name="businessName" onChange={handleChange} />
                 </div>
-                <div className="input-field">
+                <div className="input-field custom-dropdown">
                   <label>Inquiry Type</label>
-                  <select name="inquiryType" onChange={handleChange} required>
-                    <option value="">Select...</option>
-                    <option value="general">General Inquiry</option>
-                    <option value="ad">Ad Inquiry</option>
-                  </select>
+                  <div className="dropdown">
+                    <div className="dropdown-toggle" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                      {selectedOption || 'Select...'}
+                      <span className="dropdown-arrow"></span>
+                    </div>
+                    {dropdownOpen && (
+                      <ul className="dropdown-menu">
+                        <li onClick={() => handleOptionClick('General Inquiry')}>General Inquiry</li>
+                        <li onClick={() => handleOptionClick('Ad Inquiry')}>Ad Inquiry</li>
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className="input-field">

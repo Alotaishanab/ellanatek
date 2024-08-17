@@ -16,21 +16,6 @@
   background-color: black; /* Ensure background is black */
 }
 
-/* Add this to your existing CSS file */
-
-.animation-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.animation-container h2 {
-  margin-top: 20px;
-}
-
-
 /* Contact Section */
 .contact-section {
   display: flex;
@@ -42,20 +27,7 @@
   position: relative; /* Ensure z-index works properly */
 }
 
-.left-card {
-  flex: 1; /* Take remaining space */
-  max-width: 1196px;
-  background: linear-gradient(0deg, #011C2B 0%, #011C2B 100%);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: white; /* Ensure text color is white for contrast */
-  padding: 30px; /* Add padding for spacing */
-  box-sizing: border-box;
-  width: 100%; /* Ensure full width on mobile */
-  z-index: 2; /* Ensure it stays above other elements */
-}
+
 
 .right-card {
   max-width: 1196px;
@@ -73,21 +45,40 @@
 }
 
 .contact-title {
-  font-size: 28px;
-  font-family: 'Poppins', sans-serif;
+  font-family: Jost;
+  font-size: 75px;
   font-weight: 600;
-  margin-bottom: 10px;
-  text-align: left; /* Align title to the left */
+  line-height: 75px;
+  text-align: center;
+  margin: 20px auto;
+  color: white;
+}
+
+.left-card {
+  flex: 1; /* Take remaining space */
+  max-width: 1196px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  color: white; /* Ensure text color is white for contrast */
+  padding: 30px; /* Add padding for spacing */
+  box-sizing: border-box;
+  width: 100%; /* Ensure full width on mobile */
+  z-index: 2; /* Ensure it stays above other elements */
+  text-align: center; /* Center text inside */
 }
 
 .contact-subtitle {
-  font-size: 18px;
-  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
   font-weight: 400;
-  color: #C9C9C9;
-  margin-bottom: 20px;
-  text-align: left; /* Align subtitle to the left */
+  line-height: 30px;
+  margin-top: 20px;
+  text-align: center; /* Center text */
+  width: 100%;
 }
+
 
 .input-group {
   display: flex;
@@ -132,11 +123,72 @@
   min-height: 150px; /* Increased height for message textarea */
 }
 
+/* Custom dropdown */
+.custom-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  padding: 10px;
+  background-color: #1c1c1c; /* Dark background */
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  border-bottom: 1px solid #8D8D8D; /* Bottom border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-arrow {
+  width: 12px;
+  height: 8px;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%27http%3A//www.w3.org/2000/svg%27 width%3D%2712%27 height%3D%278%27 viewBox%3D%270 0 12 8%27%3E%3Cpath fill%3D%27%23FFFFFF%27 d%3D%27M1.41 0L6 4.58 10.59 0 12 1.42 6 7.42 0 1.42z%27/%3E%3C/svg%3E'); /* Custom arrow */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #1c1c1c; /* Background color for options */
+  border-radius: 5px;
+  margin-top: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  max-height: 200px; /* Limit the height */
+  overflow-y: auto; /* Scroll if too many options */
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+
+.dropdown-menu li:hover {
+  background-color: #292929; /* Slightly lighter on hover */
+}
+
+.dropdown-toggle:focus {
+  border-bottom-color: #61A0FF; /* Change border color on focus */
+  outline: none;
+}
+
 .send-button {
   width: fit-content;
   padding: 15px 48px;
-  background: #7dacf7;
-  color: white;
+  background: white; /* A rich purple that works well with black */
+  color: black;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -149,69 +201,11 @@
 }
 
 .send-button:hover {
-  font-weight: bold;
-  background: linear-gradient(to right, #61A0FF, #ffffff); /* Gradient background on hover */
+  background-color: rgb(85, 130, 149); /* A lighter shade of purple for hover effect */
   transform: scale(1.15);
 }
 
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Space between contact info items */
-  margin-top: 20px;
-}
-
-.contact-info-item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.icon-wrapper {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.3s ease-out; /* Smooth transition for hover effect */
-}
-
-.icon-wrapper img {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.3s ease-out; /* Smooth transition for hover effect */
-}
-
-.icon-wrapper:hover {
-  transform: scale(1.2); /* Scale up on hover */
-}
-
-.social-media-icons {
-  margin-top: auto; /* Align social media icons to the bottom */
-  display: flex;
-  justify-content: center; /* Center align social media icons */
-  margin-left: 800px;
-  gap: 20px; /* Space between social media icons */
-}
-
-.social-media-icons img {
-  width: 32px;
-  height: 32px;
-}
-
-.contact-text {
-  color: white;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  word-wrap: break-word;
-}
-
-.stretch {
-  flex: 1; /* Fill remaining space */
-}
-
+/* Responsive Styles */
 @media (max-width: 768px) {
   .contact-section {
     flex-direction: column;
@@ -256,5 +250,4 @@
   .contact-text {
     text-align: center; /* Center the text on mobile */
   }
-
 }

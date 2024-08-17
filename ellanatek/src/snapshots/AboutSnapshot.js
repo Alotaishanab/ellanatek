@@ -1,12 +1,12 @@
 // ContactUs.js
 import React from 'react';
+import BikeModel from '../components/BikeModel'; // Ensure this is the component for the bike model
+
 
 const ContactUs = () => {
   return (
-    <div className="contact-us">
-      <h2>Who We Are</h2>
-      <p>Hear from Us!</p>
-      {/* Add more details as needed */}
+    <div className="snapshot">
+      <BikeModel />
     </div>
   );
 };
