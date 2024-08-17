@@ -205,6 +205,29 @@
   transform: scale(1.15);
 }
 
+.animation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
+  justify-content: center; /* Center the content vertically */
+  text-align: center; /* Ensure text is centered */
+  width: 100%; /* Take full width of the parent */
+  padding: 20px; /* Add some padding */
+}
+
+.animation-container .lottie {
+  max-width: 150px; /* Adjust this value to make the animation smaller */
+  margin-bottom: 20px; /* Add some space between the animation and the success message */
+}
+
+.success-message {
+  font-size: 24px; /* Adjust the font size if needed */
+  font-weight: bold;
+  color: white; /* Ensure the text color contrasts with the background */
+  margin-top: 20px; /* Space between the animation and the text */
+}
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .contact-section {
@@ -249,5 +272,13 @@
 
   .contact-text {
     text-align: center; /* Center the text on mobile */
+  }
+
+  .animation-container .lottie {
+    max-width: 120px; /* Smaller animation size on mobile */
+  }
+
+  .success-message {
+    font-size: 20px; /* Adjust the font size for smaller screens */
   }
 }
