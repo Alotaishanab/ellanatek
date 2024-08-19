@@ -67,7 +67,7 @@ const Home = ({ onNavigate }) => {
               <div className="adbox-section">
                 <div className="video-background-wrapper">
                   <video autoPlay loop muted playsInline className="background-video">
-                    <source src="/desert.mp4" type="video/mp4" />
+                    <source src="/wait.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
