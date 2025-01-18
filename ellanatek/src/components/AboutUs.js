@@ -1,8 +1,12 @@
+// ellanatek/src/components/AboutUs.js
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import '../styles/AboutUs.css';
 
 const AboutUs = () => {
+  const { t } = useTranslation(); // Removed 'i18n' since it's unused
+
   useEffect(() => {
     const sections = document.querySelectorAll('.section');
 
@@ -29,9 +33,9 @@ const AboutUs = () => {
   return (
     <div className="about-us">
       <Helmet>
-        <title>About Us - AdMotion</title>
-        <meta name="description" content="Learn more about AdMotion, our mission, vision, and the services we offer. We are dedicated to bringing your brand to the forefront with our innovative mobile advertising solutions." />
-        <meta name="keywords" content="AdMotion, Mobile Advertising, Digital Advertising, Marketing, Billboard Advertising" />
+        <title>{t('aboutUs.meta.title')}</title>
+        <meta name="description" content={t('aboutUs.meta.description')} />
+        <meta name="keywords" content={t('aboutUs.meta.keywords')} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.admotionsa.com/about-us" />
 
@@ -49,12 +53,12 @@ const AboutUs = () => {
 
       <section className="section who-we-are" data-section="who-we-are">
         <div className="content">
-          <h2>Who We Are</h2>
-          <p>At AdMotion, we specialize in taking your message to the streets, literally. With our innovative mobile advertising solutions, we bring your brand, promotion, or campaign directly to your target audience, maximizing visibility and impact. With our commitment to creativity, technology, and exceptional service, we're your partner in driving towards results and a lasting impression.</p>
+          <h2>{t('aboutUs.sections.whoWeAre.title')}</h2>
+          <p>{t('aboutUs.sections.whoWeAre.description')}</p>
         </div>
         <div className="additional-content">
           <div className="animated-icon-container">
-            <i className="fas fa-users animated-icon"></i>
+            <i className="fas fa-users animated-icon" aria-hidden="true"></i>
           </div>
         </div>
       </section>
@@ -62,55 +66,55 @@ const AboutUs = () => {
       <section className="section our-mission" data-section="our-mission">
         <div className="additional-content">
           <div className="animated-icon-container">
-            <i className="fas fa-bullseye animated-icon"></i>
+            <i className="fas fa-bullseye animated-icon" aria-hidden="true"></i>
           </div>
         </div>
         <div className="content">
-          <h2>Our Mission</h2>
-          <p>Our mission is to empower businesses of all sizes to reach their target audiences with precision and impact through our innovative mobile advertising solutions. We are dedicated to delivering brand awareness, customer engagement, and revenue growth for our clients by providing the latest in technology, creativity, and strategic thinking.</p>
+          <h2>{t('aboutUs.sections.ourMission.title')}</h2>
+          <p>{t('aboutUs.sections.ourMission.description')}</p>
         </div>
       </section>
 
       <section className="section our-vision" data-section="our-vision">
         <div className="content">
-          <h2>Our Vision</h2>
-          <p>Our vision is to be the leading provider of mobile advertising solutions, recognized for our commitment to client success and cutting-edge technology. We envision a future where every partner has the power to connect with audiences in meaningful ways, and we're dedicated to making that vision a reality through continuous improvement and forward-thinking strategies.</p>
+          <h2>{t('aboutUs.sections.ourVision.title')}</h2>
+          <p>{t('aboutUs.sections.ourVision.description')}</p>
         </div>
         <div className="additional-content">
           <div className="animated-icon-container">
-            <i className="fas fa-lightbulb animated-icon"></i>
+            <i className="fas fa-lightbulb animated-icon" aria-hidden="true"></i>
           </div>
         </div>
       </section>
 
       <section className="section our-services" data-section="our-services">
         <div className="content">
-          <h2>Our Services</h2>
+          <h2>{t('aboutUs.sections.ourServices.title')}</h2>
           <div className="service-item">
             <div className="service-text">
-              <h3>Mobile Billboard Advertising</h3>
-              <p>Utilizing strategically positioned bikes equipped with high-resolution digital screens to display dynamic advertisements in high-traffic areas, events, and targeted locations.</p>
+              <h3>{t('aboutUs.sections.ourServices.serviceItems.mobileBillboardAdvertising.title')}</h3>
+              <p>{t('aboutUs.sections.ourServices.serviceItems.mobileBillboardAdvertising.description')}</p>
             </div>
             <div className="animated-icon-container">
-              <i className="fas fa-bullhorn animated-icon"></i>
+              <i className="fas fa-bullhorn animated-icon" aria-hidden="true"></i>
             </div>
           </div>
           <div className="service-item">
             <div className="service-text">
-              <h3>Targeted Campaigns</h3>
-              <p>Customized advertising campaigns tailored to specific demographics, geographic locations, and events to ensure maximum exposure and engagement.</p>
+              <h3>{t('aboutUs.sections.ourServices.serviceItems.targetedCampaigns.title')}</h3>
+              <p>{t('aboutUs.sections.ourServices.serviceItems.targetedCampaigns.description')}</p>
             </div>
             <div className="animated-icon-container">
-              <i className="fas fa-bullseye animated-icon"></i>
+              <i className="fas fa-bullseye animated-icon" aria-hidden="true"></i>
             </div>
           </div>
           <div className="service-item">
             <div className="service-text">
-              <h3>Event Support</h3>
-              <p>Creating memorable experiences through events, product launches, and promotions using our mobile screens as a focal point.</p>
+              <h3>{t('aboutUs.sections.ourServices.serviceItems.eventSupport.title')}</h3>
+              <p>{t('aboutUs.sections.ourServices.serviceItems.eventSupport.description')}</p>
             </div>
             <div className="animated-icon-container">
-              <i className="fas fa-calendar-alt animated-icon"></i>
+              <i className="fas fa-calendar-alt animated-icon" aria-hidden="true"></i>
             </div>
           </div>
         </div>

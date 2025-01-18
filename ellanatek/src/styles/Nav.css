@@ -130,3 +130,30 @@ body[data-nav="true"] > #nav-toggle > .close {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
+
+/* ellanatek/src/styles/Nav.css */
+
+.language-switcher {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.lang-button {
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.lang-button.active {
+  font-weight: bold;
+  border-bottom: 2px solid #fff;
+}
+
+.lang-button:hover {
+  color: #007BFF;
+}

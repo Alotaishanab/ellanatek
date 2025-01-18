@@ -1,10 +1,14 @@
+// ellanatek/src/components/AdvertiseWithUs.js
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import '../styles/AdvertiseWithUs.css';
 import Lottie from 'lottie-react';
 import checkAnimation from '../assets/animations/check.json';
 
 const AdvertiseWithUs = ({ onNavigate }) => {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -60,86 +64,123 @@ const AdvertiseWithUs = ({ onNavigate }) => {
           onNavigate(0); // Navigate to home after 3 seconds
         }, 3000); // 3 seconds delay
       } else {
-        alert('Failed to send message');
+        alert(t('advertiseWithUs.alert.failedToSend'));
       }
     } catch (error) {
-      alert('Error sending message');
+      alert(t('advertiseWithUs.alert.errorSending'));
     }
   };
 
   return (
     <div className="advertise-with-us-container">
       <Helmet>
-        <title>Advertise With Us - AdMotion</title>
-        <meta name="description" content="Get in touch with AdMotion to learn how our mobile advertising solutions can help grow your business. Contact us today!" />
+        <title>{t('advertiseWithUs.meta.title')}</title>
+        <meta name="description" content={t('advertiseWithUs.meta.description')} />
       </Helmet>
       <div className="advertise-with-us-content">
         {!isSubmitted ? (
           <section className="contact-section">
             <div className="left-card">
-              <div className="contact-title">Get in Touch</div>
-              <div className="contact-subtitle">Contact us and we will get back to you!</div>
+              <div className="contact-title">{t('advertiseWithUs.contactTitle')}</div>
+              <div className="contact-subtitle">{t('advertiseWithUs.contactSubtitle')}</div>
             </div>
 
             <div className="right-card">
-              <div className="input-group">
-                <div className="input-field">
-                  <label>First Name</label>
-                  <input type="text" name="firstName" onChange={handleChange} required />
-                </div>
-                <div className="input-field">
-                  <label>Last Name</label>
-                  <input type="text" name="lastName" onChange={handleChange} required />
-                </div>
-              </div>
-              <div className="input-group">
-                <div className="input-field">
-                  <label>Email</label>
-                  <input type="email" name="email" onChange={handleChange} required />
-                </div>
-                <div className="input-field">
-                  <label>Phone Number</label>
-                  <input type="tel" name="phoneNumber" onChange={handleChange} />
-                </div>
-              </div>
-              <div className="input-group">
-                <div className="input-field">
-                  <label>Business Name</label>
-                  <input type="text" name="businessName" onChange={handleChange} />
-                </div>
-                <div className="input-field custom-dropdown">
-                  <label>Inquiry Type</label>
-                  <div className="dropdown">
-                    <div className="dropdown-toggle" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                      {selectedOption || 'Select...'}
-                      <span className="dropdown-arrow"></span>
-                    </div>
-                    {dropdownOpen && (
-                      <ul className="dropdown-menu">
-                        <li onClick={() => handleOptionClick('General Inquiry')}>General Inquiry</li>
-                        <li onClick={() => handleOptionClick('Ad Inquiry')}>Ad Inquiry</li>
-                      </ul>
-                    )}
+              <form onSubmit={handleSubmit}>
+                <div className="input-group">
+                  <div className="input-field">
+                    <label>{t('advertiseWithUs.form.firstName')}</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      onChange={handleChange}
+                      required
+                      placeholder={t('advertiseWithUs.form.firstNamePlaceholder')}
+                    />
+                  </div>
+                  <div className="input-field">
+                    <label>{t('advertiseWithUs.form.lastName')}</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      onChange={handleChange}
+                      required
+                      placeholder={t('advertiseWithUs.form.lastNamePlaceholder')}
+                    />
                   </div>
                 </div>
-              </div>
-              <div className="input-field">
-                <label>Message</label>
-                <textarea
-                  name="message"
-                  onChange={handleChange}
-                  value={formData.message}
-                  maxLength="500" // HTML attribute to enforce character limit
-                ></textarea>
-              </div>
+                <div className="input-group">
+                  <div className="input-field">
+                    <label>{t('advertiseWithUs.form.email')}</label>
+                    <input
+                      type="email"
+                      name="email"
+                      onChange={handleChange}
+                      required
+                      placeholder={t('advertiseWithUs.form.emailPlaceholder')}
+                    />
+                  </div>
+                  <div className="input-field">
+                    <label>{t('advertiseWithUs.form.phoneNumber')}</label>
+                    <input
+                      type="tel"
+                      name="phoneNumber"
+                      onChange={handleChange}
+                      placeholder={t('advertiseWithUs.form.phoneNumberPlaceholder')}
+                    />
+                  </div>
+                </div>
+                <div className="input-group">
+                  <div className="input-field">
+                    <label>{t('advertiseWithUs.form.businessName')}</label>
+                    <input
+                      type="text"
+                      name="businessName"
+                      onChange={handleChange}
+                      placeholder={t('advertiseWithUs.form.businessNamePlaceholder')}
+                    />
+                  </div>
+                  <div className="input-field custom-dropdown">
+                    <label>{t('advertiseWithUs.form.inquiryType')}</label>
+                    <div className="dropdown">
+                      <div className="dropdown-toggle" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                        {selectedOption || t('advertiseWithUs.form.selectPlaceholder')}
+                        <span className="dropdown-arrow"></span>
+                      </div>
+                      {dropdownOpen && (
+                        <ul className="dropdown-menu">
+                          <li onClick={() => handleOptionClick(t('advertiseWithUs.form.inquiryOptions.generalInquiry'))}>
+                            {t('advertiseWithUs.form.inquiryOptions.generalInquiry')}
+                          </li>
+                          <li onClick={() => handleOptionClick(t('advertiseWithUs.form.inquiryOptions.adInquiry'))}>
+                            {t('advertiseWithUs.form.inquiryOptions.adInquiry')}
+                          </li>
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="input-field">
+                  <label>{t('advertiseWithUs.form.message')}</label>
+                  <textarea
+                    name="message"
+                    onChange={handleChange}
+                    value={formData.message}
+                    maxLength="500" // HTML attribute to enforce character limit
+                    placeholder={t('advertiseWithUs.form.messagePlaceholder')}
+                  ></textarea>
+                </div>
 
-              <div className="send-button" onClick={handleSubmit}>Send Message</div>
+                <button type="submit" className="send-button">
+                  {t('advertiseWithUs.form.sendMessage')}
+                </button>
+              </form>
             </div>
           </section>
         ) : (
           <div className="animation-container">
             <Lottie animationData={checkAnimation} loop={false} />
-            <div className="success-message">Contact Form Sent</div>
+            <div className="success-message">{t('advertiseWithUs.successMessage')}</div>
           </div>
         )}
       </div>

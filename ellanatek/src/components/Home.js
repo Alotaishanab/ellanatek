@@ -1,10 +1,14 @@
+// ellanatek/src/components/Home.js
 import React, { Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import '../styles/Home.css';
 
 const BoxModel = lazy(() => import('./BoxModel'));
 
 const Home = ({ onNavigate }) => {
+  const { t } = useTranslation();
+
   const handleGetInTouchClick = () => {
     onNavigate(1);
   };
@@ -12,14 +16,14 @@ const Home = ({ onNavigate }) => {
   return (
     <div className="home">
       <Helmet>
-        <title>AdMotion - Your Ads in Motion</title>
+        <title>{t('home.meta.title')}</title>
         <meta
           name="description"
-          content="AdMotion is a leading mobile advertising solution, reaching every destination with high-impact visual ads. Learn more about our services and how we can help grow your business."
+          content={t('home.meta.description')}
         />
         <meta
           name="keywords"
-          content="Mobile Advertising, Marketing, Advertising, AdMotion, Targeted Campaigns"
+          content={t('home.meta.keywords')}
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.admotionsa.com" />
@@ -44,16 +48,16 @@ const Home = ({ onNavigate }) => {
       </Helmet>
 
       <div className="content-wrapper">
-        <div className="admotion-text">AdMotion</div>
+        <div className="admotion-text">{t('home.admotionText')}</div>
         <div className="main-content">
           <section className="intro-section">
             <div className="intro-text">
-              <div>Your Ads In Motion</div>
-              <div>Reaching every destination</div>
+              <div>{t('home.intro.title')}</div>
+              <div>{t('home.intro.subtitle')}</div>
               <div className="sub-text">
-                Grow your Business With Us
+                {t('home.intro.subText')}
                 <button className="get-in-touch" onClick={handleGetInTouchClick}>
-                  Get in touch
+                  {t('home.intro.getInTouch')}
                 </button>
               </div>
             </div>
@@ -68,14 +72,14 @@ const Home = ({ onNavigate }) => {
                 <div className="video-background-wrapper">
                   <video autoPlay loop muted playsInline className="background-video">
                     <source src="/wait.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
+                    {t('home.videoUnsupported')}
                   </video>
                 </div>
 
-                <p className="adbox-title">The AdBox</p>
-                <p className="adbox-subtitle">Sleek, Mobile Advertising</p>
+                <p className="adbox-title">{t('home.adBox.title')}</p>
+                <p className="adbox-subtitle">{t('home.adBox.subtitle')}</p>
                 <div className="box-container">
-                  <Suspense fallback={<div>Loading Box Model...</div>}>
+                  <Suspense fallback={<div>{t('home.loadingBoxModel')}</div>}>
                     <BoxModel />
                   </Suspense>
                 </div>
