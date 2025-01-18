@@ -1,11 +1,15 @@
+// ellanatek/src/components/Footer.js
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import '../styles/Footer.css';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer">
-      <p>&copy; 2024 AdMotion. All rights reserved.</p>
-      <p>Khobar, Saudi Arabia</p> {/* Added this line */}
+      <p>&copy; 2025 AdMotion. {t('footer.allRightsReserved')}</p>
+      <p>{t('footer.location')}</p>
     </footer>
   );
 };
