@@ -418,3 +418,103 @@ html, body {
     font-size: 18px;
   }
 }
+
+.box-specs-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 20px;
+}
+
+.specs-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+}
+
+.specs-column .spec-item {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.specs-column .spec-item:hover {
+  transform: translateY(-5px);
+  border-color: #8A2BE2;
+}
+
+.specs-column .spec-item h4 {
+  color: #8A2BE2;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  font-family: 'Jost', sans-serif;
+}
+
+.specs-column .spec-item p {
+  color: white;
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.box-model-container {
+  flex-shrink: 0;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Update the existing media queries section with these additional styles */
+@media (max-width: 1200px) {
+  .box-specs-layout {
+    gap: 20px;
+  }
+  
+  .specs-column {
+    width: 250px;
+  }
+}
+
+@media (max-width: 992px) {
+  .box-specs-layout {
+    flex-direction: column;
+  }
+  
+  .specs-column {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .specs-column.right {
+    order: 3;
+  }
+  
+  .box-model-container {
+    order: 2;
+  }
+}
+
+/* These are mobile-specific adjustments for the spec items */
+@media (max-width: 576px) {
+  .specs-column .spec-item h4 {
+    font-size: 12px;
+  }
+  
+  .specs-column .spec-item p {
+    font-size: 14px;
+  }
+  
+  .box-specs-layout {
+    padding: 0 10px;
+  }
+}
+

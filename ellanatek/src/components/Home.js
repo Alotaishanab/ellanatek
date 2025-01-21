@@ -1,4 +1,4 @@
-// ellanatek/src/components/Home.js
+// Home.js
 import React, { Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +12,20 @@ const Home = ({ onNavigate }) => {
   const handleGetInTouchClick = () => {
     onNavigate(1);
   };
+
+  const leftSpecs = [
+    { title: "LED MODULE SIZE", value: "336MM X 384MM" },
+    { title: "OPERATING HUMIDITY", value: "10% - 80% RH" },
+    { title: "LED DISPLAY SIZE", value: "1008MM X 384MM" },
+    { title: "FULL SCREEN RESOLUTION", value: "336 PIXELS X 128 PIXELS" }
+  ];
+
+  const rightSpecs = [
+    { title: "BRIGHTNESS", value: ">4500 NITS" },
+    { title: "REFRESH RATE", value: ">1920HZ" },
+    { title: "VIEWING DISTANCE", value: "3 - 100 METERS" },
+    { title: "OPERATING TEMPERATURE", value: "-30°C TO 80°C" }
+  ];
 
   return (
     <div className="home">
@@ -78,10 +92,31 @@ const Home = ({ onNavigate }) => {
 
                 <p className="adbox-title">{t('home.adBox.title')}</p>
                 <p className="adbox-subtitle">{t('home.adBox.subtitle')}</p>
-                <div className="box-container">
-                  <Suspense fallback={<div>{t('home.loadingBoxModel')}</div>}>
-                    <BoxModel />
-                  </Suspense>
+                
+                <div className="box-specs-layout">
+                  <div className="specs-column left">
+                    {leftSpecs.map((spec, index) => (
+                      <div key={index} className="spec-item">
+                        <h4>{spec.title}</h4>
+                        <p>{spec.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="box-model-container">
+                    <Suspense fallback={<div>{t('home.loadingBoxModel')}</div>}>
+                      <BoxModel />
+                    </Suspense>
+                  </div>
+                  
+                  <div className="specs-column right">
+                    {rightSpecs.map((spec, index) => (
+                      <div key={index} className="spec-item">
+                        <h4>{spec.title}</h4>
+                        <p>{spec.value}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
