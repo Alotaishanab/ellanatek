@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
 
 body {
-  font-family: 'Jost', sans-serif; /* Use Jost font */
+  font-family: 'Jost', sans-serif;
 }
 
 .about-us {
@@ -9,7 +9,7 @@ body {
   flex-direction: column;
   align-items: center;
   font-family: 'Jost', sans-serif;
-  background-color: #121212; /* Darker background color for the whole page */
+  background-color: #121212;
 }
 
 .section {
@@ -18,17 +18,19 @@ body {
   padding: 40px;
   box-sizing: border-box;
   text-align: center;
-  opacity: 0; /* Initially hidden */
-  transform: translateY(50px); /* Initial position for animation */
+  opacity: 0;
+  transform: translateY(50px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space between content and additional elements */
+  justify-content: space-between;
+  background-size: 200% 200%;
+  animation: gradientAnimation 15s ease infinite;
 }
 
 .section.visible {
-  opacity: 1; /* Visible when in viewport */
-  transform: translateY(0); /* Move to original position */
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .section .content,
@@ -39,13 +41,13 @@ body {
 }
 
 .section .content {
-  max-width: 50%; /* Ensure content takes up half the width */
+  max-width: 50%;
   align-items: center;
   justify-content: center;
 }
 
 .section .additional-content {
-  max-width: 100%; /* Ensure additional content takes up half the width */
+  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,61 +61,57 @@ body {
   width: 100px;
   border-radius: 50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  animation: float 3s ease-in-out infinite;
+  animation: none;
 }
 
 .animated-icon {
   font-size: 3em;
-  color: #1e90ff; /* Light blue color for icons */
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  color: #fbfbfb;
 }
 
 .who-we-are {
-  background-color: #1a1a1a; /* Dark gray */
+  background: linear-gradient(135deg, #000000 50%, #8A2BE2 100%);
   color: white;
 }
 
 .our-mission {
-  background-color: #333333; /* Medium dark gray */
+  background: linear-gradient(45deg, #8A2BE2 0%, #000000 50%);
   color: white;
-  background: linear-gradient(120deg, #333333 25%, #4d4d4d 100%);
 }
 
 .our-vision {
-  background-color: #4d4d4d; /* Medium gray */
+  background: linear-gradient(135deg, #000000 -15%, #8A2BE2 20%, #000000 60%);
   color: white;
 }
 
 .our-services {
-  background-color: black; /* Light gray */
+  background: linear-gradient(45deg, 
+    #000000 40%, 
+    rgba(138, 43, 226, 0.8) 50%,
+    #000000 100%
+  );
   color: white;
 }
 
 h2 {
-  font-size: 3em; /* Increase font size */
-  margin-bottom: 20px; /* Increase margin */
+  font-size: 3em;
+  margin-bottom: 20px;
   opacity: 0;
   transform: translateY(30px);
   animation: fadeInUp 0.8s ease-out forwards;
   animation-delay: 0.3s;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 p {
-  font-size: 1.5em; /* Increase font size */
-  line-height: 1.8; /* Increase line height */
+  font-size: 1.5em;
+  line-height: 1.8;
   margin-bottom: 20px;
   opacity: 0;
   transform: translateY(30px);
   animation: fadeInUp 0.8s ease-out forwards;
   animation-delay: 0.5s;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .button {
@@ -137,32 +135,33 @@ p {
 
 .service-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 40px; /* Increase space between items */
-  padding: 20px;
-  background: #1a1a1a; /* Dark background box */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  width: 75%; /* Make service items wider */
+  align-items: flex-start;
+  margin-bottom: 40px;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 75%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.service-icon {
-  font-size: 3em;
-  color: #1e90ff; /* Light blue color for icons */
+.service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(138, 43, 226, 0.2);
 }
 
 .service-text {
+  width: 100%;
   text-align: left;
-  flex-grow: 1;
-  margin-left: 20px; /* Space between text and icon */
-  color: white; /* Ensure service text is white */
+  color: white;
 }
 
 .service-text h3 {
-  font-size: 1.8em; /* Adjust font size */
-  margin-bottom: 10px; /* Adjust margin */
-  color: #1e90ff; /* Light blue color for service titles */
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: #8A2BE2 !important;
 }
 
 @keyframes fadeInUp {
@@ -172,7 +171,46 @@ p {
   }
 }
 
-/* Media Queries for Responsive Design */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bike-model-container {
+  width: 470px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.static-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.static-icon {
+  font-size: 3em;
+  color: #8A2BE2;
+}
+
+.service-title {
+  color: #8A2BE2 !important;
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
   .section {
     flex-direction: column;
@@ -189,9 +227,9 @@ p {
 
   .service-item {
     flex-direction: column;
-    width: 100%; /* Make service items full width on mobile */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
-    margin: 0 10px 20px; /* Add margin to avoid overflow and vertical space between items */
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 10px 20px;
   }
 
   .animated-icon-container {
@@ -211,7 +249,6 @@ p {
   }
 }
 
-/* Centering Our Services Section in Desktop View */
 @media (min-width: 993px) {
   .our-services .content {
     display: flex;
@@ -222,6 +259,6 @@ p {
   }
 
   .our-services .service-item {
-    width: 100%; /* Make service items wider */
+    width: 100%;
   }
 }

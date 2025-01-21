@@ -1,11 +1,11 @@
-// ellanatek/src/components/AboutUs.js
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import BikeModel from './BikeModel'; // Import BikeModel
 import '../styles/AboutUs.css';
 
 const AboutUs = () => {
-  const { t } = useTranslation(); // Removed 'i18n' since it's unused
+  const { t } = useTranslation();
 
   useEffect(() => {
     const sections = document.querySelectorAll('.section');
@@ -14,7 +14,7 @@ const AboutUs = () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target); // Unobserve once the section is visible
+          observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
@@ -57,8 +57,8 @@ const AboutUs = () => {
           <p>{t('aboutUs.sections.whoWeAre.description')}</p>
         </div>
         <div className="additional-content">
-          <div className="animated-icon-container">
-            <i className="fas fa-users animated-icon" aria-hidden="true"></i>
+          <div className="bike-model-container">
+            <BikeModel />
           </div>
         </div>
       </section>
@@ -95,26 +95,17 @@ const AboutUs = () => {
               <h3>{t('aboutUs.sections.ourServices.serviceItems.mobileBillboardAdvertising.title')}</h3>
               <p>{t('aboutUs.sections.ourServices.serviceItems.mobileBillboardAdvertising.description')}</p>
             </div>
-            <div className="animated-icon-container">
-              <i className="fas fa-bullhorn animated-icon" aria-hidden="true"></i>
-            </div>
           </div>
           <div className="service-item">
             <div className="service-text">
               <h3>{t('aboutUs.sections.ourServices.serviceItems.targetedCampaigns.title')}</h3>
               <p>{t('aboutUs.sections.ourServices.serviceItems.targetedCampaigns.description')}</p>
             </div>
-            <div className="animated-icon-container">
-              <i className="fas fa-bullseye animated-icon" aria-hidden="true"></i>
-            </div>
           </div>
           <div className="service-item">
             <div className="service-text">
               <h3>{t('aboutUs.sections.ourServices.serviceItems.eventSupport.title')}</h3>
               <p>{t('aboutUs.sections.ourServices.serviceItems.eventSupport.description')}</p>
-            </div>
-            <div className="animated-icon-container">
-              <i className="fas fa-calendar-alt animated-icon" aria-hidden="true"></i>
             </div>
           </div>
         </div>
