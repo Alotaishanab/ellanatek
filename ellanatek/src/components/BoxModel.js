@@ -9,7 +9,7 @@ const BoxModel = () => (
       interaction-prompt="none"
       disable-zoom
       className="box-model"
-      style={{ width: '470px', height: '600px' }}
+      style={{ width: '600px', height: '800px' }}
   ></model-viewer>
 );
 
