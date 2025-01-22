@@ -1,44 +1,44 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import BikeModel from './BikeModel'; // Import BikeModel
+import Lottie from 'lottie-react';
+
+// Replace these with your actual Lottie JSON files
+import whoWeAreAnim from '../assets/animations/whoWeAre.json';
+import missionAnim from '../assets/animations/mission.json';
+import visionAnim from '../assets/animations/vision.json';
+import servicesAnim from '../assets/animations/services.json';
+
 import '../styles/AboutUs.css';
 
 const AboutUs = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    const sections = document.querySelectorAll('.section');
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(section => {
-      observer.observe(section);
-    });
-
-    return () => {
-      sections.forEach(section => {
-        observer.unobserve(section);
-      });
-    };
+    const sections = document.querySelectorAll('.about-section');
+    const observer = new IntersectionObserver(
+      (entries, observerInstance) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observerInstance.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => sections.forEach((section) => observer.unobserve(section));
   }, []);
 
   return (
-    <div className="about-us">
+    <div className="about-us-container">
       <Helmet>
         <title>{t('aboutUs.meta.title')}</title>
         <meta name="description" content={t('aboutUs.meta.description')} />
         <meta name="keywords" content={t('aboutUs.meta.keywords')} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://www.admotionsa.com/about-us" />
-
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5JRG97M98"></script>
         <script>
@@ -51,59 +51,60 @@ const AboutUs = () => {
         </script>
       </Helmet>
 
-      <section className="section who-we-are" data-section="who-we-are">
-        <div className="content">
+      <header className="admotion-header">
+        <h1>{t('home.admotionText')}</h1>
+      </header>
+
+      {/* Section: Who We Are */}
+      <section className="about-section section-who-we-are">
+        <div className="animation-container">
+          <Lottie className="lottie-animation" animationData={whoWeAreAnim} loop />
+        </div>
+        <div className="section-content">
           <h2>{t('aboutUs.sections.whoWeAre.title')}</h2>
           <p>{t('aboutUs.sections.whoWeAre.description')}</p>
         </div>
-        <div className="additional-content">
-          <div className="bike-model-container">
-            <BikeModel />
-          </div>
-        </div>
       </section>
-      
-      <section className="section our-mission" data-section="our-mission">
-        <div className="additional-content">
-          <div className="animated-icon-container">
-            <i className="fas fa-bullseye animated-icon" aria-hidden="true"></i>
-          </div>
+
+      {/* Section: Our Mission */}
+      <section className="about-section section-our-mission">
+        <div className="animation-container">
+          <Lottie className="lottie-animation" animationData={missionAnim} loop />
         </div>
-        <div className="content">
+        <div className="section-content">
           <h2>{t('aboutUs.sections.ourMission.title')}</h2>
           <p>{t('aboutUs.sections.ourMission.description')}</p>
         </div>
       </section>
 
-      <section className="section our-vision" data-section="our-vision">
-        <div className="content">
+      {/* Section: Our Vision */}
+      <section className="about-section section-our-vision">
+        <div className="animation-container">
+          <Lottie className="lottie-animation" animationData={visionAnim} loop />
+        </div>
+        <div className="section-content">
           <h2>{t('aboutUs.sections.ourVision.title')}</h2>
           <p>{t('aboutUs.sections.ourVision.description')}</p>
         </div>
-        <div className="additional-content">
-          <div className="animated-icon-container">
-            <i className="fas fa-lightbulb animated-icon" aria-hidden="true"></i>
-          </div>
-        </div>
       </section>
 
-      <section className="section our-services" data-section="our-services">
-        <div className="content">
+      {/* Section: Our Services */}
+      <section className="about-section section-our-services">
+        <div className="animation-container">
+          <Lottie className="lottie-animation" animationData={servicesAnim} loop />
+        </div>
+        <div className="section-content">
           <h2>{t('aboutUs.sections.ourServices.title')}</h2>
-          <div className="service-item">
-            <div className="service-text">
+          <div className="services-list">
+            <div className="service-item">
               <h3>{t('aboutUs.sections.ourServices.serviceItems.mobileBillboardAdvertising.title')}</h3>
               <p>{t('aboutUs.sections.ourServices.serviceItems.mobileBillboardAdvertising.description')}</p>
             </div>
-          </div>
-          <div className="service-item">
-            <div className="service-text">
+            <div className="service-item">
               <h3>{t('aboutUs.sections.ourServices.serviceItems.targetedCampaigns.title')}</h3>
               <p>{t('aboutUs.sections.ourServices.serviceItems.targetedCampaigns.description')}</p>
             </div>
-          </div>
-          <div className="service-item">
-            <div className="service-text">
+            <div className="service-item">
               <h3>{t('aboutUs.sections.ourServices.serviceItems.eventSupport.title')}</h3>
               <p>{t('aboutUs.sections.ourServices.serviceItems.eventSupport.description')}</p>
             </div>
@@ -112,6 +113,6 @@ const AboutUs = () => {
       </section>
     </div>
   );
-}
+};
 
 export default AboutUs;
