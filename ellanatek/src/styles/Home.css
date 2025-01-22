@@ -1,28 +1,21 @@
-/* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Uber+Move:wght@400;500;700&display=swap');
 
-/* Global Variables */
+/* -------------- Root Variables -------------- */
 :root {
-  /* Colors & Backgrounds */
-  --primary-color: #8A2BE2;                /* Purple */
-  --accent-color: #9B59B6;                 /* Purple tint for accents */
-  --bg-gradient: linear-gradient(135deg, #1a0a25, #0e051b); /* Dark purple gradient */
+  --primary-color: #8A2BE2;
+  --accent-color: #9B59B6;
+  --bg-gradient: linear-gradient(135deg, #1a0a25, #0e051b);
   --glass-bg: rgba(255, 255, 255, 0.06);
   --glass-border: rgba(255, 255, 255, 0.15);
-  --lighter-glass-bg: rgba(255, 255, 255, 0.1);   /* Lighter glass for inner containers */
-  --lighter-glass-border: rgba(255, 255, 255, 0.2);
   --text-color: #eee;
   --highlight-color: #fff;
 
-  /* Sizing & Effects */
   --border-radius: 20px;
   --blur-amount: 15px;
   --box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
-  --transition-duration: 0.6s;
 }
 
-/* Global Resets & Typography */
+/* Global resets */
 * {
   margin: 0;
   padding: 0;
@@ -31,180 +24,198 @@
 html, body {
   font-family: 'Jost', sans-serif;
   color: var(--text-color);
-  overflow-x: hidden;
-  width: 100vw;
   background: var(--bg-gradient);
-  line-height: 1.6;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
-/* Admotion Text */
-.admotion-text {
-  font-family: 'Jost', sans-serif;
-  font-size: 75px;
-  font-weight: 600;
-  line-height: 75px;
-  text-align: center;
-  margin: 20px auto;
-  color: var(--highlight-color);
-}
-
-/* ---------- Full-Screen Video & Home Section ---------- */
+/* ---------- Home Container ---------- */
 .home {
-  position: relative;
   width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: var(--bg-gradient);
 }
 
-/* Video Background */
+/* ---------- Hero Section ---------- */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Position "AdMotion" at top center within hero */
+.top-header {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2; 
+}
+.company-name {
+  color: var(--highlight-color);
+  font-size: 2rem;
+  font-weight: 100;
+}
+
+/* Background video */
 .video-background-wrapper {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh; /* Updated to full screen height */
+  height: 100%;
+  z-index: 0;
   overflow: hidden;
-  z-index: -1;
 }
-
 .background-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
-/* Main Content Wrappers */
-.content-wrapper,
-.main-content {
+/* Animated hero overlay */
+.hero-overlay {
   position: relative;
   z-index: 1;
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--highlight-color);
 }
 
-/* ---------- Intro Section ---------- */
-.intro-section {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 20px;
-  animation: fadeIn 1s ease-in-out;
-  width: 100%;
-  justify-content: space-between;
-  max-width: 100vw;
+/* 
+  1. Keyframe for a slide/fade effect. 
+  You can tweak the from: and to: for different motion.
+*/
+@keyframes heroEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
 }
-.intro-text {
-  width: 500px;
-  font-size: 75px;
-  font-weight: 600;
-  line-height: 75px;
-  letter-spacing: -0.75px;
-  text-align: left;
-  max-width: 100%;
+
+/* The animated-hero class triggers the keyframe on mount */
+.animated-hero {
+  animation: heroEntry 1.2s ease-in-out forwards;
 }
-.sub-text {
-  font-size: 20px;
+
+/* Title, subtitle, etc. */
+.hero-title {
+  font-size: 64px;
+  font-weight: 300;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.hero-subtitle {
+  font-size: 30px;
   font-weight: 400;
-  line-height: 30px;
-  margin-top: 20px;
-  text-align: left;
-  width: 100%;
+  margin-bottom: 15px;
 }
+.hero-description {
+  font-size: 18px;
+  line-height: 26px;
+  margin-bottom: 30px;
+}
+
+/* Get In Touch Button */
 .get-in-touch {
   width: 200px;
   height: 60px;
-  margin-top: 20px;
-  text-align: center;
   color: #ffffff;
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.06);  /* Semi-transparent for glass effect */
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Subtle white border */
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 120px;
-  backdrop-filter: blur(15px);           /* Frosted glass effect */
-  -webkit-backdrop-filter: blur(15px);    /* For Safari support */
+  backdrop-filter: blur(15px);
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
-
 .get-in-touch:hover {
   font-weight: bold;
   background: rgba(255, 255, 255, 0.2);
-  color: white; 
   transform: scale(1.15);
 }
 
-/* ---------- Model Section ---------- */
-.model-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 700px; /* Increased margin to lower adbox section */
-  animation: fadeIn 1s ease-in-out;
-}
-.box-model {
-  width: 80%;
-  height: 600px;
-  margin: 0;
-}
-.model-message {
-  font-size: 18px;
-  text-align: center;
-  font-family: 'Courier New', Courier, monospace;
-  animation: fadeIn 2s ease-in-out;
+/* ---------- Scroll Indicator (Arrow) ---------- */
+.scroll-indicator {
   cursor: pointer;
-  background: linear-gradient(to right, #4285f4, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: transform 0.3s ease;
-}
-.model-message:hover {
-  transform: scale(1.1);
-}
-.model-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 1200px;
-  margin-top: 20px;
-}
-.box-container,
-.adbox-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  color: var(--highlight-color);
+  font-size: 2rem;
+  margin-top: 2rem;
+  /* Bouncy animation */
+  animation: bounce 1.5s infinite;
 }
 
-/* ---------- Specs & Box-Model Layout ---------- */
+/* Keyframe for bounce effect on arrow */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { 
+    transform: translateY(0); 
+  }
+  40% { 
+    transform: translateY(-10px); 
+  }
+  60% { 
+    transform: translateY(-5px); 
+  }
+}
+
+/* ---------- AdBox Section ---------- */
+.adbox-section {
+  width: 100%;
+  padding: 60px 20px;
+  background: var(--bg-gradient);
+  display: flex;
+  justify-content: center;
+
+  /* 
+    2. We'll start with a "fade-in-up" style that's invisible and down 
+       until the IntersectionObserver adds .fade-in-up-active.
+  */
+}
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in-up.fade-in-up-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.adbox-content-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  text-align: center;
+}
+.adbox-title {
+  font-size: 56px;
+  font-weight: 400;
+  color: var(--highlight-color);
+  margin-bottom: -1rem;
+}
+.adbox-subtitle {
+  font-size: 19px;
+  font-weight: 400;
+  color: #6E6E73;
+  margin-bottom: 2rem;
+}
+
+/* Specs + Box model layout */
 .box-specs-layout {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;
   margin-top: 40px;
-  width: 100%;
-  max-width: 1400px;
-  padding: 0 20px;
 }
 .specs-column {
   display: flex;
@@ -212,387 +223,47 @@ html, body {
   gap: 20px;
   width: 300px;
 }
-.specs-column .spec-item {
+.spec-item {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(var(--blur-amount));
-  -webkit-backdrop-filter: blur(var(--blur-amount));
   border-radius: var(--border-radius);
   padding: 15px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: var(--box-shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
-.specs-column .spec-item:hover {
+.spec-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
-.specs-column .spec-item h4 {
+.spec-item h4 {
   color: var(--accent-color);
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 8px;
-  font-family: 'Jost', sans-serif;
 }
-.specs-column .spec-item p {
-  color: white;
+.spec-item p {
   font-size: 16px;
-  margin: 0;
-  line-height: 1.4;
+  color: #fff;
 }
 
-/* ---------- Box Model Container ---------- */
+/* Center 3D model */
 .box-model-container {
-  flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(var(--blur-amount));
-  -webkit-backdrop-filter: blur(var(--blur-amount));
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  box-shadow: var(--box-shadow);
+  padding: 1rem;
 }
 
-/* ---------- Adbox Section (Outer & Inner Containers) ---------- */
-.adbox-section {
-  width: 100%;
-  margin-top: 50px; /* Additional margin to ensure separation from previous sections */
-}
-
-.adbox-outer {
-  width: 100%;
-  max-width: 1400px;
-  margin: 40px auto;
-  padding: 2rem;
-  background: var(--bg-gradient);
-}
-
-.adbox-inner {
-  background: var(--lighter-glass-bg);
-  border: 1px solid var(--lighter-glass-border);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  margin: 1rem 0;
-}
-
-/* Adbox Title & Subtitle */
-.adbox-title {
-  font-family: 'Jost', sans-serif;
-  font-size: 56px;
-  font-weight: 400;
-  line-height: 60px;
-  letter-spacing: -0.28px;
-  text-align: center;
-  color: var(--highlight-color);
-  margin-bottom: 1rem;
-}
-.adbox-subtitle {
-  font-family: 'Jost', sans-serif;
-  font-size: 19px;
-  font-weight: 400;
-  line-height: 31px;
-  letter-spacing: 0.11px;
-  text-align: center;
-  color: #6E6E73;
-}
-
-/* ---------- Advertise With Us & Contact Sections ---------- */
-.advertise-with-us-container,
-.advertise-with-us-content {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 3rem 1.5rem;
-  background: var(--bg-gradient);  /* Use same dark gradient */
-  overflow-x: hidden;
-}
-
-.contact-section {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: wrap;
-  position: relative;
-}
-
-/* Glassmorphic Cards for Contact Section */
-.right-card,
-.left-card,
-.info-box {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(var(--blur-amount));
-  -webkit-backdrop-filter: blur(var(--blur-amount));
-  border-radius: 10px;
-  padding: 20px;
-  box-sizing: border-box;
-  color: white;
-}
-.right-card,
-.left-card {
-  width: 100%;
-  max-width: 1196px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.info-box {
-  flex: 1;
-  margin-top: 30px;
-  max-width: 600px;
-}
-.info-box ul {
-  list-style-type: none;
-  padding: 0;
-}
-.info-box ul li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  font-size: 18px;
-  color: #ffffff;
-}
-.info-box ul li svg {
-  margin-right: 10px;
-  flex-shrink: 0;
-}
-.info-box-item {
-  color: #F5F5F5;
-  font-size: 24px;
-  line-height: 34.68px;
-  text-align: left;
-}
-
-/* ---------- Input Fields & Send Button ---------- */
-.input-field input,
-.input-field textarea,
-.input-field select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #8D8D8D;
-  border-radius: 10px;
-  background-color: transparent;
-  font-size: 14px;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-  box-sizing: border-box;
-}
-.input-field textarea {
-  min-height: 150px;
-}
-
-/* Custom Dropdown */
-.custom-dropdown {
-  position: relative;
-}
-.dropdown-toggle {
-  width: 100%;
-  padding: 10px;
-  background-color: #1c1c1c;
-  border: none;
-  color: white;
-  font-size: 14px;
-  font-family: 'Poppins', sans-serif;
-  border-bottom: 1px solid #8D8D8D;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.dropdown-arrow {
-  width: 12px;
-  height: 8px;
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%27http%3A//www.w3.org/2000/svg%27 width%3D%2712%27 height%3D%278%27 viewBox%3D%270 0 12 8%27%3E%3Cpath fill%3D%27%23FFFFFF%27 d%3D%27M1.41 0L6 4.58 10.59 0 12 1.42 6 7.42 0 1.42z%27/%3E%3C/svg%3E');
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: #1c1c1c;
-  border-radius: 10px;
-  margin-top: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  z-index: 5;
-  max-height: 200px;
-  overflow-y: auto;
-}
-.dropdown-menu li {
-  padding: 10px;
-  cursor: pointer;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-}
-.dropdown-menu li:hover {
-  background-color: #292929;
-}
-.dropdown-toggle:focus {
-  border-bottom-color: #61A0FF;
-  outline: none;
-}
-
-/* Send Button */
-.send-button {
-  width: fit-content;
-  padding: 15px 48px;
-  background: white;
-  color: black;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  border-radius: 15px;
-  align-self: flex-end;
-  cursor: pointer;
-  position: relative;
-  z-index: 4;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-.send-button:hover {
-  background-color: rgb(85, 130, 149);
-  transform: scale(1.15);
-}
-
-/* ---------- Animation Container ---------- */
-.animation-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  padding: 20px;
-}
-.animation-container .lottie {
-  max-width: 150px;
-  margin-bottom: 20px;
-}
-.success-message {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-  margin-top: 20px;
-}
-
-/* ---------- Toggle Button Styles ---------- */
-#nav-toggle-container {
-  position: fixed;
-  left: 50%;
-  bottom: 5rem;
-  transform: translateX(-50%);
-  display: inline-block;
-  z-index: 15;
-  padding-bottom: 0;
-}
-#nav-toggle {
-  height: 5rem;
-  width: 5rem;
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  outline: none;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(8px);
-}
-#nav-toggle:hover {
-  transform: scale(1.04);
-}
-#nav-toggle:active {
-  transform: scale(0.96);
-}
-body[data-nav="true"] #nav-toggle {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.icon {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.75rem;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  color: #ffffff;
-}
-.icon img {
-  filter: brightness(0) invert(1);
-}
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-#nav-toggle .close {
-  opacity: 0;
-}
-body[data-nav="true"] #nav-toggle .close {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-body[data-nav="true"] #nav-toggle .open {
-  opacity: 0;
-  pointer-events: none;
-}
-#lang-toggle {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 50%;
-  transform: translateX(-50%);
-  height: 2.5rem;
-  width: 2.5rem;
-  background-color: var(--accent-color);
-  border: none;
-  border-radius: 50%;
-  outline: none;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#lang-toggle:hover {
-  transform: scale(1.1);
-}
-#lang-toggle img {
-  width: 60%;
-  height: auto;
-}
-
-/* ---------- Minimal Media Query for Responsiveness ---------- */
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  .admotion-header h1 {
-    font-size: 2.8rem;
+  .company-name {
+    font-size: 1.5rem;
   }
-  .intro-section {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  .hero-title {
+    font-size: 48px;
   }
-  .intro-text {
-    width: 100%;
-    font-size: 50px;
-    line-height: 60px;
-  }
-  .sub-text {
-    font-size: 18px;
-  }
-  .get-in-touch {
-    font-size: 16px;
-    align-self: center;
+  .hero-subtitle {
+    font-size: 24px;
   }
   .box-specs-layout {
     flex-direction: column;
@@ -601,24 +272,11 @@ body[data-nav="true"] #nav-toggle .open {
   .specs-column {
     width: 100%;
     max-width: 500px;
+    margin: 0 auto;
   }
   .box-model-container {
     width: 100%;
     max-width: 600px;
-  }
-  .service-item {
-    padding: 1.5rem;
-  }
-  .adbox-title {
-    font-size: 2.5rem;
-  }
-  .adbox-subtitle {
-    font-size: 1.2rem;
-  }
-  .animation-container .lottie {
-    max-width: 120px;
-  }
-  .services-list {
-    grid-template-columns: 1fr;
+    margin-top: 20px;
   }
 }
