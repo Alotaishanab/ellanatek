@@ -33,6 +33,7 @@ const App = () => {
 
   return (
     <div className={`App ${navOpen ? 'nav-open' : ''}`} style={{ overflowX: 'hidden' }}>
+      
       <ToggleButton toggleNav={toggleNav} navOpen={navOpen} />
       <div className={`screen-container ${navOpen ? 'screen-container-open' : ''}`} style={{ maxWidth: '100vw', overflowX: 'hidden' }}>
         {screens[currentScreen]}

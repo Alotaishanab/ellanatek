@@ -1,4 +1,4 @@
-// ellanatek/src/components/AdvertiseWithUs.js
+// AdvertiseWithUs.js
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -62,7 +62,7 @@ const AdvertiseWithUs = ({ onNavigate }) => {
         setIsSubmitted(true);
         setTimeout(() => {
           onNavigate(0); // Navigate to home after 3 seconds
-        }, 3000); // 3 seconds delay
+        }, 3000);
       } else {
         alert(t('advertiseWithUs.alert.failedToSend'));
       }
@@ -89,7 +89,10 @@ const AdvertiseWithUs = ({ onNavigate }) => {
               <form onSubmit={handleSubmit}>
                 <div className="input-group">
                   <div className="input-field">
-                    <label>{t('advertiseWithUs.form.firstName')}</label>
+                    <label>
+                      {t('advertiseWithUs.form.firstName')}
+                      <span className="required">*</span>
+                    </label>
                     <input
                       type="text"
                       name="firstName"
@@ -99,7 +102,10 @@ const AdvertiseWithUs = ({ onNavigate }) => {
                     />
                   </div>
                   <div className="input-field">
-                    <label>{t('advertiseWithUs.form.lastName')}</label>
+                    <label>
+                      {t('advertiseWithUs.form.lastName')}
+                      <span className="required">*</span>
+                    </label>
                     <input
                       type="text"
                       name="lastName"
@@ -111,7 +117,10 @@ const AdvertiseWithUs = ({ onNavigate }) => {
                 </div>
                 <div className="input-group">
                   <div className="input-field">
-                    <label>{t('advertiseWithUs.form.email')}</label>
+                    <label>
+                      {t('advertiseWithUs.form.email')}
+                      <span className="required">*</span>
+                    </label>
                     <input
                       type="email"
                       name="email"
@@ -121,27 +130,38 @@ const AdvertiseWithUs = ({ onNavigate }) => {
                     />
                   </div>
                   <div className="input-field">
-                    <label>{t('advertiseWithUs.form.phoneNumber')}</label>
+                    <label>
+                      {t('advertiseWithUs.form.phoneNumber')}
+                      <span className="required">*</span>
+                    </label>
                     <input
                       type="tel"
                       name="phoneNumber"
                       onChange={handleChange}
+                      required
                       placeholder={t('advertiseWithUs.form.phoneNumberPlaceholder')}
                     />
                   </div>
                 </div>
                 <div className="input-group">
                   <div className="input-field">
-                    <label>{t('advertiseWithUs.form.businessName')}</label>
+                    <label>
+                      {t('advertiseWithUs.form.businessName')}
+                      <span className="required">*</span>
+                    </label>
                     <input
                       type="text"
                       name="businessName"
                       onChange={handleChange}
+                      required
                       placeholder={t('advertiseWithUs.form.businessNamePlaceholder')}
                     />
                   </div>
                   <div className="input-field custom-dropdown">
-                    <label>{t('advertiseWithUs.form.inquiryType')}</label>
+                    <label>
+                      {t('advertiseWithUs.form.inquiryType')}
+                      <span className="required">*</span>
+                    </label>
                     <div className="dropdown">
                       <div className="dropdown-toggle" onClick={() => setDropdownOpen(!dropdownOpen)}>
                         {selectedOption || t('advertiseWithUs.form.selectPlaceholder')}
@@ -166,7 +186,7 @@ const AdvertiseWithUs = ({ onNavigate }) => {
                     name="message"
                     onChange={handleChange}
                     value={formData.message}
-                    maxLength="500" // HTML attribute to enforce character limit
+                    maxLength="500"
                     placeholder={t('advertiseWithUs.form.messagePlaceholder')}
                   ></textarea>
                 </div>

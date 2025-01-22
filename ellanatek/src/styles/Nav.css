@@ -4,10 +4,11 @@ body, html {
   padding: 0;
   height: 100%;
   overflow: auto;
-  background-color: black;
+  background: var(--bg-gradient);  /* Uses your dark purple gradient */
   color: white;
   transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
 }
+
 
 .App.nav-open .screen-container {
   transform: translateY(-50vh);
@@ -26,10 +27,14 @@ nav {
   bottom: 0;
   z-index: 1;
   overflow: hidden;
-  background-color: black;
+  background: rgba(255, 255, 255, 0.06);  /* Glassy background */
+  border: 1px solid rgba(255, 255, 255, 0.15);  /* Subtle border */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   transform: translateY(100%);
   transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
 }
+
 
 
 
@@ -55,14 +60,18 @@ nav.nav-open {
 }
 
 .nav-link-label {
-  color: black;
+  color: white;  /* Change text color to white */
   font-size: 1.25rem;
   margin: 0;
   text-transform: uppercase;
-  background-color: #ffffff; /* Updated background color */
+  background: rgba(255, 255, 255, 0.06);  /* Glassmorphic background */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   padding: 10px;
   border-radius: 5px;
 }
+
 
 .nav-link-image {
   width: max(20vw, 400px);

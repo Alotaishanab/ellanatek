@@ -1,19 +1,19 @@
 .footer {
-  background-color: black; /* Ensure the background is white */
-  color: white; /* This will set the default text color within the footer */
+  background: var(--bg-gradient); /* Using the dark purple gradient */
+  color: var(--highlight-color);  /* Uses the highlight (white) color */
   text-align: center;
-  padding: 2px;
+  padding: 1rem;
   width: 100%;
   position: relative;
   bottom: 0;
-  left: 10px;
+  left: 0;
   box-sizing: border-box;
 }
 
 .footer p {
-  color: white; /* Set the paragraph text color to black */
   margin: 0;
   padding: 10px 0;
   font-size: 1em;
-  font-family: Jost;
+  font-family: 'Jost', sans-serif;
+  color: var(--highlight-color); /* Ensures the text color remains white */
 }

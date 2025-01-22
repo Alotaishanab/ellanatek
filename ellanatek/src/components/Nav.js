@@ -1,4 +1,4 @@
-// ellanatek/src/components/Nav.js
+// Nav.js
 import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import HomeSnapshot from '../snapshots/HomeSnapshot';
@@ -8,7 +8,7 @@ import ToggleButton from './ToggleButton'; // Import the ToggleButton component
 import '../styles/Nav.css';
 
 const Nav = ({ navOpen, onNavClick }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navLinksRef = useRef(null);
   const [showButton, setShowButton] = useState(true);
 
@@ -19,15 +19,15 @@ const Nav = ({ navOpen, onNavClick }) => {
       setShowButton(true); // Show the button on scroll
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
-        setShowButton(false); // Hide the button after 2 seconds of no scroll activity
-      }, 2000); // Adjust the timeout value as needed
+        setShowButton(false); // Hide the button after 2 seconds of no scroll
+      }, 2000);
     };
 
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      clearTimeout(scrollTimeout); // Cleanup on component unmount
+      clearTimeout(scrollTimeout);
     };
   }, []);
 
@@ -42,11 +42,6 @@ const Nav = ({ navOpen, onNavClick }) => {
         console.error("Selected link is undefined at index: ", index);
       }
     }
-  };
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    document.body.dir = lng === 'ar' ? 'rtl' : 'ltr';
   };
 
   return (
@@ -65,15 +60,8 @@ const Nav = ({ navOpen, onNavClick }) => {
           <AboutSnapshot />
         </div>
       </div>
-      <div className="language-switcher">
-        <button onClick={() => changeLanguage('en')} className={`lang-button ${i18n.language === 'en' ? 'active' : ''}`}>
-          English
-        </button>
-        <button onClick={() => changeLanguage('ar')} className={`lang-button ${i18n.language === 'ar' ? 'active' : ''}`}>
-          العربية
-        </button>
-      </div>
-      <ToggleButton toggleNav={() => {}} navOpen={navOpen} showButton={showButton} /> {/* Pass showButton state */}
+      {/* The language switcher is now moved into the ToggleButton component */}
+      <ToggleButton toggleNav={() => {}} navOpen={navOpen} showButton={showButton} toggleLanguage={() => { /* language handling logic */ }} />
     </nav>
   );
 };
