@@ -14,7 +14,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./ellanatek
       dockerfile: Dockerfile
     container_name: my_frontend
     ports:
