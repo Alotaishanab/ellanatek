@@ -2,24 +2,17 @@ version: "3.8"
 
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    # Instead of "build: ./backend", do:
+    image: myuser/ellanatek-backend:latest
     container_name: my_backend
-    # Map container port to host
     ports:
       - "5004:5004"
-    env_file:
-      - ./backend/.env
 
   frontend:
-    build:
-      context: ./ellanatek
-      dockerfile: Dockerfile
+    # Instead of "build: ./ellanatek", do:
+    image: myuser/ellanatek-frontend:latest
     container_name: my_frontend
     ports:
       - "80:80"
     depends_on:
       - backend
-    environment:
-      REACT_APP_API_URL: "http://backend:5004"
