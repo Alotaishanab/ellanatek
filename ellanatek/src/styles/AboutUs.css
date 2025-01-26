@@ -34,24 +34,36 @@ body {
   line-height: 1.6;
 }
 
-/* Container */
-.about-us-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 3rem 1.5rem;
-}
-
-/* Header */
 .admotion-header {
-  text-align: center;
+  position: relative; /* Changed from fixed */
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem;
+  background: transparent;
   margin-bottom: 4rem;
 }
 
-.admotion-header h1 {
-  color: var(--highlight-color);
-  font-size: 2rem;
-  font-weight: 100;
+.admotion-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 96px;
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  margin: 0;
+  position: relative;
+  pointer-events: none;
+  line-height: 1; /* Add this to fix vertical spacing */
 }
+
+/* Add padding to container to account for header */
+.about-us-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 3rem; /* Top padding for header space */
+}
+
 
 /* About Sections */
 .about-section {

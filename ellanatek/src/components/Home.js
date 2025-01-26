@@ -2,16 +2,13 @@ import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import '../styles/Home.css';
+import CustomMap from './CustomMap';
+import logo from '../assets/logo.png'; // Import the logo
 
 const BoxModel = lazy(() => import('./BoxModel'));
 
 const Home = ({ onNavigate }) => {
   const { t } = useTranslation();
-
-  /* 
-    1. We’ll use a ref to observe the AdBox section 
-       and trigger a "fade-in-up-active" class when it appears.
-  */
   const adboxRef = useRef(null);
 
   useEffect(() => {
@@ -20,18 +17,24 @@ const Home = ({ onNavigate }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('fade-in-up-active');
-            observer.unobserve(entry.target);
+          } else {
+            // Remove this line to prevent resetting the animation
+            // entry.target.classList.remove('fade-in-up-active');
           }
         });
       },
-      { threshold: 0.1 } // Trigger when 10% of the section is in view
+      { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
     );
-
-    if (adboxRef.current) {
-      observer.observe(adboxRef.current);
-    }
-
-    // Clean up on unmount
+  
+    const elementsToObserve = [
+      adboxRef.current,
+      document.querySelector('.working-region-section')
+    ];
+  
+    elementsToObserve.forEach(element => {
+      if (element) observer.observe(element);
+    });
+  
     return () => observer.disconnect();
   }, []);
 
@@ -40,18 +43,43 @@ const Home = ({ onNavigate }) => {
   };
 
   const leftSpecs = [
-    { title: "LED MODULE SIZE", value: "336MM X 384MM" },
-    { title: "OPERATING HUMIDITY", value: "10% - 80% RH" },
-    { title: "LED DISPLAY SIZE", value: "1008MM X 384MM" },
-    { title: "FULL SCREEN RESOLUTION", value: "336 PIXELS X 128 PIXELS" }
+    { 
+      title: t('home.specs.left.ledModuleSize.title'), 
+      value: t('home.specs.left.ledModuleSize.value') 
+    },
+    { 
+      title: t('home.specs.left.operatingHumidity.title'), 
+      value: t('home.specs.left.operatingHumidity.value') 
+    },
+    { 
+      title: t('home.specs.left.ledDisplaySize.title'), 
+      value: t('home.specs.left.ledDisplaySize.value') 
+    },
+    { 
+      title: t('home.specs.left.fullScreenResolution.title'), 
+      value: t('home.specs.left.fullScreenResolution.value') 
+    }
   ];
 
   const rightSpecs = [
-    { title: "BRIGHTNESS", value: ">4500 NITS" },
-    { title: "REFRESH RATE", value: ">1920HZ" },
-    { title: "VIEWING DISTANCE", value: "3 - 100 METERS" },
-    { title: "OPERATING TEMPERATURE", value: "-30°C TO 80°C" }
+    { 
+      title: t('home.specs.right.brightness.title'), 
+      value: t('home.specs.right.brightness.value') 
+    },
+    { 
+      title: t('home.specs.right.refreshRate.title'), 
+      value: t('home.specs.right.refreshRate.value') 
+    },
+    { 
+      title: t('home.specs.right.viewingDistance.title'), 
+      value: t('home.specs.right.viewingDistance.value') 
+    },
+    { 
+      title: t('home.specs.right.operatingTemperature.title'), 
+      value: t('home.specs.right.operatingTemperature.value') 
+    }
   ];
+
 
   return (
     <div className="home">
@@ -60,9 +88,8 @@ const Home = ({ onNavigate }) => {
         <meta name="description" content={t('home.meta.description')} />
         <meta name="keywords" content={t('home.meta.keywords')} />
         <meta name="robots" content="index, follow" />
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet" />
         <link rel="canonical" href="https://www.admotionsa.com" />
-
-        {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
           {`
             {
@@ -81,76 +108,81 @@ const Home = ({ onNavigate }) => {
         </script>
       </Helmet>
 
-      {/* --- Hero Section with Intro Animation --- */}
       <div className="hero-section">
         <header className="top-header">
-          <h1 className="company-name">AdMotion</h1>
+          {/* Removed title */}
         </header>
 
+        {/* Replaced video with logo */}
         <div className="video-background-wrapper">
-          <video autoPlay loop muted playsInline className="background-video">
-            <source src="/wait.mp4" type="video/mp4" />
-            {t('home.videoUnsupported')}
-          </video>
+          <img 
+            src={logo} 
+            alt="AdMotion Logo" 
+            className="logo-image" 
+            style={{ 
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
+          />
+          <div className="hero-text">ADMOTION</div>
         </div>
 
-        {/* 
-          2. The hero-overlay now has a keyframe animation (see Home.css). 
-             Also includes a "scroll-indicator" arrow that bounces. 
-        */}
         <div className="hero-overlay animated-hero">
-          <h2 className="hero-title">{t('home.intro.title')}</h2>
           <p className="hero-subtitle">{t('home.intro.subtitle')}</p>
           <p className="hero-description">{t('home.intro.subText')}</p>
 
           <button className="get-in-touch" onClick={handleGetInTouchClick}>
             {t('home.intro.getInTouch')}
           </button>
+        </div>
+      </div>
 
-          <div
-            className="scroll-indicator"
-            onClick={() => {
-              // Smooth scroll to AdBox section
-              adboxRef.current?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            ↓
+      <div className="working-region-section fade-in-up">
+        <div className="working-region-content">
+          <h2 className="working-region-title">{t('home.workingRegion.title')}</h2>
+          <p className="working-region-description">
+            {t('home.workingRegion.description')}
+          </p>
+          <div className="custom-map-container">
+            <CustomMap />
           </div>
         </div>
       </div>
 
-      {/* --- The AdBox Section (fade-in-up on scroll) --- */}
       <div className="adbox-section fade-in-up" ref={adboxRef}>
         <div className="adbox-content-wrapper">
           <h2 className="adbox-title">{t('home.adBox.title')}</h2>
           <p className="adbox-subtitle">{t('home.adBox.subtitle')}</p>
 
-          <div className="box-specs-layout">
-            {/* Left specs */}
-            <div className="specs-column left">
-              {leftSpecs.map((spec, index) => (
-                <div key={index} className="spec-item">
-                  <h4>{spec.title}</h4>
-                  <p>{spec.value}</p>
-                </div>
-              ))}
-            </div>
+          <div className="specs-container">
+            <div className="box-specs-layout">
+              <div className="specs-column left">
+                {leftSpecs.map((spec, index) => (
+                  <div key={index} className="spec-item">
+                    <h4>{spec.title}</h4>
+                    <p>{spec.value}</p>
+                  </div>
+                ))}
+              </div>
 
-            {/* 3D Box Model in center */}
-            <div className="box-model-container">
-              <Suspense fallback={<div>{t('home.loadingBoxModel')}</div>}>
-                <BoxModel />
-              </Suspense>
-            </div>
+              <div className="box-model-container">
+                <Suspense fallback={<div>{t('home.loadingBoxModel')}</div>}>
+                  <BoxModel />
+                </Suspense>
+              </div>
 
-            {/* Right specs */}
-            <div className="specs-column right">
-              {rightSpecs.map((spec, index) => (
-                <div key={index} className="spec-item">
-                  <h4>{spec.title}</h4>
-                  <p>{spec.value}</p>
-                </div>
-              ))}
+              <div className="specs-column right">
+                {rightSpecs.map((spec, index) => (
+                  <div key={index} className="spec-item">
+                    <h4>{spec.title}</h4>
+                    <p>{spec.value}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

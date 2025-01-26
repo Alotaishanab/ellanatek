@@ -1,10 +1,11 @@
 /* Global Variables */
 :root {
-  --accent-color: #9B59B6;                      /* Purple for language button */
-  --main-toggle-closed-bg: rgba(0, 0, 0, 0.7);   /* Darker background for better visibility */
-  --main-toggle-open-bg: rgba(0, 0, 0, 0.7);     /* Same color when open (adjust if desired) */
-  --lang-toggle-closed-bg: var(--accent-color);  /* Purple background for language button */
+  --accent-color: #9B59B6;
+  --main-toggle-closed-bg: rgba(189, 147, 249, 0.6);  /* Soft lavender purple */
+  --main-toggle-open-bg: rgba(189, 147, 249, 0.8);    /* More opaque when open */
+  --lang-toggle-closed-bg: var(--accent-color);
 }
+
 
 /* Container for both toggle buttons */
 #nav-toggle-container {
@@ -37,7 +38,7 @@
   height: 5rem;
   width: 5rem;
   background-color: var(--main-toggle-closed-bg);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(189, 147, 249, 0.5);
   border-radius: 50%;
   outline: none;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);

@@ -37,6 +37,21 @@ html, body {
   align-items: center;
 }
 
+.hero-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 182px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
 /* ---------- Hero Section ---------- */
 .hero-section {
   position: relative;
@@ -88,6 +103,8 @@ html, body {
   color: var(--highlight-color);
 }
 
+
+
 /* 
   1. Keyframe for a slide/fade effect. 
   You can tweak the from: and to: for different motion.
@@ -115,10 +132,11 @@ html, body {
   margin-bottom: 20px;
   letter-spacing: -1px;
 }
+
 .hero-subtitle {
   font-size: 30px;
-  font-weight: 400;
-  margin-bottom: 15px;
+  margin-top: 25rem; /* Add space after title */
+  margin-bottom: 1rem;
 }
 .hero-description {
   font-size: 18px;
@@ -143,16 +161,6 @@ html, body {
   font-weight: bold;
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.15);
-}
-
-/* ---------- Scroll Indicator (Arrow) ---------- */
-.scroll-indicator {
-  cursor: pointer;
-  color: var(--highlight-color);
-  font-size: 2rem;
-  margin-top: 2rem;
-  /* Bouncy animation */
-  animation: bounce 1.5s infinite;
 }
 
 /* Keyframe for bounce effect on arrow */
@@ -253,11 +261,142 @@ html, body {
   align-items: center;
   padding: 1rem;
 }
+/* Add this to your CSS */
+.specs-container {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(var(--blur-amount));
+  padding: 20px;
+  overflow: hidden; /* Essential for the shine effect */
+}
+
+/* Shining animation overlay */
+.specs-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shine 4s infinite;
+  z-index: 1;
+}
+
+@keyframes shine {
+  100% {
+    left: 200%;
+  }
+}
+
+/* Existing specs layout - just add z-index */
+.box-specs-layout {
+  position: relative;
+  z-index: 2; /* Ensure content stays above the shine */
+}
+
+
+/* Map Container */
+/* Working Region Section - Match Adbox Styles */
+.working-region-section {
+  width: 100%;
+  padding: 80px 20px;
+  background: var(--bg-gradient);
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Working Region Title - Matching Adbox Title */
+.working-region-title {
+  font-size: 56px;
+  font-weight: 400;
+  color: var(--highlight-color);
+  margin-bottom: 1rem;
+}
+
+/* Keep original description style unless you want to change it */
+.working-region-description {
+  color: var(--accent-color);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  max-width: 600px;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.working-region-content {
+  width: 100%;
+  max-width: 1200px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 40px;
+  backdrop-filter: blur(var(--blur-amount));
+  box-shadow: var(--box-shadow);
+}
+
+/* Map Container Adjustments */
+.map-container {
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.map-image:hover {
+  transform: scale(1.02);
+}
+
+
+/* Arabic Translation */
+/* Working Region RTL Adjustments */
+/* RTL Layout for Working Region */
+/* Force RTL for Arabic language */
+[lang="ar"] .working-region-section,
+[lang="ar"] .working-region-content {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+[lang="ar"] .working-region-title,
+[lang="ar"] .working-region-description {
+  margin-right: 0 !important;
+  margin-left: 2rem !important;
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   .company-name {
     font-size: 1.5rem;
+  }
+  .hero-text {
+    font-size: 96px;
   }
   .hero-title {
     font-size: 48px;
@@ -278,5 +417,19 @@ html, body {
     width: 100%;
     max-width: 600px;
     margin-top: 20px;
+  }
+  .map-container {
+    height: 300px;
+  }
+  
+  .composable-map {
+    transform: scale(1.2) !important;
+  }
+  .working-region-description {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  .working-region-title {
+    font-size: 48px;
   }
 }
