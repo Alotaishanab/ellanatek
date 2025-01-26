@@ -43,6 +43,7 @@
         "description": "Get in touch with AdMotion to learn how our mobile advertising solutions can help grow your business. Contact us today!"
       },
       "contactTitle": "Get in Touch",
+      "loadingMessage": "Submiting...",
       "contactSubtitle": "Contact us and we will get back to you!",
       "form": {
         "firstName": "First Name",
@@ -93,6 +94,48 @@
         "title": "The AdBox",
         "subtitle": "Sleek, Mobile Advertising"
       },
+      "specs": {
+      "left": {
+        "ledModuleSize": {
+          "title": "LED MODULE SIZE",
+          "value": "336MM X 384MM"
+        },
+        "operatingHumidity": {
+          "title": "OPERATING HUMIDITY",
+          "value": "10% - 80% RH"
+        },
+        "ledDisplaySize": {
+          "title": "LED DISPLAY SIZE",
+          "value": "1008MM X 384MM"
+        },
+        "fullScreenResolution": {
+          "title": "FULL SCREEN RESOLUTION",
+          "value": "336 PIXELS X 128 PIXELS"
+        }
+      },
+      "right": {
+        "brightness": {
+          "title": "BRIGHTNESS",
+          "value": ">4500 NITS"
+        },
+        "refreshRate": {
+          "title": "REFRESH RATE",
+          "value": ">1920HZ"
+        },
+        "viewingDistance": {
+          "title": "VIEWING DISTANCE",
+          "value": "3 - 100 METERS"
+        },
+        "operatingTemperature": {
+          "title": "OPERATING TEMPERATURE",
+          "value": "-30°C TO 80°C"
+        }
+      }
+    },
+      "workingRegion": {
+        "title": "Our Coverage Area",
+        "description": "Our service area is thoughtfully designed to cater to your needs, with the flexibility to expand based on customer requests. We focus on strategically chosen streets and key areas within Khobar to ensure maximum exposure for your brand across the city's vibrant landscape."
+    },
       "loadingBoxModel": "Loading Box Model..."
     },
     "nav": {
@@ -102,6 +145,15 @@
       "language": "Language",
       "english": "English",
       "arabic": "العربية"
-    }
+    },
+    "validation": {
+        "required": "This field is required",
+        "invalidName": "Invalid characters in name",
+        "invalidEmail": "Invalid email address",
+        "invalidPhone": "Must start with 05 and be 10 digits",
+        "minLength": "Must be at least {{count}} characters",
+        "maxLength": "Maximum {{count}} characters allowed",
+        "charactersLeft": "characters remaining"
+      }
   }
   

@@ -41,6 +41,7 @@ const AboutUs = () => {
         <link rel="canonical" href="https://www.admotionsa.com/about-us" />
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5JRG97M98"></script>
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet" />
         <script>
           {`
             window.dataLayer = window.dataLayer || [];
@@ -52,7 +53,7 @@ const AboutUs = () => {
       </Helmet>
 
       <header className="admotion-header">
-        <h1>{t('home.admotionText')}</h1>
+        <h1 className="admotion-text">ADMOTION</h1>
       </header>
 
       {/* Section: Who We Are */}

@@ -2,130 +2,130 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
+const sqlite3 = require('better-sqlite3');
 const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 const path = require('path');
-const config = require('./config'); // Import your config file
+const config = require('./config');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Serve static files from the 'public' directory
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Serve WebGL files from the 'assets' directory
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/mycompany', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// SQLite Database Setup
+const db = sqlite3('contacts.db');
 
-// Define schema and model
-const contactSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  phoneNumber: String,
-  businessName: String,
-  inquiryType: String,
-  message: String,
-});
-const Contact = mongoose.model('Contact', contactSchema);
+// Create contacts table
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS contacts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    firstName TEXT,
+    lastName TEXT,
+    email TEXT,
+    phoneNumber TEXT,
+    businessName TEXT,
+    inquiryType TEXT,
+    message TEXT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`).run();
 
-// Set up OAuth2 client
+// OAuth2 Configuration
 const oAuth2Client = new google.auth.OAuth2(
-    config.oauthClientId,
-    config.oauthClientSecret,
-    config.oauthRedirectUri
+  config.oauthClientId,
+  config.oauthClientSecret,
+  config.oauthRedirectUri
 );
 oAuth2Client.setCredentials({ refresh_token: config.oauthRefreshToken });
 
-// Create a transporter with OAuth2
+// Email Transporter
 async function createTransporter() {
-    const accessToken = await oAuth2Client.getAccessToken();
-
-    return nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            type: 'OAuth2',
-            user: 'info@admotionsa.com', // Use the correct sending email address
-            clientId: config.oauthClientId,
-            clientSecret: config.oauthClientSecret,
-            refreshToken: config.oauthRefreshToken,
-            accessToken: accessToken.token,
-        },
-    });
+  const accessToken = await oAuth2Client.getAccessToken();
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      type: 'OAuth2',
+      user: 'info@admotionsa.com',
+      clientId: config.oauthClientId,
+      clientSecret: config.oauthClientSecret,
+      refreshToken: config.oauthRefreshToken,
+      accessToken: accessToken.token,
+    },
+  });
 }
 
-// Handle contact form submission
+// Contact Form Endpoint
 app.post('/api/contact', async (req, res) => {
-    const { firstName, lastName, email, phoneNumber, businessName, inquiryType, message } = req.body;
-    console.log('Received request:', req.body);
+  const { firstName, lastName, email, phoneNumber, businessName, inquiryType, message } = req.body;
 
-    try {
-        const newContact = new Contact({ firstName, lastName, email, phoneNumber, businessName, inquiryType, message });
-        await newContact.save();
-        console.log('Saved new contact to MongoDB');
+  try {
+    // Save to SQLite
+    const stmt = db.prepare(`
+      INSERT INTO contacts 
+      (firstName, lastName, email, phoneNumber, businessName, inquiryType, message)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `);
+    stmt.run(firstName, lastName, email, phoneNumber, businessName, inquiryType, message);
 
-        const transporter = await createTransporter();
+    // Send emails
+    const transporter = await createTransporter();
 
-        // Send email to the user
-        // Send email to the user
-        const userMailOptions = {
-            from: 'info@admotionsa.com', // The sender email address
-            to: email,
-            subject: 'Welcome to AdMotion',
-            html: `
-              <div style="font-family: Arial, sans-serif; line-height: 1.6; text-align: center;">
-                <h1><strong>Dear ${firstName},</strong></h1>
-                <p>Welcome to AdMotion! We are thrilled to have you with us. Thank you for reaching out to us.</p>
-                <p>We have received your message and appreciate your interest in our mobile advertising solutions. Our team will review your inquiry and get back to you shortly.</p>
-                <p><strong><em>Where your brand is everywhere and seen by all.</em></strong></p>
-                <p><em>Best regards,<br/>The AdMotion Team</em></p>
-                
-                <img src="cid:admotionLogo" alt="AdMotion Logo" style="width: 100%; height: auto; margin-top: 20px;" />
-        
-                <p style="font-size: 12px; color: grey; text-align: center; margin-top: 10px;">
-                  This is an automated response. Please do not reply to this email.
-                </p>
-              </div>
-            `,
-            attachments: [{
-                filename: 'AdMotion.png',
-                path: path.join(__dirname, 'images/AdMotion.png'),
-                cid: 'admotionLogo' // same CID as in the html img src
-            }]
-        };
-        
+    // User confirmation email
+    const userMailOptions = {
+      from: 'info@admotionsa.com',
+      to: email,
+      subject: 'Welcome to AdMotion',
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; text-align: center;">
+          <h1><strong>Dear ${firstName},</strong></h1>
+          <p>Welcome to AdMotion! We are thrilled to have you with us. Thank you for reaching out.</p>
+          <p>We've received your message and will respond shortly.</p>
+          <p><strong><em>Where your brand is everywhere and seen by all.</em></strong></p>
+          <p><em>Best regards,<br/>The AdMotion Team</em></p>
+          <img src="cid:admotionLogo" alt="AdMotion Logo" style="max-width: 300px; margin: 20px 0;">
+          <p style="font-size: 12px; color: grey; margin-top: 10px;">
+            This is an automated response. Please do not reply to this email.
+          </p>
+        </div>
+      `,
+      attachments: [{
+        filename: 'AdMotion.png',
+        path: path.join(__dirname, 'images/AdMotion.png'),
+        cid: 'admotionLogo'
+      }]
+    };
 
-        await transporter.sendMail(userMailOptions);
-        console.log('Email sent to user');
+    // Company notification email
+    const companyMailOptions = {
+      from: 'info@admotionsa.com',
+      to: config.companyEmail,
+      subject: 'New Contact Form Submission',
+      text: `New submission:\n
+        Name: ${firstName} ${lastName}
+        Email: ${email}
+        Phone: ${phoneNumber}
+        Business: ${businessName}
+        Inquiry: ${inquiryType}
+        Message: ${message}`
+    };
 
-        // Send email to the company
-        const companyMailOptions = {
-            from: 'info@admotionsa.com', // The sender email address
-            to: config.companyEmail,
-            subject: 'New Contact Form Submission',
-            text: `New contact form submission received:\n\nFirst Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nPhone Number: ${phoneNumber}\nBusiness Name: ${businessName}\nInquiry Type: ${inquiryType}\nMessage: ${message}\n\nPlease follow up with this inquiry as soon as possible.`,
-        };
+    // Send both emails
+    await transporter.sendMail(userMailOptions);
+    await transporter.sendMail(companyMailOptions);
 
-        await transporter.sendMail(companyMailOptions);
-        console.log('Email sent to company');
-        
-        res.send('Message received and emails sent');
-    } catch (error) {
-        console.error('Error processing request:', error);
-        if (!res.headersSent) { // Ensure response is sent only once
-            res.status(500).send('Internal server error');
-        }
-    }
+    res.send('Message received and emails sent');
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal server error');
+  }
 });
 
+// Start Server
 const PORT = process.env.PORT || 5004;
-
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

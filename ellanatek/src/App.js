@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 const App = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [currentScreen, setCurrentScreen] = useState(0);
+  
 
   useEffect(() => {
     document.body.style.overflow = navOpen ? 'hidden' : 'auto';

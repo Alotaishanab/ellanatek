@@ -1,0 +1,47 @@
+/* CustomMap.css */
+.map-container {
+    position: relative;
+    width:1000px ;
+    max-width: 1200px;
+    height: 800px; /* Reduced base height */
+    margin: 2rem auto;
+    background: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .map-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .map-container {
+      width: 100%;
+      height: 400px; /* Smaller height for mobile */
+      margin: 1rem auto;
+      border-radius: 10px;
+      border-width: 1px;
+    }
+  
+    /* Optional: Adjust image positioning if needed */
+    .map-image {
+      object-position: 30% center; /* Adjust this based on your map's important areas */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .map-container {
+      height: 300px; /* Even smaller for very mobile devices */
+      border-radius: 8px;
+    }
+  }

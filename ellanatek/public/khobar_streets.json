@@ -1,0 +1,17 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": { "name": "King Fahd Road" },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [50.1980, 26.2172],
+            [50.1995, 26.2185],
+            [50.2010, 26.2200]
+          ]
+        }
+      }
+    ]
+  }

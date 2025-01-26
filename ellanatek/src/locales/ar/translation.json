@@ -43,6 +43,7 @@
         "description": "اتصل بـ AdMotion لتعرف كيف يمكن لحلولنا المبتكرة للإعلان المتنقل أن تساعد في نمو عملك. تواصل معنا اليوم!"
       },
       "contactTitle": "تواصل معنا",
+      "loadingMessage": "تقديم...",
       "contactSubtitle": "اتصل بنا وسنعود إليك!",
       "form": {
         "firstName": "الاسم الأول",
@@ -93,6 +94,48 @@
         "title": "الصندوق الإعلاني",
         "subtitle": "إعلان متنقل أنيق"
       },
+      "specs": {
+      "left": {
+        "ledModuleSize": {
+          "title": "حجم وحدة LED",
+          "value": "336 مم × 384 مم"
+        },
+        "operatingHumidity": {
+          "title": "رطوبة التشغيل",
+          "value": "10٪ - 80٪ رطوبة نسبية"
+        },
+        "ledDisplaySize": {
+          "title": "حجم شاشة LED",
+          "value": "1008 مم × 384 مم"
+        },
+        "fullScreenResolution": {
+          "title": "دقة الشاشة الكاملة",
+          "value": "336 بكسل × 128 بكسل"
+        }
+      },
+      "right": {
+        "brightness": {
+          "title": "السطوع",
+          "value": ">4500 نيت"
+        },
+        "refreshRate": {
+          "title": "معدل التحديث",
+          "value": ">1920 هرتز"
+        },
+        "viewingDistance": {
+          "title": "مسافة المشاهدة",
+          "value": "3 - 100 متر"
+        },
+        "operatingTemperature": {
+          "title": "درجة حرارة التشغيل",
+          "value": "-30°م إلى 80°م"
+        }
+      }
+    },
+      "workingRegion": {
+        "title": "منطقة عملنا",
+        "description": "هذه هي منطقة عملنا الرئيسية ولكن يمكننا دائمًا إجراء تغييرات وفقًا لاحتياجات عملائنا"
+    },
       "loadingBoxModel": "جارٍ تحميل نموذج الصندوق..."
     },
     "nav": {
@@ -102,6 +145,15 @@
       "language": "اللغة",
       "english": "English",
       "arabic": "العربية"
-    }
+    },
+    "validation": {
+    "required": "هذا الحقل مطلوب",
+    "invalidName": "يحتوي على أحرف غير صالحة",
+    "invalidEmail": "بريد إلكتروني غير صالح",
+    "invalidPhone": "يجب أن يبدأ الرقم بـ 05 ويتكون من 10 أرقام",
+    "minLength": "يجب أن يحتوي على الأقل على {{count}} أحرف",
+    "maxLength": "الحد الأقصى المسموح به {{count}} أحرف",
+    "charactersLeft": "أحرف متبقية"
+  }
   }
   
