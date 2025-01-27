@@ -18,29 +18,33 @@ services:
       - --certificatesresolvers.myresolver.acme.email=alotaishanab@gmail.com
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
       - --api.insecure=true
-    # If Traefik v2.9+, you can also do Docker labels instead of commands.
+    # If Traefik v2.9+, you can also use Docker labels to configure these instead of command flags.
 
   backend:
     image: alotaishanab/ellanatek-backend:latest
     container_name: my_backend
-    # Not exposing to host directly anymore—only inside Docker network
+    # Only exposed inside Docker (no host port).
     expose:
       - "5004"
-    # or ports: ["5004:5004"] if you still want direct access
     labels:
       - "traefik.enable=false"
-      # If you want to route requests to /api => your backend,
-      # you'd set up a label for traefik. This is optional.
+      # If you want to route requests to /api => backend, add a router here.
 
   frontend:
     image: alotaishanab/ellanatek-frontend:latest
     container_name: my_frontend
     expose:
       - "80" 
-    # We won't do "80:80" on the host if Traefik is the main entry
     labels:
       - "traefik.enable=true"
+
+      # 1) HTTPS router
       - "traefik.http.routers.frontend.rule=Host(`admotionsa.com`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
-      # An optional HTTP->HTTPS redirect can be done by another router on 'web' entrypoint
+
+      # 2) HTTP->HTTPS redirect router
+      - "traefik.http.routers.frontend-http.rule=Host(`admotionsa.com`)"
+      - "traefik.http.routers.frontend-http.entrypoints=web"
+      - "traefik.http.routers.frontend-http.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
