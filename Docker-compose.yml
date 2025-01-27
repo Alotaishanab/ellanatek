@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  # ---------------------
-  # Traefik (Reverse Proxy)
-  # ---------------------
+  # ----------------------------------------------------------------
+  # Traefik (Reverse Proxy) with Debug Logging
+  # ----------------------------------------------------------------
   reverse-proxy:
     image: traefik:v2.10
     container_name: traefik
@@ -11,60 +11,65 @@ services:
       - "80:80"     # HTTP on host
       - "443:443"   # HTTPS on host
     volumes:
-      # Allows Traefik to read labels from other containers
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Stores certificates from Let's Encrypt
       - ./letsencrypt:/letsencrypt
     command:
-      # Define entrypoints for HTTP (web) and HTTPS (websecure)
+      # ----------------------
+      # Debug Logging
+      # ----------------------
+      - --log.level=DEBUG       # <--- NEW: Enable debug-level logs
+
+      # ----------------------
+      # Entrypoints
+      # ----------------------
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
 
-      # Enable ACME (Let's Encrypt) using HTTP challenge on port 80
+      # ----------------------
+      # ACME (Let's Encrypt) Config
+      # ----------------------
       - --certificatesresolvers.myresolver.acme.httpchallenge=true
       - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
-
-      # Your email for Let's Encrypt registration
       - --certificatesresolvers.myresolver.acme.email=alotaishanab@gmail.com
-
-      # Where Traefik stores the cert data
       - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
 
-      # Optional: enable Traefik's API on :8080 (insecure, for debugging)
+      # ----------------------
+      # Traefik Dashboard (insecure)
+      # ----------------------
       - --api.insecure=true
+      # This exposes a dashboard on port 8080 inside the container
+      # You can also map `- "8080:8080"` in ports if you want to view it externally.
 
-  # ---------------------
+  # ----------------------------------------------------------------
   # Backend (Node.js)
-  # ---------------------
+  # ----------------------------------------------------------------
   backend:
     image: alotaishanab/ellanatek-backend:latest
     container_name: my_backend
-    # Exposed only within Docker network (no direct host port).
     expose:
       - "5004"
     labels:
-      # We disable Traefik for backend for now (no public route).
       - "traefik.enable=false"
-      # If you want to route /api => backend, you'd add more labels here.
+      # If you want a /api route in the future, add labels here.
 
-  # ---------------------
+  # ----------------------------------------------------------------
   # Frontend (React + nginx)
-  # ---------------------
+  # ----------------------------------------------------------------
   frontend:
     image: alotaishanab/ellanatek-frontend:latest
     container_name: my_frontend
-    # Exposed only inside Docker, route via Traefik.
     expose:
       - "80"
     labels:
       - "traefik.enable=true"
 
-      # --- HTTPS Router (websecure) ---
-      # This router matches requests with Host "admotionsa.com" on entrypoint "websecure" (port 443).
+      # --- HTTPS Router (443) ---
       - "traefik.http.routers.frontend.rule=Host(`admotionsa.com`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
 
-      # --- HTTP->HTTPS Redirect Router (web) ---
-      # This router matches the same Host, but on entrypoint "web" (port 80).
-     
+      # --- HTTP->HTTPS Redirect Router (80) ---
+      - "traefik.http.routers.frontend-http.rule=Host(`admotionsa.com`)"
+      - "traefik.http.routers.frontend-http.entrypoints=web"
+      - "traefik.http.routers.frontend-http.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
