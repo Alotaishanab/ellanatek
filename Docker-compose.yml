@@ -40,7 +40,7 @@ services:
     # We won't do "80:80" on the host if Traefik is the main entry
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`yourdomain.com`)"
+      - "traefik.http.routers.frontend.rule=Host(`admotionsa.com`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
       # An optional HTTP->HTTPS redirect can be done by another router on 'web' entrypoint
