@@ -3,14 +3,14 @@ version: "3.8"
 services:
   backend:
     # Instead of "build: ./backend", do:
-    image: myuser/ellanatek-backend:latest
+    image: alotaishanab/ellanatek-backend:latest
     container_name: my_backend
     ports:
       - "5004:5004"
 
   frontend:
     # Instead of "build: ./ellanatek", do:
-    image: myuser/ellanatek-frontend:latest
+    image: alotaishanab/ellanatek-frontend:latest
     container_name: my_frontend
     ports:
       - "80:80"
