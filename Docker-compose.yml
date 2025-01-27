@@ -10,6 +10,7 @@ services:
     ports:
       - "80:80"     # HTTP on host
       - "443:443"   # HTTPS on host
+      - "8080:8080" # Traefik dashboard for debugging
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./letsencrypt:/letsencrypt
@@ -17,7 +18,7 @@ services:
       # ----------------------
       # Debug Logging
       # ----------------------
-      - --log.level=DEBUG       # <--- NEW: Enable debug-level logs
+      - --log.level=DEBUG
 
       # ----------------------
       # Entrypoints
@@ -37,8 +38,9 @@ services:
       # Traefik Dashboard (insecure)
       # ----------------------
       - --api.insecure=true
-      # This exposes a dashboard on port 8080 inside the container
-      # You can also map `- "8080:8080"` in ports if you want to view it externally.
+
+    extra_hosts:
+      - "admotionsa.com:127.0.0.1"  # Ensure proper host resolution
 
   # ----------------------------------------------------------------
   # Backend (Node.js)
@@ -73,3 +75,4 @@ services:
       - "traefik.http.routers.frontend-http.entrypoints=web"
       - "traefik.http.routers.frontend-http.middlewares=redirect-to-https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
