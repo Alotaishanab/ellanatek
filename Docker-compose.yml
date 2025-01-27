@@ -1,78 +1,30 @@
 version: "3.8"
 
 services:
-  # ----------------------------------------------------------------
-  # Traefik (Reverse Proxy) with Debug Logging
-  # ----------------------------------------------------------------
-  reverse-proxy:
-    image: traefik:v2.10
-    container_name: traefik
-    ports:
-      - "80:80"     # HTTP on host
-      - "443:443"   # HTTPS on host
-      - "8080:8080" # Traefik dashboard for debugging
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./letsencrypt:/letsencrypt
-    command:
-      # ----------------------
-      # Debug Logging
-      # ----------------------
-      - --log.level=DEBUG
-
-      # ----------------------
-      # Entrypoints
-      # ----------------------
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-
-      # ----------------------
-      # ACME (Let's Encrypt) Config
-      # ----------------------
-      - --certificatesresolvers.myresolver.acme.httpchallenge=true
-      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
-      - --certificatesresolvers.myresolver.acme.email=alotaishanab@gmail.com
-      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
-
-      # ----------------------
-      # Traefik Dashboard (insecure)
-      # ----------------------
-      - --api.insecure=true
-
-    extra_hosts:
-      - "admotionsa.com:127.0.0.1"  # Ensure proper host resolution
-
-  # ----------------------------------------------------------------
-  # Backend (Node.js)
-  # ----------------------------------------------------------------
   backend:
     image: alotaishanab/ellanatek-backend:latest
     container_name: my_backend
-    expose:
-      - "5004"
-    labels:
-      - "traefik.enable=false"
-      # If you want a /api route in the future, add labels here.
+    ports:
+      - "5004:5004"
+    networks:
+      - app-net
+    restart: unless-stopped
 
-  # ----------------------------------------------------------------
-  # Frontend (React + nginx)
-  # ----------------------------------------------------------------
   frontend:
     image: alotaishanab/ellanatek-frontend:latest
     container_name: my_frontend
-    expose:
-      - "80"
-    labels:
-      - "traefik.enable=true"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-net
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certs:/etc/nginx/certs
+    depends_on:
+      - backend
+    restart: unless-stopped
 
-      # --- HTTPS Router (443) ---
-      - "traefik.http.routers.frontend.rule=Host(`admotionsa.com`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
-
-      # --- HTTP->HTTPS Redirect Router (80) ---
-      - "traefik.http.routers.frontend-http.rule=Host(`admotionsa.com`)"
-      - "traefik.http.routers.frontend-http.entrypoints=web"
-      - "traefik.http.routers.frontend-http.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+networks:
+  app-net:
+    driver: bridge
