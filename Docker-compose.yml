@@ -1,50 +1,70 @@
 version: "3.8"
 
 services:
+  # ---------------------
+  # Traefik (Reverse Proxy)
+  # ---------------------
   reverse-proxy:
     image: traefik:v2.10
     container_name: traefik
     ports:
-      - "80:80"
-      - "443:443"
+      - "80:80"     # HTTP on host
+      - "443:443"   # HTTPS on host
     volumes:
+      # Allows Traefik to read labels from other containers
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Stores certificates from Let's Encrypt
       - ./letsencrypt:/letsencrypt
     command:
+      # Define entrypoints for HTTP (web) and HTTPS (websecure)
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
+
+      # Enable ACME (Let's Encrypt) using HTTP challenge on port 80
       - --certificatesresolvers.myresolver.acme.httpchallenge=true
       - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
-      - --certificatesresolvers.myresolver.acme.email=alotaishanab@gmail.com
-      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
-      - --api.insecure=true
-    # If Traefik v2.9+, you can also use Docker labels to configure these instead of command flags.
 
+      # Your email for Let's Encrypt registration
+      - --certificatesresolvers.myresolver.acme.email=alotaishanab@gmail.com
+
+      # Where Traefik stores the cert data
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+
+      # Optional: enable Traefik's API on :8080 (insecure, for debugging)
+      - --api.insecure=true
+
+  # ---------------------
+  # Backend (Node.js)
+  # ---------------------
   backend:
     image: alotaishanab/ellanatek-backend:latest
     container_name: my_backend
-    # Only exposed inside Docker (no host port).
+    # Exposed only within Docker network (no direct host port).
     expose:
       - "5004"
     labels:
+      # We disable Traefik for backend for now (no public route).
       - "traefik.enable=false"
-      # If you want to route requests to /api => backend, add a router here.
+      # If you want to route /api => backend, you'd add more labels here.
 
+  # ---------------------
+  # Frontend (React + nginx)
+  # ---------------------
   frontend:
     image: alotaishanab/ellanatek-frontend:latest
     container_name: my_frontend
+    # Exposed only inside Docker, route via Traefik.
     expose:
-      - "80" 
+      - "80"
     labels:
       - "traefik.enable=true"
 
-      # 1) HTTPS router
+      # --- HTTPS Router (websecure) ---
+      # This router matches requests with Host "admotionsa.com" on entrypoint "websecure" (port 443).
       - "traefik.http.routers.frontend.rule=Host(`admotionsa.com`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
 
-      # 2) HTTP->HTTPS redirect router
-      - "traefik.http.routers.frontend-http.rule=Host(`admotionsa.com`)"
-      - "traefik.http.routers.frontend-http.entrypoints=web"
-      - "traefik.http.routers.frontend-http.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      # --- HTTP->HTTPS Redirect Router (web) ---
+      # This router matches the same Host, but on entrypoint "web" (port 80).
+     
