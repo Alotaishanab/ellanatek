@@ -1,58 +1,30 @@
 version: "3.8"
 
 services:
-  traefik:
-    image: traefik:v2.10
-    container_name: traefik
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./letsencrypt:/letsencrypt
-    command:
-      - --log.level=DEBUG
-      - --api.insecure=true
-      - --providers.docker=true
-      - --providers.docker.network=traefik-net
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.myresolver.acme.httpchallenge=true
-      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
-      - --certificatesresolvers.myresolver.acme.email=alotaishanab@gmail.com
-      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
-    networks:
-      - traefik-net
-
   backend:
     image: alotaishanab/ellanatek-backend:latest
     container_name: my_backend
     expose:
       - "5004"
     networks:
-      - traefik-net
-    labels:
-      - "traefik.enable=false"
+      - app-net
+    restart: unless-stopped
 
   frontend:
     image: alotaishanab/ellanatek-frontend:latest
     container_name: my_frontend
+    ports:
+      - "80:80"
+      - "443:443"
     networks:
-      - traefik-net
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`admotionsa.com`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
-      - "traefik.http.services.frontend.loadbalancer.server.port=80"
-      - "traefik.http.routers.frontend-http.rule=Host(`admotionsa.com`)"
-      - "traefik.http.routers.frontend-http.entrypoints=web"
-      - "traefik.http.routers.frontend-http.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - app-net
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certs:/etc/nginx/certs
     depends_on:
       - backend
+    restart: unless-stopped
 
 networks:
-  traefik-net:
+  app-net:
     driver: bridge
