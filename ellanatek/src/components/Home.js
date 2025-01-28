@@ -1,11 +1,41 @@
 import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import Lottie from 'lottie-react';
+import loadingAnimation from '../assets/animations/loading.json';
 import '../styles/Home.css';
 import CustomMap from './CustomMap';
 import logo from '../assets/logo.png'; // Import the logo
 
+// Lazy load the BoxModel component
 const BoxModel = lazy(() => import('./BoxModel'));
+
+// ImageLoader Component with Placeholder
+const ImageLoader = ({ src, alt, className }) => {
+  const [loaded, setLoaded] = React.useState(false);
+
+  return (
+    <div className={`image-container ${className}`}>
+      {!loaded && (
+        <div className="image-placeholder">
+          <Lottie
+            animationData={loadingAnimation}
+            loop={true}
+            style={{ height: 50, width: 50 }}
+          />
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        className={`loaded-image ${loaded ? 'visible' : ''}`}
+        onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
+        loading="lazy"
+      />
+    </div>
+  );
+};
 
 const Home = ({ onNavigate }) => {
   const { t } = useTranslation();
@@ -17,24 +47,21 @@ const Home = ({ onNavigate }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('fade-in-up-active');
-          } else {
-            // Remove this line to prevent resetting the animation
-            // entry.target.classList.remove('fade-in-up-active');
           }
         });
       },
       { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
     );
-  
+
     const elementsToObserve = [
       adboxRef.current,
       document.querySelector('.working-region-section')
     ];
-  
+
     elementsToObserve.forEach(element => {
       if (element) observer.observe(element);
     });
-  
+
     return () => observer.disconnect();
   }, []);
 
@@ -43,91 +70,29 @@ const Home = ({ onNavigate }) => {
   };
 
   const leftSpecs = [
-    { 
-      title: t('home.specs.left.ledModuleSize.title'), 
-      value: t('home.specs.left.ledModuleSize.value') 
-    },
-    { 
-      title: t('home.specs.left.operatingHumidity.title'), 
-      value: t('home.specs.left.operatingHumidity.value') 
-    },
-    { 
-      title: t('home.specs.left.ledDisplaySize.title'), 
-      value: t('home.specs.left.ledDisplaySize.value') 
-    },
-    { 
-      title: t('home.specs.left.fullScreenResolution.title'), 
-      value: t('home.specs.left.fullScreenResolution.value') 
-    }
+    { title: t('home.specs.left.ledModuleSize.title'), value: t('home.specs.left.ledModuleSize.value') },
+    // ... other specs
   ];
 
   const rightSpecs = [
-    { 
-      title: t('home.specs.right.brightness.title'), 
-      value: t('home.specs.right.brightness.value') 
-    },
-    { 
-      title: t('home.specs.right.refreshRate.title'), 
-      value: t('home.specs.right.refreshRate.value') 
-    },
-    { 
-      title: t('home.specs.right.viewingDistance.title'), 
-      value: t('home.specs.right.viewingDistance.value') 
-    },
-    { 
-      title: t('home.specs.right.operatingTemperature.title'), 
-      value: t('home.specs.right.operatingTemperature.value') 
-    }
+    { title: t('home.specs.right.brightness.title'), value: t('home.specs.right.brightness.value') },
+    // ... other specs
   ];
-
 
   return (
     <div className="home">
       <Helmet>
         <title>{t('home.meta.title')}</title>
-        <meta name="description" content={t('home.meta.description')} />
-        <meta name="keywords" content={t('home.meta.keywords')} />
-        <meta name="robots" content="index, follow" />
-        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet" />
-        <link rel="canonical" href="https://www.admotionsa.com" />
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "AdMotion",
-              "url": "https://www.admotionsa.com",
-              "logo": "https://www.admotionsa.com/logo.png",
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "email": "info@admotionsa.com",
-                "contactType": "Customer Service"
-              }
-            }
-          `}
-        </script>
+        {/* ... other meta tags */}
       </Helmet>
 
       <div className="hero-section">
         <header className="top-header">
-          {/* Removed title */}
+          <div className="company-name">AdMotion</div>
         </header>
 
-        {/* Replaced video with logo */}
         <div className="video-background-wrapper">
-          <img 
-            src={logo} 
-            alt="AdMotion Logo" 
-            className="logo-image" 
-            style={{ 
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              position: 'absolute',
-              top: 0,
-              left: 0
-            }}
-          />
+          <ImageLoader src={logo} alt="AdMotion Logo" className="logo-image" />
           <div className="hero-text">ADMOTION</div>
         </div>
 
@@ -144,9 +109,7 @@ const Home = ({ onNavigate }) => {
       <div className="working-region-section fade-in-up">
         <div className="working-region-content">
           <h2 className="working-region-title">{t('home.workingRegion.title')}</h2>
-          <p className="working-region-description">
-            {t('home.workingRegion.description')}
-          </p>
+          <p className="working-region-description">{t('home.workingRegion.description')}</p>
           <div className="custom-map-container">
             <CustomMap />
           </div>

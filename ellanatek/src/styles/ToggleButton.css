@@ -11,16 +11,14 @@
 #nav-toggle-container {
   position: fixed;
   left: 50%;
-  bottom: 5rem;
+  bottom: -1rem; /* Increased from 8rem to move down */
   transform: translateX(-50%);
   z-index: 10;
-
-  display: flex;          /* Stack the two buttons vertically */
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   align-items: center;
-
-  transition: opacity 0.3s ease, visibility 0.3s ease; /* for show/hide logic */
-  padding-bottom: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  gap: 0.5rem; /* Added gap for mobile view */
 }
 
 /* Show/hide classes for container */
@@ -133,3 +131,43 @@ body[data-nav="true"] #nav-toggle .open {
     height: auto;
   }
   
+/* Mobile View Adjustments */
+@media (max-width: 767px) {
+  #nav-toggle-container {
+    bottom: -2rem;
+    
+    
+  }
+
+  #nav-toggle {
+    height: 2rem;  /* Reduced from 4rem */
+    width: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Smaller shadow */
+  }
+
+  #lang-toggle {
+    height: 2rem;    /* Reduced from 2.5rem */
+    width: 2rem;
+    margin-top: -6.2rem;
+    position: static;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Even smaller shadow */
+  }
+
+  /* Adjust icon sizes inside buttons */
+  #nav-toggle .icon img {
+    width: 60%;      /* Smaller icon in main button */
+  }
+
+  #lang-toggle img {
+    width: 50%;      /* Smaller language icon */
+  }
+
+  /* Slightly reduce hover scaling */
+  #nav-toggle:hover {
+    transform: scale(1.05);
+  }
+
+  #lang-toggle:hover {
+    transform: scale(1.05);
+  }
+}
