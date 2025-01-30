@@ -1,10 +1,12 @@
+// HomeSnapshot.js
 import React from 'react';
-import '../styles/Snapshot.css'; // CSS file for styling snapshots
+import HomePage from '../assets/HomePage.png';
+import './HomeSnapshot.css'; // Create this CSS file in the same directory
 
 const HomeSnapshot = () => {
   return (
-    <div className="snapshot">
-
+    <div className="snapshot home-snapshot">
+      <img src={HomePage} alt="Home Page Snapshot" className="snapshot-image" />
     </div>
   );
 };

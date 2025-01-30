@@ -7,6 +7,7 @@ import loadingAnimation from '../assets/animations/loading.json';
 import '../styles/Home.css';
 import CustomMap from './CustomMap';
 import logo from '../assets/logo.png'; // Import the logo
+import video1 from '../assets/videos/video1.mp4'; // Import the video
 
 // Lazy load the BoxModel component
 const BoxModel = lazy(() => import('./BoxModel'));
@@ -64,9 +65,63 @@ const ImageLoader = ({ src, alt, className }) => {
   );
 };
 
+// Optimized VideoLoader Component with Intersection Observer
+const VideoLoader = ({ src, type, className }) => {
+  const [isVisible, setIsVisible] = React.useState(false);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (observer && observer.disconnect) observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className={`video-container ${className}`} ref={videoRef}>
+      {isVisible ? (
+        <video
+          src={src}
+          type={type}
+          className="loaded-video visible"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata" // Changed from "auto" to "metadata"
+        />
+      ) : (
+        <div className="video-placeholder">
+          <Lottie
+            animationData={loadingAnimation}
+            loop={true}
+            style={{ height: 50, width: 50 }}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Home = ({ onNavigate }) => {
   const { t } = useTranslation();
   const adboxRef = useRef(null);
+  const boxVideoRef = useRef(null); // Ref for the new video section
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,6 +137,7 @@ const Home = ({ onNavigate }) => {
 
     const elementsToObserve = [
       adboxRef.current,
+      boxVideoRef.current, // Observe the new video section
       document.querySelector('.working-region-section')
     ];
 
@@ -162,6 +218,7 @@ const Home = ({ onNavigate }) => {
       </Helmet>
 
       <ErrorBoundary>
+        {/* Hero Section */}
         <div className="hero-section">
           <header className="top-header">
             {/* Removed title */}
@@ -187,6 +244,37 @@ const Home = ({ onNavigate }) => {
           </div>
         </div>
 
+        {/* New Box Video Section */}
+        <div className="adbox-section fade-in-up" ref={boxVideoRef}>
+          <div className="adbox-content-wrapper">
+            <h2 className="working-region-title">{t('home.boxVideo.title')}</h2>
+            <p className="adbox-subtitle">
+              {t('home.boxVideo.description')}
+            </p>
+            <div className="specs-container">
+              {/* Add a video container wrapper to constrain the video size */}
+              <div className="video-container-wrapper">
+                <Suspense fallback={
+                  <div className="video-placeholder">
+                    <Lottie
+                      animationData={loadingAnimation}
+                      loop={true}
+                      style={{ height: 50, width: 50 }}
+                    />
+                  </div>
+                }>
+                  <VideoLoader 
+                    src={video1} 
+                    type="video/mp4" 
+                    className="box-video" 
+                  />
+                </Suspense>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Working Region Section */}
         <div className="working-region-section fade-in-up">
           <div className="working-region-content">
             <h2 className="working-region-title">{t('home.workingRegion.title')}</h2>
@@ -199,6 +287,7 @@ const Home = ({ onNavigate }) => {
           </div>
         </div>
 
+        {/* AdBox Section */}
         <div className="adbox-section fade-in-up" ref={adboxRef}>
           <div className="adbox-content-wrapper">
             <h2 className="adbox-title">{t('home.adBox.title')}</h2>

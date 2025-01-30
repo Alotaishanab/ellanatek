@@ -1,0 +1,36 @@
+/* AboutSnapshot.css */
+.snapshot {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .about-snapshot {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .snapshot-image {
+    width: 100%;
+    height: auto;
+    max-width: 1400px; /* Increased max-width for wider images */
+    border-radius: 30px; /* Added border-radius */
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: added shadow for better appearance */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .about-snapshot {
+      padding: 10px;
+    }
+  
+    .snapshot-image {
+      max-width: 100%;
+      border-radius: 20px; /* Slightly reduced radius on smaller screens */
+      height: 30vh; /* Set height to occupy more vertical space on mobile */
+      
+    }
+  }
+  

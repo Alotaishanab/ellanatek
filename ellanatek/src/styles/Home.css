@@ -213,8 +213,8 @@ html, body {
 .adbox-subtitle {
   font-size: 19px;
   font-weight: 400;
-  color: #6E6E73;
   margin-bottom: 2rem;
+  color: var(--accent-color);
 }
 
 /* Specs + Box model layout */
@@ -512,6 +512,50 @@ html, body {
   padding: 2rem;
 }
 
+
+/* Ensure the video fits within the container */
+.video-container-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+  margin: 0 auto;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.video-container-wrapper .video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  background: var(--glass-bg); /* Glass effect */
+  backdrop-filter: blur(var(--blur-amount)); /* Glass effect */
+}
+
+.loaded-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.loaded-video.visible {
+  opacity: 1;
+}
+
+.video-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+/* ---------- Responsive ---------- */
+
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   .company-name {
@@ -553,5 +597,81 @@ html, body {
   }
   .working-region-title {
     font-size: 48px;
+  }
+  .video-container-wrapper {
+    max-width: 100%; /* Allow full width on smaller screens */
+  }
+  .video-container-wrapper .video-container {
+    aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjust Font Sizes for Very Small Screens */
+  .adbox-title {
+    font-size: 32px; /* Further reduce title size */
+  }
+
+  .adbox-subtitle {
+    font-size: 14px; /* Further reduce subtitle size */
+  }
+
+  /* Adjust the Video Container Wrapper */
+  .video-container-wrapper {
+    max-width: 100%; /* Ensure the wrapper doesn't exceed the parent width */
+    padding-top: 56.25%; /* Maintain 16:9 aspect ratio */
+  }
+
+  /* Adjust the Video Container */
+  .video-container-wrapper .video-container {
+    aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+    max-width: 100%; /* Ensure it doesn't exceed the wrapper */
+  }
+
+  /* Adjust the Video Itself */
+  .loaded-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+  }
+
+  .loaded-video.visible {
+    opacity: 1;
+  }
+
+  /* Adjust the Video Placeholder */
+  .video-placeholder {
+    height: 30px; /* Reduce placeholder size */
+    width: 30px;
+  }
+
+  /* Reduce Padding in Specs Container */
+  .specs-container {
+    padding: 10px; /* Further reduce padding */
+  }
+
+  /* Adjust Specs Layout for Better Spacing */
+  .box-specs-layout {
+    gap: 15px; /* Reduce gap between elements */
+  }
+
+  /* Adjust Box Model Container */
+  .box-model-container {
+    max-width: 100%;
+    margin-top: 10px; /* Reduce top margin */
+  }
+
+  /* Adjust Map Container Height */
+  .map-container {
+    height: 250px; /* Further reduce height */
+  }
+
+  /* Ensure No Horizontal Overflow */
+  .specs-container, .video-container-wrapper, .video-container-wrapper .video-container {
+    overflow: hidden;
   }
 }
