@@ -1,14 +1,14 @@
-// ContactUs.js
+// AdvertiseSnapshot.js
 import React from 'react';
+import AdvertisePage from '../assets/AdvertisePage.png';
+import './AdvertiseSnapshot.css'; // Create this CSS file in the same directory
 
-const ContactUs = () => {
+const AdvertiseSnapshot = () => {
   return (
-    <div className="contact-us">
-      <h2>Contact Us</h2>
-      <p>We would love to hear from you!</p>
-      {/* Add more details as needed */}
+    <div className="snapshot advertise-snapshot">
+      <img src={AdvertisePage} alt="Advertise Page Snapshot" className="snapshot-image" />
     </div>
   );
 };
 
-export default ContactUs;
+export default AdvertiseSnapshot;

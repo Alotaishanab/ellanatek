@@ -1,100 +1,108 @@
 {
-    "aboutUs": {
-      "meta": {
-        "title": "About Us - AdMotion",
-        "description": "Learn more about AdMotion, our mission, vision, and the services we offer. We are dedicated to bringing your brand to the forefront with our innovative mobile advertising solutions.",
-        "keywords": "AdMotion, Mobile Advertising, Digital Advertising, Marketing, Billboard Advertising"
+  "aboutUs": {
+    "meta": {
+      "title": "About Us - AdMotion",
+      "description": "Learn more about AdMotion, our mission, vision, and the services we offer. We are dedicated to bringing your brand to the forefront with our innovative mobile advertising solutions.",
+      "keywords": "AdMotion, Mobile Advertising, Digital Advertising, Marketing, Billboard Advertising"
+    },
+    "sections": {
+      "whoWeAre": {
+        "title": "Who We Are",
+        "description": "At AdMotion, we specialize in taking your message to the streets, literally. With our innovative mobile advertising solutions, we bring your brand, promotion, or campaign directly to your target audience, maximizing visibility and impact. With our commitment to creativity, technology, and exceptional service, we're your partner in driving towards results and a lasting impression."
       },
-      "sections": {
-        "whoWeAre": {
-          "title": "Who We Are",
-          "description": "At AdMotion, we specialize in taking your message to the streets, literally. With our innovative mobile advertising solutions, we bring your brand, promotion, or campaign directly to your target audience, maximizing visibility and impact. With our commitment to creativity, technology, and exceptional service, we're your partner in driving towards results and a lasting impression."
-        },
-        "ourMission": {
-          "title": "Our Mission",
-          "description": "Our mission is to empower businesses of all sizes to reach their target audiences with precision and impact through our innovative mobile advertising solutions. We are dedicated to delivering brand awareness, customer engagement, and revenue growth for our clients by providing the latest in technology, creativity, and strategic thinking."
-        },
-        "ourVision": {
-          "title": "Our Vision",
-          "description": "Our vision is to be the leading provider of mobile advertising solutions, recognized for our commitment to client success and cutting-edge technology. We envision a future where every partner has the power to connect with audiences in meaningful ways, and we're dedicated to making that vision a reality through continuous improvement and forward-thinking strategies."
-        },
-        "ourServices": {
-          "title": "Our Services",
-          "serviceItems": {
-            "mobileBillboardAdvertising": {
-              "title": "Mobile Billboard Advertising",
-              "description": "Utilizing strategically positioned bikes equipped with high-resolution digital screens to display dynamic advertisements in high-traffic areas, events, and targeted locations."
-            },
-            "targetedCampaigns": {
-              "title": "Targeted Campaigns",
-              "description": "Customized advertising campaigns tailored to specific demographics, geographic locations, and events to ensure maximum exposure and engagement."
-            },
-            "eventSupport": {
-              "title": "Event Support",
-              "description": "Creating memorable experiences through events, product launches, and promotions using our mobile screens as a focal point."
-            }
+      "ourMission": {
+        "title": "Our Mission",
+        "description": "Our mission is to empower businesses of all sizes to reach their target audiences with precision and impact through our innovative mobile advertising solutions. We are dedicated to delivering brand awareness, customer engagement, and revenue growth for our clients by providing the latest in technology, creativity, and strategic thinking."
+      },
+      "ourVision": {
+        "title": "Our Vision",
+        "description": "Our vision is to be the leading provider of mobile advertising solutions, recognized for our commitment to client success and cutting-edge technology. We envision a future where every partner has the power to connect with audiences in meaningful ways, and we're dedicated to making that vision a reality through continuous improvement and forward-thinking strategies."
+      },
+      "ourServices": {
+        "title": "Our Services",
+        "serviceItems": {
+          "mobileBillboardAdvertising": {
+            "title": "Mobile Billboard Advertising",
+            "description": "Utilizing strategically positioned bikes equipped with high-resolution digital screens to display dynamic advertisements in high-traffic areas, events, and targeted locations."
+          },
+          "targetedCampaigns": {
+            "title": "Targeted Campaigns",
+            "description": "Customized advertising campaigns tailored to specific demographics, geographic locations, and events to ensure maximum exposure and engagement."
+          },
+          "eventSupport": {
+            "title": "Event Support",
+            "description": "Creating memorable experiences through events, product launches, and promotions using our mobile screens as a focal point."
           }
         }
       }
+    }
+  },
+  "advertiseWithUs": {
+    "meta": {
+      "title": "Advertise With Us - AdMotion",
+      "description": "Get in touch with AdMotion to learn how our mobile advertising solutions can help grow your business. Contact us today!"
     },
-    "advertiseWithUs": {
-      "meta": {
-        "title": "Advertise With Us - AdMotion",
-        "description": "Get in touch with AdMotion to learn how our mobile advertising solutions can help grow your business. Contact us today!"
+    "contactTitle": "Get in Touch",
+    "loadingMessage": "Submitting...",
+    "contactSubtitle": "Contact us and we will get back to you!",
+    "form": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Enter your last name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "phoneNumber": "Phone Number",
+      "phoneNumberPlaceholder": "Enter your phone number",
+      "businessName": "Business Name",
+      "businessNamePlaceholder": "Enter your business name",
+      "inquiryType": "Inquiry Type",
+      "selectPlaceholder": "Select...",
+      "inquiryOptions": {
+        "generalInquiry": "General Inquiry",
+        "adInquiry": "Ad Inquiry"
       },
-      "contactTitle": "Get in Touch",
-      "loadingMessage": "Submiting...",
-      "contactSubtitle": "Contact us and we will get back to you!",
-      "form": {
-        "firstName": "First Name",
-        "firstNamePlaceholder": "Enter your first name",
-        "lastName": "Last Name",
-        "lastNamePlaceholder": "Enter your last name",
-        "email": "Email",
-        "emailPlaceholder": "Enter your email",
-        "phoneNumber": "Phone Number",
-        "phoneNumberPlaceholder": "Enter your phone number",
-        "businessName": "Business Name",
-        "businessNamePlaceholder": "Enter your business name",
-        "inquiryType": "Inquiry Type",
-        "selectPlaceholder": "Select...",
-        "inquiryOptions": {
-          "generalInquiry": "General Inquiry",
-          "adInquiry": "Ad Inquiry"
-        },
-        "message": "Message",
-        "messagePlaceholder": "Enter your message",
-        "sendMessage": "Send Message"
-      },
-      "successMessage": "Contact Form Sent",
-      "alert": {
-        "failedToSend": "Failed to send message",
-        "errorSending": "Error sending message"
-      }
+      "message": "Message",
+      "messagePlaceholder": "Enter your message",
+      "sendMessage": "Send Message"
     },
-    "footer": {
-      "allRightsReserved": "All rights reserved.",
-      "location": "Khobar, Saudi Arabia"
+    "successMessage": "Contact Form Sent",
+    "alert": {
+      "failedToSend": "Failed to send message",
+      "errorSending": "Error sending message"
     },
-    "home": {
-      "meta": {
-        "title": "AdMotion - Your Ads in Motion",
-        "description": "AdMotion is a leading mobile advertising solution, reaching every destination with high-impact visual ads. Learn more about our services and how we can help grow your business.",
-        "keywords": "Mobile Advertising, Marketing, Advertising, AdMotion, Targeted Campaigns"
-      },
-      "admotionText": "AdMotion",
-      "intro": {
-        "title": "Your Ads In Motion",
-        "subtitle": "Reaching every destination",
-        "subText": "Grow your Business With Us",
-        "getInTouch": "Get in touch"
-      },
-      "videoUnsupported": "Your browser does not support the video tag.",
-      "adBox": {
-        "title": "The AdBox",
-        "subtitle": "Sleek, Mobile Advertising"
-      },
-      "specs": {
+    "boxVideo": {
+      "title": "Our AdBox in Action",
+      "description": "Experience our AdBox in motion and discover how it can elevate your brand's presence."
+    }
+  },
+  "footer": {
+    "allRightsReserved": "All rights reserved.",
+    "location": "Khobar, Saudi Arabia"
+  },
+  "home": {
+    "meta": {
+      "title": "AdMotion - Your Ads in Motion",
+      "description": "AdMotion is a leading mobile advertising solution, reaching every destination with high-impact visual ads. Learn more about our services and how we can help grow your business.",
+      "keywords": "Mobile Advertising, Marketing, Advertising, AdMotion, Targeted Campaigns"
+    },
+    "admotionText": "AdMotion",
+    "intro": {
+      "title": "Your Ads In Motion",
+      "subtitle": "Reaching every destination",
+      "subText": "Grow your Business With Us",
+      "getInTouch": "Get in touch"
+    },
+    "videoUnsupported": "Your browser does not support the video tag.",
+    "adBox": {
+      "title": "The AdBox",
+      "subtitle": "Sleek, Mobile Advertising"
+    },
+    "boxVideo": {
+      "title": "Our AdBox in Action",
+      "description": "Discover our AdBox in action, seamlessly installed on the backs of delivery motorbikes. Featuring three high-resolution screens, our AdBoxes ensure your advertisements are visible and engaging, connecting you with customers everywhere. With the rise of motorcycles in the delivery industry, our AdBoxes provide your brand with ubiquitous presence across the city, ensuring you're always in sight and never forgotten."
+    },
+    "specs": {
       "left": {
         "ledModuleSize": {
           "title": "LED MODULE SIZE",
@@ -132,28 +140,27 @@
         }
       }
     },
-      "workingRegion": {
-        "title": "Our Coverage Area",
-        "description": "Our service area is thoughtfully designed to cater to your needs, with the flexibility to expand based on customer requests. We focus on strategically chosen streets and key areas within Khobar to ensure maximum exposure for your brand across the city's vibrant landscape."
+    "workingRegion": {
+      "title": "Our Coverage Area",
+      "description": "Our service area is thoughtfully designed to cater to your needs, with the flexibility to expand based on customer requests. We focus on strategically chosen streets and key areas within Khobar to ensure maximum exposure for your brand across the city's vibrant landscape."
     },
-      "loadingBoxModel": "Loading Box Model..."
-    },
-    "nav": {
-      "home": "Home",
-      "advertise": "Advertise",
-      "about": "About",
-      "language": "Language",
-      "english": "English",
-      "arabic": "العربية"
-    },
-    "validation": {
-        "required": "This field is required",
-        "invalidName": "Invalid characters in name",
-        "invalidEmail": "Invalid email address",
-        "invalidPhone": "Must start with 05 and be 10 digits",
-        "minLength": "Must be at least {{count}} characters",
-        "maxLength": "Maximum {{count}} characters allowed",
-        "charactersLeft": "characters remaining"
-      }
+    "loadingBoxModel": "Loading Box Model..."
+  },
+  "nav": {
+    "home": "Home",
+    "advertise": "Advertise",
+    "about": "About",
+    "language": "Language",
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidName": "Invalid characters in name",
+    "invalidEmail": "Invalid email address",
+    "invalidPhone": "Must start with 05 and be 10 digits",
+    "minLength": "Must be at least {{count}} characters",
+    "maxLength": "Maximum {{count}} characters allowed",
+    "charactersLeft": "characters remaining"
   }
-  
+}
