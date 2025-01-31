@@ -1,4 +1,3 @@
-// backend.js
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,10 +8,20 @@ const { google } = require('googleapis');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
+// Basic Rate-Limiting to Prevent DDoS
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message:
+    'Too many requests from this IP, please try again after 15 minutes.',
+});
+app.use(limiter);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -99,144 +108,94 @@ function authenticateToken(req, res, next) {
 // Reusable Email Template Function with Inline Styles
 function generateEmailTemplate({ title, message, footer }) {
   return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>${title || 'AdMotion'}</title>
-    </head>
-    <body style="margin:0; padding:0; background-color:#000000;">
-        <!-- Main Container -->
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#000000; padding:20px 0;">
-            <tr>
-                <td align="center">
-                    <!-- Email Content -->
-                    <table width="720" cellpadding="0" cellspacing="0" border="0" style="background-color:#000000; border-radius:20px; overflow:hidden; font-family:'Montserrat', Arial, sans-serif;">
-                        
-                        <!-- Hero Section -->
-                        <tr>
-                            <td style="background: linear-gradient(135deg, #2A0940 0%, #000000 100%); padding:40px 20px; text-align:center; position:relative;">
-                                <div style="position: relative; z-index: 1;">
-                                    <h1 style="font-family:'Space Grotesk', sans-serif; font-size:2.4em; letter-spacing:-0.03em; background: linear-gradient(90deg, #B56FDB 0%, #702B80 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom:15px;">${title || 'Welcome to AdMotion'}</h1>
-                                    <p style="font-size:1.1em; color:#cccccc; margin-bottom:30px;">${message || 'We are excited to have you with us!'}</p>
-                                    <a href="${footer.link || '#'}" style="
-                                        display:inline-block;
-                                        padding:16px 40px;
-                                        background: linear-gradient(135deg, #702B80 0%, #4A1B55 100%);
-                                        color:#fff;
-                                        border-radius:50px;
-                                        font-weight:700;
-                                        text-transform:uppercase;
-                                        letter-spacing:1px;
-                                        text-decoration:none;
-                                        border:2px solid rgba(181,111,219,0.3);
-                                        transition: all 0.4s ease;
-                                    ">${footer.buttonText || 'Get Started'}</a>
-                                </div>
-                                <!-- Pulsing Overlay -->
-                                <div style="
-                                    content:'';
-                                    position:absolute;
-                                    top:-50%;
-                                    left:-50%;
-                                    width:200%;
-                                    height:200%;
-                                    background: radial-gradient(circle, rgba(112,43,128,0.2) 0%, rgba(0,0,0,0) 70%);
-                                    animation: pulse 8s infinite;
-                                    z-index:0;
-                                "></div>
-                            </td>
-                        </tr>
-                        
-                        <!-- Dynamic Content Block -->
-                        <tr>
-                            <td style="background: rgba(17,17,17,0.95); border:1px solid rgba(112,43,128,0.3); padding:30px; border-radius:20px; position:relative; backdrop-filter:blur(10px);">
-                                <div style="position: relative; z-index:1;">
-                                    <h2 style="
-                                        font-size:1.6em;
-                                        margin-bottom:20px;
-                                        background: linear-gradient(90deg, #B56FDB 0%, #702B80 100%);
-                                        -webkit-background-clip: text;
-                                        -webkit-text-fill-color: transparent;
-                                        padding-bottom:8px;
-                                        border-bottom:2px solid rgba(112,43,128,0.3);
-                                    ">${title || 'AdMotion Update'}</h2>
-                                    <p style="font-size:1.1em; line-height:1.6; color:#ffffff; margin-bottom:20px;">${message || 'We have an update for you!'}</p>
-                                    ${footer.additionalContent || ''}
-                                </div>
-                                <!-- Glowing Border Overlay -->
-                                <div style="
-                                    content:'';
-                                    position:absolute;
-                                    top:-2px;
-                                    left:-2px;
-                                    right:-2px;
-                                    bottom:-2px;
-                                    background: linear-gradient(45deg, #702B80, #4A1B55, #2A0940);
-                                    border-radius:22px;
-                                    animation:borderGlow 3s infinite;
-                                    z-index:0;
-                                "></div>
-                            </td>
-                        </tr>
-                        
-                        <!-- CTA Section -->
-                        <tr>
-                            <td style="background: linear-gradient(135deg, #2A0940 0%, #000 100%); padding:40px 20px; text-align:center; position:relative; border-radius:20px; margin:20px 0;">
-                                <h2 style="
-                                    font-size:2em;
-                                    margin-bottom:20px;
-                                    text-shadow:0 0 15px rgba(181,111,219,0.5);
-                                    font-family:'Space Grotesk', sans-serif;
-                                    color:#ffffff;
-                                ">${footer.ctaTitle || 'Ready to Accelerate Your Growth?'}</h2>
-                                <a href="${footer.ctaLink || '#'}" style="
-                                    display:inline-block;
-                                    padding:16px 40px;
-                                    background: linear-gradient(135deg, #702B80 0%, #4A1B55 100%);
-                                    color:#fff;
-                                    border-radius:50px;
-                                    font-weight:700;
-                                    text-transform:uppercase;
-                                    letter-spacing:1px;
-                                    text-decoration:none;
-                                    border:2px solid rgba(181,111,219,0.3);
-                                    transition: all 0.4s ease;
-                                ">${footer.ctaButtonText || 'Contact Now'}</a>
-                            </td>
-                        </tr>
-                        
-                        <!-- Footer Section -->
-                        <tr>
-                            <td style="background:#000; padding:30px 20px; text-align:center; font-family:'Poppins', sans-serif; font-size:0.9em; color:#cccccc; border-radius:0 0 20px 20px;">
-                                <p>© 2025 AdMotion • All rights reserved</p>
-                                <p>
-                                    <a href="https://www.admotionsa.com" style="color:#B56FDB; text-decoration:none;">www.admotionsa.com</a><br>
-                                    +966 XXXXXXXX • info@admotionsa.com
-                                </p>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                </td>
-            </tr>
-        </table>
-        
-        <!-- Keyframes for Animations -->
-        <style>
-            @keyframes pulse {
-                0% { transform: translate(0,0) scale(1); }
-                50% { transform: translate(50px,50px) scale(1.2); }
-                100% { transform: translate(0,0) scale(1); }
-            }
-            @keyframes borderGlow {
-                0% { opacity: 0.8; }
-                50% { opacity: 0.3; }
-                100% { opacity: 0.8; }
-            }
-        </style>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <title>AdMotion Generic Template</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Montserrat:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body style="margin:0; padding:0; background:#160A25; font-family: 'Montserrat', Arial, sans-serif; color:#FFFFFF;">
+  
+  <!-- Main Container -->
+  <center style="width: 100%;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width:680px; margin:0 auto;">
+      
+      <!-- Hero Section -->
+      <tr>
+        <td style="
+          padding:50px 20px; 
+          background:#160A25; 
+          text-align:center;
+        ">
+          <h1 style="
+            margin:0; 
+            font-size:42px; 
+            font-weight:800; 
+            font-family:'JetBrains Mono', monospace; 
+            text-transform:uppercase;
+            color:#FFFFFF;
+            letter-spacing:-1px;
+          ">
+            AdMotion
+          </h1>
+        </td>
+      </tr>
+
+      <!-- Placeholder for Additional Content -->
+      <tr>
+        <td style="padding:50px 30px; text-align:center; background:#160A25;">
+          <div style="max-width:560px; margin:0 auto;">
+            <!-- Our dynamic text / message -->
+            <h2 style="margin:0 0 20px; font-size:24px; color:#FF6BFF;">
+              ${title || ''}
+            </h2>
+            <p style="margin:0; font-size:16px; color:#E8E0FF; line-height:1.6;">
+              ${message || ''}
+            </p>
+
+            <!-- Additional area for future expansions if needed -->
+            ${(footer && footer.additionalContent) || ''}
+          </div>
+        </td>
+      </tr>
+
+      <!-- Footer -->
+      <tr>
+        <td style="
+          padding:40px 20px; 
+          text-align:center; 
+          background:#160A25;
+        ">
+          <div style="max-width:560px; margin:0 auto;">
+            <p style="
+              color:#927FBF; 
+              font-size:14px; 
+              line-height:1.6; 
+              margin:0;
+            ">
+              © 2025 AdMotion • Khobar, Saudi Arabia<br />
+              <a 
+                href="mailto:info@admotionsa.com" 
+                style="color:#BFA3FF; text-decoration:none;"
+              >
+                info@admotionsa.com
+              </a><br />
+              www.admotionsa.com
+            </p>
+          </div>
+        </td>
+      </tr>
+
+    </table>
+  </center>
+
+</body>
+</html>
   `;
 }
 
@@ -299,14 +258,10 @@ app.post('/api/contact', async (req, res) => {
       html: generateEmailTemplate({
         title: `Welcome, ${firstName}!`,
         message: "Thank you for reaching out to AdMotion. We've received your message and will respond shortly.",
-        footer: {
-          link: 'https://www.admotionsa.com',
-          buttonText: 'Visit Our Website',
-        },
       }),
     };
 
-    // Company notification email using a simplified version of the template
+    // Company notification email
     const companyMailOptions = {
       from: process.env.COMPANY_EMAIL,
       to: process.env.COMPANY_EMAIL,
@@ -315,8 +270,6 @@ app.post('/api/contact', async (req, res) => {
         title: 'New Contact Submission',
         message: `You have received a new contact form submission from <strong>${firstName} ${lastName}</strong>.`,
         footer: {
-          link: '#', // No button needed, but keeping structure
-          buttonText: '',
           additionalContent: `
             <div style="
               background: rgba(17,17,17,0.95);
@@ -458,11 +411,13 @@ protectedRoutes.post('/send-email', async (req, res) => {
     }
 
     // Remove duplicate emails
-    recipientEmails = recipientEmails.filter((item, index, self) =>
-      index === self.findIndex((t) => t.email.toLowerCase() === item.email.toLowerCase())
+    recipientEmails = recipientEmails.filter(
+      (item, index, self) =>
+        index ===
+        self.findIndex((t) => t.email.toLowerCase() === item.email.toLowerCase())
     );
 
-    // Send emails sequentially or in parallel
+    // Send emails
     const sendEmailPromises = recipientEmails.map(async (recipient) => {
       const mailOptions = {
         from: process.env.COMPANY_EMAIL,
@@ -471,10 +426,6 @@ protectedRoutes.post('/send-email', async (req, res) => {
         html: generateEmailTemplate({
           title: subject || 'AdMotion Update',
           message: customMessage || 'We have an update for you!',
-          footer: {
-            link: 'https://www.admotionsa.com',
-            buttonText: 'Visit Our Website',
-          },
         }),
       };
 
