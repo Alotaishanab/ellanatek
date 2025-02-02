@@ -1,24 +1,48 @@
 // /utils/emailTemplates.js
 
-// A unified container style (Revolut-inspired)
-// Uses a bold linear gradient, refined rounded corners, subtle shadow, and crisp white text.
+// Outer container style (clean white background with subtle shadow)
 const containerStyle = `
-  background: linear-gradient(135deg, #6a1b9a, #8e24aa);
-  border-radius: 10px;
-  padding: 30px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  color: #FFFFFF;
-  font-family: 'Jost', Arial, sans-serif;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: #333333;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
 `;
 
-// A helper constant for the common head section (including meta viewport for responsiveness)
+// Inner container style for subtle content separation
+const innerContainerStyle = `
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+`;
+
+// Unified button style (deep purple gradient)
+// Note: Hover states generally don't work in inline email CSS,
+//       but we've left it here in case your ESP supports embedded styles.
+const buttonStyle = `
+  display: inline-block;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #6A0DAD, #9F2BFF);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease;
+`;
+
+// Head section with Inter font and meta tags
 const headSection = (title) => `
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${title}</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Jost:wght@400;600&display=swap" rel="stylesheet" />
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   </head>
 `;
 
@@ -32,65 +56,49 @@ function generateContactMeUserTemplate() {
   <!DOCTYPE html>
   <html lang="en">
     ${headSection('Thank You for Your Inquiry')}
-    <body style="margin:0; padding:40px 0; background-color:#F4F4F4; font-family:'Jost', Arial, sans-serif;">
+    <body style="margin:0; padding:40px 0; background-color:#FFFFFF; font-family:'Inter', sans-serif;">
       <center>
         <table width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;">
           <tr>
             <td style="${containerStyle}">
-              <!-- Brand / Title -->
-              <h1 style="
-                margin: 0 0 20px;
-                font-size: 28px;
-                font-family: 'JetBrains Mono', monospace;
-                text-align: center;
-                text-transform: uppercase;
-              ">
-                شكراً لتواصلكم مع ADMOTION
-              </h1>
-              <h2 style="
-                margin: 0 0 30px;
-                font-size: 20px;
-                text-align: center;
-                font-weight: 400;
-              ">
-                Thank You for Contacting ADMOTION
-              </h2>
+              <div style="${innerContainerStyle}">
+                <!-- Brand / Title -->
+                <h1 style="margin: 0 0 20px; font-size: 28px; font-weight: 700; text-transform: uppercase;">
+                  شكراً لتواصلكم مع ADMOTION
+                </h1>
+                
+                <h2 style="margin: 0 0 30px; font-size: 22px; font-weight: 400;">
+                  Thank You for Contacting us.
+                </h2>
   
-              <!-- Inquiry Message -->
-              <p style="font-size: 16px; line-height: 1.6; margin: 0 0 20px; text-align: center;">
-                عزيزي العميل،<br />
-                لقد استلمنا استفسارك وسيتواصل معك فريقنا قريباً.<br /><br />
-                Dear Customer,<br />
-                We have received your inquiry and will contact you shortly.
-              </p>
+                <!-- Inquiry Message -->
+                <p style="font-size: 16px; line-height: 1.6; margin: 0 0 20px; color: #555;">
+                  عزيزي العميل،<br />
+                  لقد استلمنا استفسارك وسيتواصل معك فريقنا قريباً.<br /><br />
+                  Dear Customer,<br />
+                  We have received your inquiry and will contact you shortly.
+                </p>
   
-              <!-- Call to Action Button -->
-              <div style="text-align: center; margin-top: 30px;">
-                <a href="https://www.admotionsa.com" 
-                   style="
-                     display: inline-block;
-                     padding: 12px 30px;
-                     background: linear-gradient(135deg, #FFFFFF, #e0e0e0);
-                     color: #7B1FA2;
-                     font-weight: 600;
-                     text-decoration: none;
-                     border-radius: 6px;
-                     transition: background 0.3s ease;
-                   ">
-                  Visit Our Website
-                </a>
-              </div>
+                <!-- Call to Action Button -->
+                <div style="margin-top: 30px;">
+                  <a href="https://www.admotionsa.com" style="text-decoration: none;" target="_blank">
+                    <button style="${buttonStyle}">
+                      Visit Our Website
+                    </button>
+                  </a>
+                </div>
   
-              <!-- Footer -->
-              <div style="margin-top: 30px; text-align: center; font-size: 14px;">
-                © 2025 ADMOTION &bull; جميع الحقوق محفوظة<br/>
-                <a href="https://www.admotionsa.com" style="color:#FFFFFF; text-decoration:none;">
-                  www.admotionsa.com
-                </a> &bull;
-                Email:
-                <a href="mailto:info@admotionsa.com" style="color:#FFFFFF; text-decoration:none;">
-                  info@admotionsa.com
-                </a>
+                <!-- Footer -->
+                <div style="margin-top: 30px; font-size: 14px; color: #888;">
+                  © 2025 ADMOTION &bull; جميع الحقوق محفوظة<br/>
+                  <a href="https://www.admotionsa.com" style="color:#6A0DAD; text-decoration:none;">
+                    www.admotionsa.com
+                  </a> &bull;
+                  Email:
+                  <a href="mailto:info@admotionsa.com" style="color:#6A0DAD; text-decoration:none;">
+                    info@admotionsa.com
+                  </a>
+                </div>
               </div>
             </td>
           </tr>
@@ -107,42 +115,33 @@ function generateContactMeCompanyTemplate({ senderName, senderEmail, senderPhone
   <!DOCTYPE html>
   <html lang="en">
     ${headSection('New Contact Form Submission')}
-    <body style="margin:0; padding:40px 0; background-color:#F4F4F4; font-family:'Jost', Arial, sans-serif;">
+    <body style="margin:0; padding:40px 0; background-color:#FFFFFF; font-family:'Inter', sans-serif;">
       <center>
         <table width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;">
           <tr>
             <td style="${containerStyle}">
-              <!-- Brand / Title -->
-              <h1 style="
-                margin: 0 0 20px;
-                font-size: 28px;
-                font-family: 'JetBrains Mono', monospace;
-                text-align: center;
-                text-transform: uppercase;
-              ">
-                ADMOTION
-              </h1>
-              <h2 style="
-                margin: 0 0 30px;
-                font-size: 20px;
-                text-align: center;
-                font-weight: 400;
-              ">
-                New Contact Form Submission
-              </h2>
+              <div style="${innerContainerStyle}; text-align: left;">
+                <!-- Brand / Title -->
+                <h1 style="margin: 0 0 20px; font-size: 28px; font-weight: 700; text-transform: uppercase; text-align: center;">
+                  ADMOTION
+                </h1>
+                <h2 style="margin: 0 0 30px; font-size: 22px; font-weight: 400; text-align: center;">
+                  New Contact Form Submission
+                </h2>
   
-              <!-- Submission Details -->
-              <p style="font-size: 16px; line-height: 1.6; margin: 0 0 10px;">
-                <strong>Name:</strong> ${senderName}<br/>
-                <strong>Email:</strong> ${senderEmail}<br/>
-                <strong>Phone:</strong> ${senderPhone}<br/>
-                <strong>Business:</strong> ${businessName}<br/>
-                <strong>Inquiry Type:</strong> ${inquiryType}
-              </p>
-              <p style="font-size: 16px; line-height: 1.6; margin: 10px 0 0;">
-                <strong>Message:</strong><br/>
-                ${message}
-              </p>
+                <!-- Submission Details -->
+                <p style="font-size: 16px; line-height: 1.6; margin: 0 0 10px; color: #555;">
+                  <strong>Name:</strong> ${senderName}<br/>
+                  <strong>Email:</strong> ${senderEmail}<br/>
+                  <strong>Phone:</strong> ${senderPhone}<br/>
+                  <strong>Business:</strong> ${businessName}<br/>
+                  <strong>Inquiry Type:</strong> ${inquiryType}
+                </p>
+                <p style="font-size: 16px; line-height: 1.6; margin: 10px 0 0; color: #555;">
+                  <strong>Message:</strong><br/>
+                  ${message}
+                </p>
+              </div>
             </td>
           </tr>
         </table>
@@ -162,33 +161,24 @@ function generateEmailTemplate({ title, message }) {
   <!DOCTYPE html>
   <html lang="en">
     ${headSection('AdMotion Update')}
-    <body style="margin:0; padding:40px 0; background-color:#F4F4F4; font-family:'Jost', Arial, sans-serif;">
+    <body style="margin:0; padding:40px 0; background-color:#FFFFFF; font-family:'Inter', sans-serif;">
       <center>
         <table width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;">
           <tr>
             <td style="${containerStyle}">
-              <!-- Brand / Title -->
-              <h1 style="
-                margin: 0 0 20px;
-                font-size: 28px;
-                font-family: 'JetBrains Mono', monospace;
-                text-align: center;
-                text-transform: uppercase;
-              ">
-                ADMOTION
-              </h1>
-              <h2 style="
-                margin: 0 0 30px;
-                font-size: 20px;
-                text-align: center;
-                font-weight: 400;
-              ">
-                ${title || 'AdMotion Update'}
-              </h2>
+              <div style="${innerContainerStyle}">
+                <!-- Brand / Title -->
+                <h1 style="margin: 0 0 20px; font-size: 28px; font-weight: 700; text-transform: uppercase; color: #333;">
+                  ADMOTION
+                </h1>
+                <h2 style="margin: 0 0 30px; font-size: 22px; font-weight: 400; color: #555;">
+                  ${title || 'AdMotion Update'}
+                </h2>
   
-              <p style="font-size: 16px; line-height: 1.6; text-align: center;">
-                ${message || 'We have an update for you!'}
-              </p>
+                <p style="font-size: 16px; line-height: 1.6; color: #555;">
+                  ${message || 'We have an update for you!'}
+                </p>
+              </div>
             </td>
           </tr>
         </table>
@@ -204,34 +194,25 @@ function generateProposalTemplate(recipientName) {
   <!DOCTYPE html>
   <html lang="en">
     ${headSection('AdMotion Proposal')}
-    <body style="margin:0; padding:40px 0; background-color:#F4F4F4; font-family:'Jost', Arial, sans-serif;">
+    <body style="margin:0; padding:40px 0; background-color:#FFFFFF; font-family:'Inter', sans-serif;">
       <center>
         <table width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;">
           <tr>
             <td style="${containerStyle}">
-              <!-- Brand / Title -->
-              <h1 style="
-                margin: 0 0 20px;
-                font-size: 28px;
-                font-family: 'JetBrains Mono', monospace;
-                text-align: center;
-                text-transform: uppercase;
-              ">
-                ADMOTION
-              </h1>
-              <h2 style="
-                margin: 0 0 30px;
-                font-size: 20px;
-                text-align: center;
-                font-weight: 400;
-              ">
-                Dear ${recipientName || 'Partner'},
-              </h2>
+              <div style="${innerContainerStyle}">
+                <!-- Brand / Title -->
+                <h1 style="margin: 0 0 20px; font-size: 28px; font-weight: 700; text-transform: uppercase; color: #333;">
+                  ADMOTION
+                </h1>
+                <h2 style="margin: 0 0 30px; font-size: 22px; font-weight: 400; color: #555;">
+                  Dear ${recipientName || 'Partner'},
+                </h2>
   
-              <p style="font-size: 16px; line-height: 1.6; text-align: center;">
-                Thank you for your interest in our services. Below is a special proposal crafted just for you.
-                We look forward to discussing it further!
-              </p>
+                <p style="font-size: 16px; line-height: 1.6; color: #555;">
+                  Thank you for your interest in our services. Below is a special proposal crafted just for you.
+                  We look forward to discussing it further!
+                </p>
+              </div>
             </td>
           </tr>
         </table>
@@ -247,34 +228,25 @@ function generateEmailClientsTemplate(clientName) {
   <!DOCTYPE html>
   <html lang="en">
     ${headSection('Exclusive Opportunity')}
-    <body style="margin:0; padding:40px 0; background-color:#F4F4F4; font-family:'Jost', Arial, sans-serif;">
+    <body style="margin:0; padding:40px 0; background-color:#FFFFFF; font-family:'Inter', sans-serif;">
       <center>
         <table width="100%" cellspacing="0" cellpadding="0" style="max-width:600px;">
           <tr>
             <td style="${containerStyle}">
-              <!-- Brand / Title -->
-              <h1 style="
-                margin: 0 0 20px;
-                font-size: 28px;
-                font-family: 'JetBrains Mono', monospace;
-                text-align: center;
-                text-transform: uppercase;
-              ">
-                ADMOTION
-              </h1>
-              <h2 style="
-                margin: 0 0 30px;
-                font-size: 20px;
-                text-align: center;
-                font-weight: 400;
-              ">
-                Hello ${clientName || 'Valued Client'},
-              </h2>
+              <div style="${innerContainerStyle}">
+                <!-- Brand / Title -->
+                <h1 style="margin: 0 0 20px; font-size: 28px; font-weight: 700; text-transform: uppercase; color: #333;">
+                  ADMOTION
+                </h1>
+                <h2 style="margin: 0 0 30px; font-size: 22px; font-weight: 400; color: #555;">
+                  Hello ${clientName || 'Valued Client'},
+                </h2>
   
-              <p style="font-size: 16px; line-height: 1.6; text-align: center;">
-                We have an exciting opportunity tailored just for you!
-                Reach out today and let’s get started on taking your advertising to the next level.
-              </p>
+                <p style="font-size: 16px; line-height: 1.6; color: #555;">
+                  We have an exciting opportunity tailored just for you!
+                  Reach out today and let’s get started on taking your advertising to the next level.
+                </p>
+              </div>
             </td>
           </tr>
         </table>
@@ -283,7 +255,7 @@ function generateEmailClientsTemplate(clientName) {
   </html>
   `;
 }
-  
+
 module.exports = {
   generateEmailTemplate,
   generateProposalTemplate,
