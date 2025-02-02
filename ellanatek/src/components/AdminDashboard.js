@@ -323,7 +323,7 @@ const AdminDashboard = () => {
           <form onSubmit={handleSendEmail} className="send-email-form">
             {/* Instructional Message */}
             <div className="form-group">
-              <p>Write email or select emails from the table above.</p>
+              <p>Write an email or select emails from the table above.</p>
             </div>
 
             {/* Proposal Checkbox */}
@@ -337,6 +337,9 @@ const AdminDashboard = () => {
                 />
                 &nbsp; Is Proposal?
               </label>
+              <small className="checkbox-explanation">
+                For proposals to companies like Hungerstation, Jahez, or other delivery services.
+              </small>
             </div>
 
             {/* Client Email Checkbox */}
@@ -350,6 +353,9 @@ const AdminDashboard = () => {
                 />
                 &nbsp; Is Client Email?
               </label>
+              <small className="checkbox-explanation">
+                For standard client emails, for companies like McDonald’s.
+              </small>
             </div>
 
             {/* Manual Email Entry */}
@@ -377,18 +383,20 @@ const AdminDashboard = () => {
               />
             </div>
 
-            {/* Message */}
-            <div className="form-group">
-              <label>Message</label>
-              <textarea
-                name="customMessage"
-                value={sendEmailData.customMessage}
-                onChange={handleInputChange}
-                required
-                placeholder="Enter your message"
-                rows="5"
-              />
-            </div>
+            {/* Message field is conditionally rendered only if neither isProposal nor isClientEmail is selected */}
+            {!sendEmailData.isProposal && !sendEmailData.isClientEmail && (
+              <div className="form-group">
+                <label>Message</label>
+                <textarea
+                  name="customMessage"
+                  value={sendEmailData.customMessage}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="Enter your message"
+                  rows="5"
+                />
+              </div>
+            )}
 
             {/* Send Email Button */}
             <button type="submit" className="send-email-button" disabled={isSending}>
