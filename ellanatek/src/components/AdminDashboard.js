@@ -1,4 +1,3 @@
-// src/screens/AdminDashboard.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/AdminDashboard.css'; // Ensure you have this CSS file
@@ -15,6 +14,8 @@ const AdminDashboard = () => {
     emails: '',    // String of manual emails separated by commas
     subject: '',
     customMessage: '',
+    isProposal: false,    // Indicates if the email is a proposal
+    isClientEmail: false, // Indicates if the email should use the client template
   });
   const [sendEmailStatus, setSendEmailStatus] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -43,10 +44,9 @@ const AdminDashboard = () => {
         queryParams.append('businessName', filters.businessName);
       }
 
-      const response = await fetch(`/api/contacts?${queryParams.toString()}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/contacts?${queryParams.toString()}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
 
       if (response.ok) {
         const data = await response.json();
@@ -92,9 +92,31 @@ const AdminDashboard = () => {
     setSendEmailData({ ...sendEmailData, [name]: value });
   };
 
+  // Modified handler for the proposal checkbox:
+  // When "Is Proposal" is checked, automatically uncheck "Is Client Email".
+  const handleProposalCheckboxChange = (e) => {
+    const checked = e.target.checked;
+    setSendEmailData(prevState => ({
+      ...prevState,
+      isProposal: checked,
+      isClientEmail: checked ? false : prevState.isClientEmail, // Uncheck client email if proposal is selected
+    }));
+  };
+
+  // Modified handler for the client email checkbox:
+  // When "Is Client Email" is checked, automatically uncheck "Is Proposal".
+  const handleClientEmailCheckboxChange = (e) => {
+    const checked = e.target.checked;
+    setSendEmailData(prevState => ({
+      ...prevState,
+      isClientEmail: checked,
+      isProposal: checked ? false : prevState.isProposal, // Uncheck proposal if client email is selected
+    }));
+  };
+
   const handleSendEmail = async (e) => {
     e.preventDefault();
-    const { clientIds, emails, subject, customMessage } = sendEmailData;
+    const { clientIds, emails, subject, customMessage, isProposal, isClientEmail } = sendEmailData;
 
     // At least one recipient is required
     if ((clientIds.length === 0) && (!emails || emails.trim() === '')) {
@@ -120,19 +142,19 @@ const AdminDashboard = () => {
       setSendEmailStatus('');
 
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/send-email', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ clientIds, emails: manualEmails, subject, customMessage }),
+        body: JSON.stringify({ clientIds, emails: manualEmails, subject, customMessage, isProposal, isClientEmail }),
       });
-
 
       if (response.ok) {
         setSendEmailStatus('Emails sent successfully!');
-        setSendEmailData({ clientIds: [], emails: '', subject: '', customMessage: '' });
+        // Reset the form and checkboxes
+        setSendEmailData({ clientIds: [], emails: '', subject: '', customMessage: '', isProposal: false, isClientEmail: false });
         fetchContacts(); // Refresh contacts
         setTimeout(() => setSendEmailStatus(''), 3000);
       } else {
@@ -167,7 +189,6 @@ const AdminDashboard = () => {
         },
         body: JSON.stringify({ clientId }),
       });
-
 
       if (response.ok) {
         alert('Client unsubscribed successfully.');
@@ -245,7 +266,7 @@ const AdminDashboard = () => {
             <table className="contacts-table">
               <thead>
                 <tr>
-                  <th>Select</th> {/* Added Select column */}
+                  <th>Select</th>
                   <th>ID</th>
                   <th>First Name</th>
                   <th>Last Name</th>
@@ -302,9 +323,33 @@ const AdminDashboard = () => {
           <form onSubmit={handleSendEmail} className="send-email-form">
             {/* Instructional Message */}
             <div className="form-group">
-              <p>
-                Write email or select emails from the table above.
-              </p>
+              <p>Write email or select emails from the table above.</p>
+            </div>
+
+            {/* Proposal Checkbox */}
+            <div className="form-group">
+              <label>
+                <input
+                  type="checkbox"
+                  name="isProposal"
+                  checked={sendEmailData.isProposal}
+                  onChange={handleProposalCheckboxChange}
+                />
+                &nbsp; Is Proposal?
+              </label>
+            </div>
+
+            {/* Client Email Checkbox */}
+            <div className="form-group">
+              <label>
+                <input
+                  type="checkbox"
+                  name="isClientEmail"
+                  checked={sendEmailData.isClientEmail}
+                  onChange={handleClientEmailCheckboxChange}
+                />
+                &nbsp; Is Client Email?
+              </label>
             </div>
 
             {/* Manual Email Entry */}
