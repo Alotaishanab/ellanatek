@@ -301,6 +301,16 @@ body {
   font-size: 16px;
 }
 
+/* Custom styling for checkboxes in the send email form */
+.send-email-form .form-group input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 10px;
+  cursor: pointer;
+  /* Use the primary color for the checkbox accent (supported in modern browsers) */
+  accent-color: var(--primary-color);
+}
+
+
 /* Responsive Styles */
 @media (max-width: 992px) {
   .dashboard-content {
