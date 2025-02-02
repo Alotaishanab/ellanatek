@@ -1,57 +1,87 @@
 // /routes/contact.js
+
 const express = require('express');
 const router = express.Router();
 const createTransporter = require('../config/transporter');
-const { generateEmailTemplate, generateContactMeEmailTemplate } = require('../utils/emailTemplates');
 const db = require('../config/db');
+
+// Import the templates
+const {
+  generateContactMeUserTemplate,
+  generateContactMeCompanyTemplate
+} = require('../utils/emailTemplates');
 
 router.post('/contact', async (req, res) => {
   const { firstName, lastName, email, phoneNumber, businessName, inquiryType, message } = req.body;
 
   try {
-    // Save the contact in the database
+    // 1. Insert the contact record into the DB
     db.prepare(`
       INSERT INTO contacts 
       (firstName, lastName, email, phoneNumber, businessName, inquiryType, message)
       VALUES (?, ?, ?, ?, ?, ?, ?)
-    `).run(firstName, lastName, email, phoneNumber, businessName, inquiryType, message);
+    `).run(
+      firstName, 
+      lastName, 
+      email, 
+      phoneNumber, 
+      businessName, 
+      inquiryType, 
+      message
+    );
 
+    // 2. Create your Nodemailer transporter
     const transporter = await createTransporter();
 
-    // Email sent to the user
-    const userMailOptions = {
-      from: process.env.COMPANY_EMAIL,
-      to: email,
-      subject: 'Welcome to AdMotion',
-      html: generateEmailTemplate({
-        title: `Welcome, ${firstName}!`,
-        message: "Thank you for reaching out to AdMotion. We've received your message and will respond shortly.",
-      }),
-    };
+    // 3. Generate the HTML templates
+    const userEmailHTML = generateContactMeUserTemplate();
+    const companyEmailHTML = generateContactMeCompanyTemplate({
+      senderName: `${firstName} ${lastName}`,
+      senderEmail: email,
+      senderPhone: phoneNumber,
+      businessName,
+      inquiryType,
+      message,
+    });
 
-    // Email sent to the company using the new "Contact Me" template
-    const companyMailOptions = {
-      from: process.env.COMPANY_EMAIL,
-      to: process.env.COMPANY_EMAIL,
-      subject: 'New Contact Form Submission',
-      html: generateContactMeEmailTemplate({
-        senderName: `${firstName} ${lastName}`,
-        senderEmail: email,
-        senderPhone: phoneNumber,
-        message: `
-          <strong>Business:</strong> ${businessName}<br>
-          <strong>Inquiry Type:</strong> ${inquiryType}<br>
-          <strong>Message:</strong> ${message}
-        `,
-      }),
-    };
+    // 4. Build a list of mail jobs (like in email.js)
+    //    We'll send two emails: one to the user, one to the company.
+    const mailJobs = [
+      {
+        to: email,
+        subject: 'Thank you for contacting AdMotion',
+        html: userEmailHTML,
+      },
+      {
+        to: process.env.COMPANY_EMAIL,
+        subject: 'New Contact Form Submission',
+        html: companyEmailHTML,
+      },
+    ];
 
-    await transporter.sendMail(userMailOptions);
-    await transporter.sendMail(companyMailOptions);
+    // 5. Map over mailJobs, send each one, and log similarly to email.js
+    const sendPromises = mailJobs.map(async (job) => {
+      const mailOptions = {
+        from: process.env.COMPANY_EMAIL,
+        to: job.to,
+        subject: job.subject,
+        html: job.html,
+      };
 
+      console.log(`Sending contact email to ${job.to} with subject "${job.subject}"`);
+      console.log('Mail Options:', mailOptions);
+
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Email sent:', info);
+    });
+
+    // 6. Wait for both emails to send
+    await Promise.all(sendPromises);
+
+    // 7. Send success response
     res.send('Message received and emails sent');
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error in /contact route:', error);
     res.status(500).send('Internal server error');
   }
 });
