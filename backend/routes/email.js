@@ -1,4 +1,3 @@
-// /routes/email.js
 const express = require('express');
 const router = express.Router();
 const createTransporter = require('../config/transporter');
@@ -55,7 +54,6 @@ router.post('/send-email', authenticateToken, async (req, res) => {
       let finalSubject = subject; // subject provided by the admin
 
       if (isProposal) {
-        // Use the recipient's first name (or a default) for proposals.
         const nameToUse = r.firstName || 'Partner';
         htmlContent = generateProposalTemplate(nameToUse);
         finalSubject = subject || 'AdMotion Proposal';
@@ -77,11 +75,9 @@ router.post('/send-email', authenticateToken, async (req, res) => {
         html: htmlContent,
       };
 
-      // Log the mail options for debugging
       console.log(`Sending email to ${r.email} with subject "${finalSubject}"`);
       console.log('Mail Options:', mailOptions);
 
-      // Send the email and log the response
       const info = await transporter.sendMail(mailOptions);
       console.log('Email sent:', info);
     });
