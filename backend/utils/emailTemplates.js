@@ -63,10 +63,12 @@ function generateContactMeUserTemplate() {
             <td style="${containerStyle}">
               <div style="${innerContainerStyle}">
                 <!-- Brand / Title -->
-                <h1 style="margin: 0 0 20px; font-size: 28px; font-weight: 700; text-transform: uppercase;">
-                  شكراً لتواصلكم مع ADMOTION
+                <h1 style="margin: 0 0 10px; font-size: 28px; font-weight: 700; text-transform: uppercase;">
+                  ADMOTION
                 </h1>
-                
+                <h2 style="margin: 0 0 10px; font-size: 22px; font-weight: 400;">
+                  شكراً للتواصل معنا
+                </h2>
                 <h2 style="margin: 0 0 30px; font-size: 22px; font-weight: 400;">
                   Thank You for Contacting us.
                 </h2>
