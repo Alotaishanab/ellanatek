@@ -37,92 +37,13 @@ html, body {
   align-items: center;
 }
 
-.hero-text {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 182px;
-  color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 1;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  width: 100%;
-}
-
-/* ---------- Hero Section ---------- */
+/* Hero Section */
 .hero-section {
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  /* Removed overflow: hidden to allow smooth scrolling */
   text-align: center;
-}
-
-/* Position "AdMotion" at top center within hero */
-.top-header {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2; 
-}
-.company-name {
-  color: var(--highlight-color);
-  font-size: 2rem;
-  font-weight: 100;
-}
-
-/* Background video */
-.video-background-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  overflow: hidden;
-}
-.background-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Animated hero overlay */
-.hero-overlay {
-  position: relative;
-  z-index: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--highlight-color);
-}
-
-
-
-/* 
-  1. Keyframe for a slide/fade effect. 
-  You can tweak the from: and to: for different motion.
-*/
-@keyframes heroEntry {
-  0% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(-50%);
-  }
-}
-
-/* The animated-hero class triggers the keyframe on mount */
-.animated-hero {
-  animation: heroEntry 1.2s ease-in-out forwards;
 }
 
 /* Title, subtitle, etc. */
@@ -163,41 +84,96 @@ html, body {
   transform: scale(1.15);
 }
 
-/* Keyframe for bounce effect on arrow */
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { 
-    transform: translateY(0); 
-  }
-  40% { 
-    transform: translateY(-10px); 
-  }
-  60% { 
-    transform: translateY(-5px); 
-  }
+
+
+.hero-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 182px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  width: 100%;
 }
 
-/* ---------- AdBox Section ---------- */
+.logo-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+
+/* Top header */
+.top-header {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2; 
+}
+.company-name {
+  color: var(--highlight-color);
+  font-size: 2rem;
+  font-weight: 100;
+}
+
+/* Background video wrapper */
+.video-background-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.logo-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+.background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+
+/* Hero overlay */
+.hero-overlay {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--highlight-color);
+}
+
+
+
+/* AdBox Section */
 .adbox-section {
   width: 100%;
   padding: 60px 20px;
   background: var(--bg-gradient);
   display: flex;
   justify-content: center;
+}
 
-  /* 
-    2. We'll start with a "fade-in-up" style that's invisible and down 
-       until the IntersectionObserver adds .fade-in-up-active.
-  */
-}
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.fade-in-up.fade-in-up-active {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .adbox-content-wrapper {
   width: 100%;
@@ -217,7 +193,7 @@ html, body {
   color: var(--accent-color);
 }
 
-/* Specs + Box model layout */
+/* Specs Layout */
 .box-specs-layout {
   display: flex;
   justify-content: center;
@@ -254,14 +230,15 @@ html, body {
   color: #fff;
 }
 
-/* Center 3D model */
+/* Box Model Container */
 .box-model-container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
 }
-/* Add this to your CSS */
+
+/* Specs Container */
 .specs-container {
   position: relative;
   background: var(--glass-bg);
@@ -269,62 +246,28 @@ html, body {
   border-radius: var(--border-radius);
   backdrop-filter: blur(var(--blur-amount));
   padding: 20px;
-  overflow: hidden; /* Essential for the shine effect */
+  overflow: hidden;
 }
 
-/* Shining animation overlay */
-.specs-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  animation: shine 4s infinite;
-  z-index: 1;
-}
-
-@keyframes shine {
-  100% {
-    left: 200%;
-  }
-}
-
-/* Existing specs layout - just add z-index */
-.box-specs-layout {
-  position: relative;
-  z-index: 2; /* Ensure content stays above the shine */
-}
 
 
 /* Map Container */
-/* Working Region Section - Match Adbox Styles */
 .working-region-section {
   width: 100%;
   padding: 80px 20px;
   background: var(--bg-gradient);
   display: flex;
   justify-content: center;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 1; /* removed fade effect */
+  transform: translateY(0);
+  transition: none;
 }
-
-/* Working Region Title - Matching Adbox Title */
 .working-region-title {
   font-size: 56px;
   font-weight: 400;
   color: var(--highlight-color);
   margin-bottom: 1rem;
 }
-
-/* Keep original description style unless you want to change it */
 .working-region-description {
   color: var(--accent-color);
   line-height: 1.5;
@@ -333,7 +276,6 @@ html, body {
   font-size: 19px;
   font-weight: 400;
 }
-
 .working-region-content {
   width: 100%;
   max-width: 1200px;
@@ -345,15 +287,7 @@ html, body {
   box-shadow: var(--box-shadow);
 }
 
-/* Map Container Adjustments */
-.map-container {
-  margin-top: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-}
-
+/* Map Image */
 .map-container {
   position: relative;
   width: 100%;
@@ -361,67 +295,48 @@ html, body {
   border-radius: var(--border-radius);
   overflow: hidden;
 }
-
 .map-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
-
 .map-image:hover {
   transform: scale(1.02);
 }
 
-
-/* Arabic Translation */
-/* Working Region RTL Adjustments */
-/* RTL Layout for Working Region */
-/* Force RTL for Arabic language */
-[lang="ar"] .working-region-section,
-[lang="ar"] .working-region-content {
-  direction: rtl !important;
-  text-align: right !important;
-}
-
-[lang="ar"] .working-region-title,
-[lang="ar"] .working-region-description {
-  margin-right: 0 !important;
-  margin-left: 2rem !important;
-}
-
-
-
-/* Loading styles */
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: white;
-  z-index: 9999;
+/* Loading States */
+.image-placeholder,
+.video-placeholder,
+.model-loading {
+  pointer-events: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.3s ease;
-}
-
-.loading-content {
-  text-align: center;
-}
-
-.loading-text {
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  color: #333;
-}
-
-/* Image loading states */
-.image-container {
-  position: relative;
+  background: #f8f8f8;
   width: 100%;
   height: 100%;
+}
+
+
+
+/* Get In Touch Button */
+.get-in-touch {
+  width: 200px;
+  height: 60px;
+  color: #ffffff;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 120px;
+  backdrop-filter: blur(15px);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.get-in-touch:hover {
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.15);
 }
 
 .image-placeholder {
@@ -555,13 +470,12 @@ html, body {
   z-index: 1;
 }
 
-.image-placeholder,
-.video-placeholder,
-.model-loading {
-  pointer-events: none;
-}
 
 
+
+
+
+/* Responsive Adjustments */
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
   .company-name {
