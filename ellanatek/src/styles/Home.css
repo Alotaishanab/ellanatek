@@ -554,7 +554,13 @@ html, body {
   transform: translate(-50%, -50%);
   z-index: 1;
 }
-/* ---------- Responsive ---------- */
+
+.image-placeholder,
+.video-placeholder,
+.model-loading {
+  pointer-events: none;
+}
+
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
