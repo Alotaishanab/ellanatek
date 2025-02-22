@@ -44,7 +44,7 @@ const AdminDashboard = () => {
         queryParams.append('businessName', filters.businessName);
       }
 
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/contacts?${queryParams.toString()}`, {
+      const response = await fetch('/api/contacts?${queryParams.toString()}', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
       setSendEmailStatus('');
 
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/send-email`, {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
