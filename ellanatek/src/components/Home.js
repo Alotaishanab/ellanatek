@@ -1,9 +1,9 @@
-// Home.js
 import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import Lottie from 'lottie-react';
-import loadingAnimation from '../assets/animations/loading.json';
+// Removed Lottie import to simplify loading feedback
+// import Lottie from 'lottie-react';
+// import loadingAnimation from '../assets/animations/loading.json';
 import '../styles/Home.css';
 import CustomMap from './CustomMap';
 import logo from '../assets/logo.png'; // Import the logo
@@ -32,7 +32,7 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-// ImageLoader Component with Placeholder
+// ImageLoader Component with simple fallback text
 const ImageLoader = ({ src, alt, className }) => {
   const [loaded, setLoaded] = React.useState(false);
 
@@ -40,11 +40,8 @@ const ImageLoader = ({ src, alt, className }) => {
     <div className={`image-container ${className}`}>
       {!loaded && (
         <div className="image-placeholder">
-          <Lottie
-            animationData={loadingAnimation}
-            loop={true}
-            style={{ height: 50, width: 50 }}
-          />
+          {/* Simple fallback text instead of Lottie */}
+          <span>Loading...</span>
         </div>
       )}
       <img
@@ -57,7 +54,7 @@ const ImageLoader = ({ src, alt, className }) => {
         }}
         onError={() => {
           console.error(`Failed to load image: ${alt}`);
-          setLoaded(true); // Proceed even if image fails to load
+          setLoaded(true);
         }}
         loading="lazy"
       />
@@ -65,31 +62,15 @@ const ImageLoader = ({ src, alt, className }) => {
   );
 };
 
-// Optimized VideoLoader Component with Intersection Observer
+// VideoLoader Component with simple fallback text
 const VideoLoader = ({ src, type, className }) => {
   const [isVisible, setIsVisible] = React.useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    if (videoRef.current) {
-      observer.observe(videoRef.current);
-    }
-
-    return () => {
-      if (observer && observer.disconnect) observer.disconnect();
-    };
+    // Remove observer logic to simplify behavior
+    // Instead, immediately set video as visible
+    setIsVisible(true);
   }, []);
 
   return (
@@ -103,15 +84,11 @@ const VideoLoader = ({ src, type, className }) => {
           loop
           muted
           playsInline
-          preload="metadata" // Changed from "auto" to "metadata"
+          preload="metadata"
         />
       ) : (
         <div className="video-placeholder">
-          <Lottie
-            animationData={loadingAnimation}
-            loop={true}
-            style={{ height: 50, width: 50 }}
-          />
+          <span>Loading...</span>
         </div>
       )}
     </div>
@@ -121,31 +98,11 @@ const VideoLoader = ({ src, type, className }) => {
 const Home = ({ onNavigate }) => {
   const { t } = useTranslation();
   const adboxRef = useRef(null);
-  const boxVideoRef = useRef(null); // Ref for the new video section
+  const boxVideoRef = useRef(null);
 
+  // Remove IntersectionObserver effect to avoid heavy computations during scroll
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-up-active');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
-    );
-
-    const elementsToObserve = [
-      adboxRef.current,
-      boxVideoRef.current, // Observe the new video section
-      document.querySelector('.working-region-section')
-    ];
-
-    elementsToObserve.forEach(element => {
-      if (element) observer.observe(element);
-    });
-
-    return () => observer.disconnect();
+    // No observer for performance reasons
   }, []);
 
   const handleGetInTouchClick = () => {
@@ -224,7 +181,7 @@ const Home = ({ onNavigate }) => {
             {/* Removed title */}
           </header>
 
-          {/* Replaced video with logo using ImageLoader */}
+          {/* Use logo image instead of video */}
           <div className="video-background-wrapper">
             <ImageLoader 
               src={logo} 
@@ -234,35 +191,23 @@ const Home = ({ onNavigate }) => {
             <div className="hero-text">ADMOTION</div>
           </div>
 
-          <div className="hero-overlay animated-hero">
+          <div className="hero-overlay">
             <p className="hero-subtitle">{t('home.intro.subtitle')}</p>
             <p className="hero-description">{t('home.intro.subText')}</p>
-
             <button className="get-in-touch" onClick={handleGetInTouchClick}>
               {t('home.intro.getInTouch')}
             </button>
           </div>
         </div>
 
-        {/* New Box Video Section */}
-        <div className="adbox-section fade-in-up" ref={boxVideoRef}>
+        {/* Box Video Section simplified */}
+        <div className="adbox-section" ref={boxVideoRef}>
           <div className="adbox-content-wrapper">
             <h2 className="working-region-title">{t('home.boxVideo.title')}</h2>
-            <p className="adbox-subtitle">
-              {t('home.boxVideo.description')}
-            </p>
+            <p className="adbox-subtitle">{t('home.boxVideo.description')}</p>
             <div className="specs-container">
-              {/* Add a video container wrapper to constrain the video size */}
               <div className="video-container-wrapper">
-                <Suspense fallback={
-                  <div className="video-placeholder">
-                    <Lottie
-                      animationData={loadingAnimation}
-                      loop={true}
-                      style={{ height: 50, width: 50 }}
-                    />
-                  </div>
-                }>
+                <Suspense fallback={<div className="video-placeholder"><span>Loading video...</span></div>}>
                   <VideoLoader 
                     src={video1} 
                     type="video/mp4" 
@@ -275,12 +220,10 @@ const Home = ({ onNavigate }) => {
         </div>
 
         {/* Working Region Section */}
-        <div className="working-region-section fade-in-up">
+        <div className="working-region-section">
           <div className="working-region-content">
             <h2 className="working-region-title">{t('home.workingRegion.title')}</h2>
-            <p className="working-region-description">
-              {t('home.workingRegion.description')}
-            </p>
+            <p className="working-region-description">{t('home.workingRegion.description')}</p>
             <div className="custom-map-container">
               <CustomMap />
             </div>
@@ -288,11 +231,10 @@ const Home = ({ onNavigate }) => {
         </div>
 
         {/* AdBox Section */}
-        <div className="adbox-section fade-in-up" ref={adboxRef}>
+        <div className="adbox-section" ref={adboxRef}>
           <div className="adbox-content-wrapper">
             <h2 className="adbox-title">{t('home.adBox.title')}</h2>
             <p className="adbox-subtitle">{t('home.adBox.subtitle')}</p>
-
             <div className="specs-container">
               <div className="box-specs-layout">
                 <div className="specs-column left">
@@ -305,15 +247,7 @@ const Home = ({ onNavigate }) => {
                 </div>
 
                 <div className="box-model-container">
-                  <Suspense fallback={
-                    <div className="model-loading">
-                      <Lottie
-                        animationData={loadingAnimation}
-                        loop={true}
-                        style={{ height: 80, width: 80 }}
-                      />
-                    </div>
-                  }>
+                  <Suspense fallback={<div className="model-loading"><span>Loading model...</span></div>}>
                     <BoxModel />
                   </Suspense>
                 </div>
