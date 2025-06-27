@@ -165,8 +165,7 @@ const Payment = () => {
     <div style={{ 
       minHeight: '100vh', 
       background: 'linear-gradient(135deg, #1a0a25, #0e051b)',
-      padding: '20px',
-      paddingBottom: '120px'
+      padding: '20px'
     }}>
       <style>
         {`
