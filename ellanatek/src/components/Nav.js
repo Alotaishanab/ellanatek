@@ -1,69 +1,52 @@
-// Nav.js
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import HomeSnapshot from '../snapshots/HomeSnapshot';
-import AdvertiseSnapshot from '../snapshots/AdvertiseSnapshot';
-import AboutSnapshot from '../snapshots/AboutSnapshot';
-import ToggleButton from './ToggleButton'; // Import the ToggleButton component
+import { FaHome, FaBullhorn, FaInfoCircle } from 'react-icons/fa';
 import '../styles/Nav.css';
 
-const Nav = ({ navOpen, onNavClick }) => {
+const Nav = () => {
   const { t } = useTranslation();
-  const navLinksRef = useRef(null);
-  const [showButton, setShowButton] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  useEffect(() => {
-    let scrollTimeout;
+  const isActive = (path) => {
+    if (path === '/' && location.pathname === '/') return true;
+    if (path === '/advertise-with-us' && location.pathname.startsWith('/advertise-with-us')) return true;
+    if (path === '/about-us' && location.pathname === '/about-us') return true;
+    return false;
+  };
 
-    const handleScroll = () => {
-      setShowButton(true); // Show the button on scroll
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        setShowButton(false); // Hide the button after 2 seconds of no scroll
-      }, 2000);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(scrollTimeout);
-    };
-  }, []);
-
-  const handleNavClick = (index) => {
-    onNavClick(index);
-    if (navLinksRef.current) {
-      const navLinks = Array.from(navLinksRef.current.children);
-      const selectedLink = navLinks[index];
-      if (selectedLink) {
-        selectedLink.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-      } else {
-        console.error("Selected link is undefined at index: ", index);
-      }
-    }
+  const handleNavClick = (path) => {
+    navigate(path);
   };
 
   return (
-    <nav className={`nav ${navOpen ? 'nav-open' : ''}`}>
-      <div id="nav-links" ref={navLinksRef}>
-        <div className="nav-link" onClick={() => handleNavClick(0)}>
-          <h2 className="nav-link-label rubik-font">{t('nav.home')}</h2>
-          <HomeSnapshot />
+    <nav className="nav">
+      <div id="nav-links">
+        <div 
+          className={`nav-link ${isActive('/') ? 'active' : ''}`}
+          onClick={() => handleNavClick('/')}
+        >
+          <FaHome className="nav-icon" />
+          <h2 className="nav-link-label rubik-font">HOME</h2>
         </div>
-        <div className="nav-link" onClick={() => handleNavClick(1)}>
-          <h2 className="nav-link-label rubik-font">{t('nav.advertise')}</h2>
-          <AdvertiseSnapshot />
+        <div 
+          className={`nav-link ${isActive('/advertise-with-us') ? 'active' : ''}`}
+          onClick={() => handleNavClick('/advertise-with-us/login')}
+        >
+          <FaBullhorn className="nav-icon" />
+          <h2 className="nav-link-label rubik-font">ADVERTISE</h2>
         </div>
-        <div className="nav-link" onClick={() => handleNavClick(2)}>
-          <h2 className="nav-link-label rubik-font">{t('nav.about')}</h2>
-          <AboutSnapshot />
+        <div 
+          className={`nav-link ${isActive('/about-us') ? 'active' : ''}`}
+          onClick={() => handleNavClick('/about-us')}
+        >
+          <FaInfoCircle className="nav-icon" />
+          <h2 className="nav-link-label rubik-font">ABOUT</h2>
         </div>
       </div>
-      {/* The language switcher is now moved into the ToggleButton component */}
-      <ToggleButton toggleNav={() => {}} navOpen={navOpen} showButton={showButton} toggleLanguage={() => { /* language handling logic */ }} />
     </nav>
   );
 };
 
-export default Nav;
+export default Nav; 

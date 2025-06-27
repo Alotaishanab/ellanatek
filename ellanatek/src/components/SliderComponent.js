@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../styles/SliderComponent.css';
 import Home from './Home';
-import AdvertiseWithUs from './AdvertiseWithUs';
+import AdvertiseWithUs from '../services/advertise/Login';
 import RideWithUs from './RideWithUs';
 import AboutUs from './AboutUs';
 

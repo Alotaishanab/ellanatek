@@ -1,168 +1,118 @@
-/* Ensure the body and html styling is appropriate */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: auto;
-  background: var(--bg-gradient);  /* Uses your dark purple gradient */
-  color: white;
-  transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
-}
-
-
-.App.nav-open .screen-container {
-  transform: translateY(-50vh);
-}
-
-.screen-container {
-  transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
-}
-
-/* Navigation bar styling */
-nav {
-  height: 50vh;
-  width: 100%;
+.nav {
   position: fixed;
-  left: 0;
-  bottom: 0;
-  z-index: 1;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.06);  /* Glassy background */
-  border: 1px solid rgba(255, 255, 255, 0.15);  /* Subtle border */
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  transform: translateY(100%);
-  transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
-}
-
-
-
-
-nav.nav-open {
-  transform: translateY(0);
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: rgba(20, 20, 30, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  display: flex;
+  gap: 3rem;
+  box-shadow: 0 4px 30px rgba(138, 43, 226, 0.3);
+  border: 1px solid rgba(138, 43, 226, 0.2);
 }
 
 #nav-links {
   display: flex;
-  gap: clamp(1rem, 2vw, 2rem);
-  margin-top: clamp(2rem, 2vw, 3rem);
-  padding: 0rem clamp(1rem, 2vw, 2rem);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  gap: 3rem;
 }
 
 .nav-link {
-  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
-  scroll-snap-align: center;
-  flex-grow: 1;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #8A2BE2;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link:hover {
+  color: #8A2BE2;
+  transform: translateY(-2px);
+}
+
+.nav-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .nav-link-label {
-  color: white;  /* Change text color to white */
-  font-size: 1.25rem;
+  font-family: 'Rubik', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
   margin: 0;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.06);  /* Glassmorphic background */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  padding: 10px;
-  border-radius: 5px;
+  letter-spacing: 1px;
 }
 
-
-.nav-link-image {
-  width: max(20vw, 400px);
-  aspect-ratio: 1.8 / 1;
-  border-radius: 0.5rem;
-  margin-top: 0.75rem;
-  object-fit: cover;
+/* Active state */
+.nav-link.active {
+  color: #8A2BE2;
 }
 
-/* Nav toggle button styling */
-#nav-toggle {
-  height: 5rem;
-  width: 5rem;
-  position: fixed;
-  z-index: 15; /* Ensure it's above the nav bar and footer */
-  left: 50%;
-  bottom: 5rem; /* Adjust this value to raise the button vertically */
-  transform: translateX(-50%);
-  border: none;
-  border-radius: 5rem;
-  outline: none;
-  box-shadow: 0rem 0rem 4rem rgba(0 0 0 / 35%);
-  cursor: pointer;
-  transition: transform, background-color;
-  transition-timing-function: ease;
-  transition-duration: 400ms;
+.nav-link.active::after {
+  width: 100%;
 }
 
-#nav-toggle:hover {
-  transform: translateX(-50%) scale(1.04);
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .nav {
+    bottom: 1rem;
+    padding: 0.8rem 1.5rem;
+    gap: 2rem;
+  }
+
+  #nav-links {
+    gap: 2rem;
+  }
+
+  .nav-icon {
+    font-size: 1.2rem;
+  }
+
+  .nav-link-label {
+    font-size: 0.7rem;
+  }
 }
 
-#nav-toggle:active {
-  transform: translateX(-50%) scale(0.96);
-}
+/* Extra small devices */
+@media (max-width: 480px) {
+  .nav {
+    padding: 0.6rem 1rem;
+    gap: 1.5rem;
+  }
 
-body[data-nav="true"] > #nav-toggle {
-  background-color: rgb(85, 130, 149);
-}
+  #nav-links {
+    gap: 1.5rem;
+  }
 
-/* Ensure only one icon is visible at a time */
-#nav-toggle > .icon {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
-  color: rgb(246, 231, 224);
-  font-size: 1.75rem;
-  opacity: 0;
-  transition: transform, opacity;
-  transition-timing-function: ease;
-  transition-duration: 400ms;
-}
+  .nav-icon {
+    font-size: 1rem;
+  }
 
-#nav-toggle > .open {
-  opacity: 1;
-}
-
-body[data-nav="true"] > #nav-toggle > .open {
-  opacity: 0;
-  pointer-events: none;
-}
-
-body[data-nav="true"] > #nav-toggle > .close {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-/* ellanatek/src/styles/Nav.css */
-
-.language-switcher {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
-}
-
-.lang-button {
-  padding: 5px 10px;
-  border: none;
-  background-color: transparent;
-  color: #fff;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: color 0.3s, border-bottom 0.3s;
-}
-
-.lang-button.active {
-  font-weight: bold;
-  border-bottom: 2px solid #fff;
-}
-
-.lang-button:hover {
-  color: #007BFF;
-}
+  .nav-link-label {
+    font-size: 0.6rem;
+  }
+} 

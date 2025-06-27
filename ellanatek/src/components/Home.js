@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 // Removed Lottie import to simplify loading feedback
 // import Lottie from 'lottie-react';
 // import loadingAnimation from '../assets/animations/loading.json';
@@ -95,10 +96,11 @@ const VideoLoader = ({ src, type, className }) => {
   );
 };
 
-const Home = ({ onNavigate }) => {
+const Home = () => {
   const { t } = useTranslation();
   const adboxRef = useRef(null);
   const boxVideoRef = useRef(null);
+  const navigate = useNavigate();
 
   // Remove IntersectionObserver effect to avoid heavy computations during scroll
   useEffect(() => {
@@ -106,7 +108,7 @@ const Home = ({ onNavigate }) => {
   }, []);
 
   const handleGetInTouchClick = () => {
-    onNavigate(1);
+    navigate('/advertise-with-us/login');
   };
 
   const leftSpecs = [
