@@ -1,9 +1,10 @@
-// index.js
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+
+console.log("✅ index.js starting...");
 
 const app = express();
 app.use(express.json());
@@ -28,7 +29,16 @@ app.use('/api', require('./routes/contacts'));
 app.use('/api', require('./routes/unsubscribe'));
 app.use('/api', require('./routes/email'));
 
+// Start Sysolution WebSocket server with error catching
+try {
+    require('./routes/controller');
+    console.log("✅ routes/controller.js loaded successfully.");
+} catch (err) {
+    console.error("❌ Failed to load routes/controller.js:", err);
+}
+
+// Start HTTP Server
 const PORT = process.env.PORT || 5004;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
 });

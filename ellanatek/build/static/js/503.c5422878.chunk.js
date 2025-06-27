@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmy_app=self.webpackChunkmy_app||[]).push([[503],{503:(e,s,a)=>{a.r(s),a.d(s,{default:()=>t});a(43),a(824);var o=a(579);const t=()=>(0,o.jsx)("model-viewer",{src:"/BoxCentered.glb","camera-controls":!0,"interaction-prompt":"none","disable-zoom":!0,className:"box-model",style:{width:"600px",height:"800px"}})}}]);
+//# sourceMappingURL=503.c5422878.chunk.js.map

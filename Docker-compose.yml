@@ -2,25 +2,31 @@ version: "3.8"
 
 services:
   backend:
+    build:
+      context: ./backend           # Ensure it builds from your local backend code
+      dockerfile: Dockerfile
     image: alotaishanab/ellanatek-backend:latest
     container_name: my_backend
-    expose:
-      - "5004"
+    platform: linux/amd64         # Apple Silicon compatibility
+    ports:
+      - "5004:5004"               # HTTP API port
+      - "8081:8081"               # WebSocket server port
     networks:
       - app-net
     restart: unless-stopped
 
-  frontend:
-    image: alotaishanab/ellanatek-frontend:latest
-    container_name: my_frontend
+  nginx:
+    image: nginx:latest
+    container_name: my_nginx
     ports:
       - "80:80"
-      - "443:443"
+      # - "443:443"   # Commented for local testing, no SSL locally
     networks:
       - app-net
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./certs:/etc/nginx/certs
+      # - ./certs:/etc/nginx/certs   # Commented, not needed locally
+      # - ./frontend/build:/usr/share/nginx/html  # DISABLED: skipping frontend entirely
     depends_on:
       - backend
     restart: unless-stopped

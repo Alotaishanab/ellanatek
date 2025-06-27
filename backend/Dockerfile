@@ -3,17 +3,18 @@ FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
-# Copy package files
+# Copy package files first for caching
 COPY package*.json ./
 
-# If you need the legacy peer deps:
+# Install dependencies
 RUN npm install --legacy-peer-deps
 
 # Copy the remaining source code
 COPY . .
 
-# Expose the port your backend listens on, e.g. 5004
+# Expose ports
 EXPOSE 5004
+EXPOSE 8081
 
-# Start the application with node index.js
+# Start the backend server
 CMD ["node", "index.js"]
