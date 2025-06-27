@@ -1,11 +1,9 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { FaHome, FaBullhorn, FaInfoCircle } from 'react-icons/fa';
 import '../styles/Nav.css';
 
 const Nav = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 

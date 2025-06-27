@@ -7,8 +7,6 @@ import Questionnaire from '../services/advertise/Questionnaire';
 import Dashboard from '../services/advertise/Dashboard';
 import Payment from '../services/advertise/Payment';
 import Success from '../services/advertise/Success';
-import AdMapTracker from './AdMapTracker';
-import PricingCards from './PricingCards';
 import '../styles/AdvertiseWithUs.css';
 
 const AdvertiseLanding = () => {
