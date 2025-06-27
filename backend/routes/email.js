@@ -1,93 +1,108 @@
+/**
+ * @swagger
+ * tags: [Emails]
+ *
+ * /api/send-email:
+ *   post:
+ *     summary: Send custom or template email to clients (admin only)
+ *     tags: [Emails]
+ *     security: [ { bearerAuth: [] } ]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               clientIds:
+ *                 type: array
+ *                 items: { type: integer }
+ *                 description: IDs from contacts table
+ *               emails:
+ *                 type: array
+ *                 items: { type: string, format: email }
+ *               subject:        { type: string }
+ *               customMessage:  { type: string }
+ *               isProposal:     { type: boolean, default: false }
+ *               isClientEmail:  { type: boolean, default: false }
+ *     responses:
+ *       200: { description: Emails queued }
+ */
+
 const express = require('express');
-const router = express.Router();
+const router  = express.Router();
+
 const createTransporter = require('../config/transporter');
 const {
   generateEmailTemplate,
   generateProposalTemplate,
   generateEmailClientsTemplate
 } = require('../utils/emailTemplates');
-const db = require('../config/db');
-const authenticateToken = require('../middleware/authenticateToken');
+const db                 = require('../config/db');
+const authenticateToken  = require('../middleware/authenticateToken');
+const requireRole        = require('../middleware/requireRole'); // make sure only admins call this
 
-router.post('/send-email', authenticateToken, async (req, res) => {
-  const { clientIds, emails, subject, customMessage, isProposal, isClientEmail } = req.body;
+router.post('/send-email',
+  authenticateToken,
+  requireRole('admin', 'superAdmin'),
+  async (req, res) => {
+    const { clientIds, emails, subject,
+            customMessage, isProposal, isClientEmail } = req.body;
 
-  if ((!clientIds || clientIds.length === 0) && (!emails || emails.length === 0)) {
-    return res.status(400).json({ message: 'At least one clientId or email is required' });
-  }
+    if ((!clientIds || !clientIds.length) && (!emails || !emails.length))
+      return res.status(400).json({ message: 'clientIds or emails required' });
 
-  try {
-    const transporter = await createTransporter();
-    let recipientEmails = [];
+    try {
+      const transporter = await createTransporter();
+      let recipients = [];
 
-    if (clientIds && clientIds.length > 0) {
-      const placeholders = clientIds.map(() => '?').join(',');
-      const query = `SELECT email, firstName FROM contacts WHERE id IN (${placeholders}) AND isUnsubscribed = 0`;
-      const clients = db.prepare(query).all(...clientIds);
-      if (clients.length === 0) {
-        return res.status(404).json({ message: 'No valid clients found or all unsubscribed' });
+      if (clientIds?.length) {
+        const qs   = clientIds.map(() => '?').join(',');
+        const rows = db.prepare(
+          `SELECT email, firstName
+             FROM contacts
+            WHERE id IN (${qs}) AND isUnsubscribed = 0`
+        ).all(...clientIds);
+        rows.forEach(r => recipients.push({ email: r.email, firstName: r.firstName }));
       }
-      clients.forEach(c => recipientEmails.push({ email: c.email, firstName: c.firstName }));
-    }
-
-    if (emails && emails.length > 0) {
-      emails.forEach(email => {
+      if (emails?.length) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (emailRegex.test(email)) {
-          recipientEmails.push({ email, firstName: '' });
-        }
-      });
-    }
-
-    if (recipientEmails.length === 0) {
-      return res.status(400).json({ message: 'No valid email addresses provided' });
-    }
-
-    // Remove duplicate emails (case-insensitive)
-    recipientEmails = recipientEmails.filter(
-      (item, index, self) =>
-        index === self.findIndex(t => t.email.toLowerCase() === item.email.toLowerCase())
-    );
-
-    const sendPromises = recipientEmails.map(async (r) => {
-      let htmlContent;
-      let finalSubject = subject; // subject provided by the admin
-
-      if (isProposal) {
-        const nameToUse = r.firstName || 'Partner';
-        htmlContent = generateProposalTemplate(nameToUse);
-        finalSubject = subject || 'AdMotion Proposal';
-      } else if (isClientEmail) {
-        const nameToUse = r.firstName || 'Valued Client';
-        htmlContent = generateEmailClientsTemplate(nameToUse);
-      } else {
-        htmlContent = generateEmailTemplate({
-          title: subject || 'AdMotion Update',
-          message: customMessage || 'We have an update for you!',
-        });
-        finalSubject = subject || 'AdMotion Update';
+        emails.forEach(e => emailRegex.test(e) && recipients.push({ email: e, firstName: '' }));
       }
+      // dedupe (case-insensitive)
+      recipients = recipients.filter(
+        (r,i,self) => i === self.findIndex(t => t.email.toLowerCase() === r.email.toLowerCase())
+      );
+      if (!recipients.length) return res.status(400).json({ message: 'No valid recipients' });
 
-      const mailOptions = {
-        from: process.env.COMPANY_EMAIL,
-        to: r.email,
-        subject: finalSubject,
-        html: htmlContent,
-      };
+      await Promise.all(recipients.map(async r => {
+        let html, finalSubject = subject;
+        if (isProposal) {
+          html = generateProposalTemplate(r.firstName || 'Partner');
+          finalSubject ||= 'AdMotion Proposal';
+        } else if (isClientEmail) {
+          html = generateEmailClientsTemplate(r.firstName || 'Valued Client');
+          finalSubject ||= 'AdMotion Update';
+        } else {
+          html = generateEmailTemplate({
+            title:   subject || 'AdMotion Update',
+            message: customMessage || 'We have an update for you!'
+          });
+          finalSubject ||= 'AdMotion Update';
+        }
+        await transporter.sendMail({
+          from: process.env.COMPANY_EMAIL,
+          to:   r.email,
+          subject: finalSubject,
+          html
+        });
+      }));
 
-      console.log(`Sending email to ${r.email} with subject "${finalSubject}"`);
-      console.log('Mail Options:', mailOptions);
-
-      const info = await transporter.sendMail(mailOptions);
-      console.log('Email sent:', info);
-    });
-
-    await Promise.all(sendPromises);
-    res.send('Emails sent successfully');
-  } catch (err) {
-    console.error('Error sending emails:', err);
-    res.status(500).send('Internal server error');
-  }
-});
+      res.json({ ok: true, sent: recipients.length });
+    } catch (err) {
+      console.error('send-email error:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 module.exports = router;
