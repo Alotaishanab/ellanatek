@@ -321,6 +321,20 @@
   .nav-buttons {
     flex-direction: column;
   }
+
+  /* New Dashboard Mobile Styles */
+  .dashboard-grid-layout {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .dashboard-sidebar {
+    order: 2;
+  }
+
+  .dashboard-main-content {
+    order: 1;
+  }
 }
 
 @media (max-width: 480px) {
