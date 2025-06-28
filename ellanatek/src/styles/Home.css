@@ -449,9 +449,6 @@ html, body {
   height: 100%;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: var(--box-shadow);
-  background: var(--glass-bg); /* Glass effect */
-  backdrop-filter: blur(var(--blur-amount)); /* Glass effect */
 }
 
 .loaded-video {

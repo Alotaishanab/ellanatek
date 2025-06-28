@@ -7,6 +7,7 @@ import Questionnaire from '../services/advertise/Questionnaire';
 import Dashboard from '../services/advertise/Dashboard';
 import Payment from '../services/advertise/Payment';
 import Success from '../services/advertise/Success';
+import Account from '../services/advertise/Account'; // Add this import
 
 const AdvertiseWithUs = () => {
   return (
@@ -17,6 +18,9 @@ const AdvertiseWithUs = () => {
       {/* Authentication routes */}
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
+      
+      {/* Account page */}
+      <Route path="account" element={<Account />} />
       
       {/* Onboarding flow */}
       <Route path="questions" element={<Questionnaire />} />
@@ -32,4 +36,4 @@ const AdvertiseWithUs = () => {
   );
 };
 
-export default AdvertiseWithUs; 
+export default AdvertiseWithUs;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import ellantekAPI from '../../services/api';
 import '../../styles/OnboardingFlow.css';
 
 const Login = () => {
@@ -11,6 +12,7 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,18 +20,30 @@ const Login = () => {
       ...prev,
       [name]: value
     }));
+    // Clear error when user starts typing
+    if (error) setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
+    setError('');
+
+    try {
+      const response = await ellantekAPI.login(formData);
+      
+      // Store user data if needed
+      if (response.user) {
+        localStorage.setItem('ellanatek_user', JSON.stringify(response.user));
+      }
+
+      // Navigate to account page or questionnaire
+      navigate('/advertise-with-us/account');
+    } catch (error) {
+      setError(error.message || 'Login failed. Please try again.');
+    } finally {
       setIsLoading(false);
-      // Navigate to questionnaire on successful login
-      navigate('/advertise-with-us/questions');
-    }, 1000);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -41,6 +55,18 @@ const Login = () => {
       <form className="onboarding-form" onSubmit={handleSubmit}>
         <h2>Welcome Back</h2>
         
+        {error && (
+          <div className="error-message" style={{
+            background: '#fee', 
+            color: '#c33', 
+            padding: '10px', 
+            borderRadius: '4px', 
+            marginBottom: '20px'
+          }}>
+            {error}
+          </div>
+        )}
+
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -77,8 +103,8 @@ const Login = () => {
           </div>
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className="onboarding-button"
           disabled={isLoading}
         >
@@ -93,4 +119,4 @@ const Login = () => {
   );
 };
 
-export default Login; 
+export default Login;
