@@ -120,25 +120,33 @@
 .onboarding-button {
   width: 100%;
   padding: 14px;
-  background: var(--primary-color);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   color: var(--highlight-color);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   cursor: pointer;
   font-family: 'Jost', sans-serif;
   font-weight: 600;
   font-size: 16px;
-  transition: background var(--transition-duration);
+  transition: all 0.3s ease;
   margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .onboarding-button:hover:not(:disabled) {
-  background: var(--accent-color);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .onboarding-button:disabled {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 /* Navigation Links */

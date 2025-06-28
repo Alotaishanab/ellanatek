@@ -1,0 +1,196 @@
+/* Ensure the body and html styling is appropriate */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: auto;
+  background: var(--bg-gradient);  /* Uses your dark purple gradient */
+  color: white;
+  transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
+}
+
+
+.App.nav-open .screen-container {
+  transform: translateY(-50vh);
+}
+
+.screen-container {
+  transition: transform 500ms cubic-bezier(.13,.53,.38,.97);
+}
+
+/* Navigation bar styling */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: rgba(20, 20, 30, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.nav-open {
+  height: 100vh;
+}
+
+#nav-links {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.nav-open #nav-links {
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.nav-icon {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.nav-link-label {
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    height: 60px;
+  }
+
+  .nav-icon {
+    font-size: 1.2rem;
+  }
+
+  .nav-link-label {
+    font-size: 0.8rem;
+  }
+
+  .nav-link {
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+.nav-link-image {
+  width: max(20vw, 400px);
+  aspect-ratio: 1.8 / 1;
+  border-radius: 0.5rem;
+  margin-top: 0.75rem;
+  object-fit: cover;
+}
+
+/* Nav toggle button styling */
+#nav-toggle {
+  height: 5rem;
+  width: 5rem;
+  position: fixed;
+  z-index: 15; /* Ensure it's above the nav bar and footer */
+  left: 50%;
+  bottom: 5rem; /* Adjust this value to raise the button vertically */
+  transform: translateX(-50%);
+  border: none;
+  border-radius: 5rem;
+  outline: none;
+  box-shadow: 0rem 0rem 4rem rgba(0 0 0 / 35%);
+  cursor: pointer;
+  transition: transform, background-color;
+  transition-timing-function: ease;
+  transition-duration: 400ms;
+}
+
+#nav-toggle:hover {
+  transform: translateX(-50%) scale(1.04);
+}
+
+#nav-toggle:active {
+  transform: translateX(-50%) scale(0.96);
+}
+
+body[data-nav="true"] > #nav-toggle {
+  background-color: rgb(85, 130, 149);
+}
+
+/* Ensure only one icon is visible at a time */
+#nav-toggle > .icon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  color: rgb(246, 231, 224);
+  font-size: 1.75rem;
+  opacity: 0;
+  transition: transform, opacity;
+  transition-timing-function: ease;
+  transition-duration: 400ms;
+}
+
+#nav-toggle > .open {
+  opacity: 1;
+}
+
+body[data-nav="true"] > #nav-toggle > .open {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body[data-nav="true"] > #nav-toggle > .close {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ellanatek/src/styles/Nav.css */
+
+.language-switcher {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.lang-button {
+  padding: 5px 10px;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.lang-button.active {
+  font-weight: bold;
+  border-bottom: 2px solid #fff;
+}
+
+.lang-button:hover {
+  color: #007BFF;
+}

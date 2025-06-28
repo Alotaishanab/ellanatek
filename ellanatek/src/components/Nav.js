@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { FaHome, FaBullhorn, FaInfoCircle } from 'react-icons/fa';
+import { FaHome, FaBullhorn, FaInfoCircle, FaEnvelope } from 'react-icons/fa';
 import '../styles/Nav.css';
 
 const Nav = () => {
@@ -11,6 +11,7 @@ const Nav = () => {
     if (path === '/' && location.pathname === '/') return true;
     if (path === '/advertise-with-us' && location.pathname.startsWith('/advertise-with-us')) return true;
     if (path === '/about-us' && location.pathname === '/about-us') return true;
+    if (path === '/contact' && location.pathname === '/contact') return true;
     return false;
   };
 
@@ -29,8 +30,15 @@ const Nav = () => {
           <h2 className="nav-link-label rubik-font">HOME</h2>
         </div>
         <div 
+          className={`nav-link ${isActive('/contact') ? 'active' : ''}`}
+          onClick={() => handleNavClick('/contact')}
+        >
+          <FaEnvelope className="nav-icon" />
+          <h2 className="nav-link-label rubik-font">CONTACT</h2>
+        </div>
+        <div 
           className={`nav-link ${isActive('/advertise-with-us') ? 'active' : ''}`}
-          onClick={() => handleNavClick('/advertise-with-us/login')}
+          onClick={() => handleNavClick('/advertise-with-us')}
         >
           <FaBullhorn className="nav-icon" />
           <h2 className="nav-link-label rubik-font">ADVERTISE</h2>

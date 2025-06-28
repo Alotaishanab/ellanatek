@@ -39,18 +39,22 @@ const PricingCards = ({ selectedPlan, onPlanSelect }) => {
             key={plan.id}
             onClick={() => onPlanSelect(plan.id)}
             style={{
-              background: selectedPlan === plan.id 
-                ? 'linear-gradient(135deg, #8A2BE2, #9B59B6)' 
-                : 'rgba(255, 255, 255, 0.05)',
-              border: selectedPlan === plan.id 
-                ? '2px solid #8A2BE2' 
-                : '1px solid rgba(255, 255, 255, 0.15)',
+                          background: selectedPlan === plan.id 
+              ? 'rgba(255, 255, 255, 0.2)' 
+              : 'rgba(255, 255, 255, 0.05)',
+            border: selectedPlan === plan.id 
+              ? '2px solid rgba(255, 255, 255, 0.3)' 
+              : '1px solid rgba(255, 255, 255, 0.15)',
               borderRadius: '12px',
               padding: '20px',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               position: 'relative',
-              backdropFilter: 'blur(10px)'
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              boxShadow: selectedPlan === plan.id 
+                ? '0 8px 32px rgba(255, 255, 255, 0.1)' 
+                : '0 8px 32px rgba(0, 0, 0, 0.3)'
             }}
             onMouseEnter={(e) => {
               if (selectedPlan !== plan.id) {
@@ -69,12 +73,16 @@ const PricingCards = ({ selectedPlan, onPlanSelect }) => {
                 top: '-8px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                background: '#8A2BE2',
+                background: 'rgba(255, 255, 255, 0.15)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
                 color: 'white',
                 padding: '4px 12px',
                 borderRadius: '12px',
                 fontSize: '12px',
-                fontWeight: '600'
+                fontWeight: '600',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)'
               }}>
                 Most Popular
               </div>

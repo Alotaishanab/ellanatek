@@ -364,9 +364,11 @@ const Payment = () => {
                   onClick={handlePayment}
                   disabled={!validateForm()}
                   style={{
-                    background: validateForm() ? '#8A2BE2' : 'rgba(138, 43, 226, 0.3)',
+                    background: validateForm() ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
                     color: '#fff',
-                    border: 'none',
+                    border: validateForm() ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.1)',
                     padding: '16px 24px',
                     borderRadius: '8px',
                     fontSize: '16px',
@@ -377,7 +379,23 @@ const Payment = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '10px'
+                    gap: '10px',
+                    boxShadow: validateForm() ? '0 8px 32px rgba(0, 0, 0, 0.3)' : 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (validateForm()) {
+                      e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 12px 40px rgba(0, 0, 0, 0.4)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (validateForm()) {
+                      e.target.style.background = 'rgba(255, 255, 255, 0.15)';
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+                    }
                   }}
                 >
                   <FaLock size={16} />

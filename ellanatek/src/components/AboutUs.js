@@ -18,20 +18,20 @@ const AboutUs = () => {
   useEffect(() => {
     // Small delay to ensure FoundersSection is rendered
     const timer = setTimeout(() => {
-      const sections = document.querySelectorAll('.about-section');
-      const observer = new IntersectionObserver(
-        (entries, observerInstance) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('in-view');
-              observerInstance.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.3 }
-      );
-      sections.forEach((section) => observer.observe(section));
-      return () => sections.forEach((section) => observer.unobserve(section));
+    const sections = document.querySelectorAll('.about-section');
+    const observer = new IntersectionObserver(
+      (entries, observerInstance) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observerInstance.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => sections.forEach((section) => observer.unobserve(section));
     }, 100);
 
     return () => clearTimeout(timer);

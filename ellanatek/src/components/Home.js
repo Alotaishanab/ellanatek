@@ -107,9 +107,7 @@ const Home = () => {
     // No observer for performance reasons
   }, []);
 
-  const handleGetInTouchClick = () => {
-    navigate('/advertise-with-us/login');
-  };
+
 
   const leftSpecs = [
     { 
@@ -196,9 +194,6 @@ const Home = () => {
           <div className="hero-overlay">
             <p className="hero-subtitle">{t('home.intro.subtitle')}</p>
             <p className="hero-description">{t('home.intro.subText')}</p>
-            <button className="get-in-touch" onClick={handleGetInTouchClick}>
-              {t('home.intro.getInTouch')}
-            </button>
           </div>
         </div>
 

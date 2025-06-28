@@ -3,6 +3,7 @@ import React from 'react';
 import './App.css';
 import Nav from './components/Nav';
 import Home from './components/Home';
+import Contact from './components/Contact';
 import AdvertiseWithUs from './components/AdvertiseWithUs';
 import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
@@ -17,6 +18,7 @@ const App = () => {
         <Routes>
           {/* Main Routes */}
           <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/about-us" element={<AboutUs />} />
           
           {/* Advertise Routes - All under /advertise-with-us/* */}
