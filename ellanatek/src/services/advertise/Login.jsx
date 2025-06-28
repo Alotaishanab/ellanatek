@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/OnboardingFlow.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login, advertiserData, hasCompletedOnboarding } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -27,8 +29,30 @@ const Login = () => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      // Navigate to questionnaire on successful login
-      navigate('/advertise-with-us/questions');
+      
+      // Create user data (simulated)
+      const userData = {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: formData.email,
+        phone: '+966501234567'
+      };
+      
+      // Get existing advertiser data if any
+      const existingAdvertiserData = localStorage.getItem('advertiserData');
+      const parsedAdvertiserData = existingAdvertiserData ? JSON.parse(existingAdvertiserData) : null;
+      
+      // Use the context login function
+      login(userData, parsedAdvertiserData);
+      
+      // Navigate based on onboarding status
+      if (parsedAdvertiserData && parsedAdvertiserData.businessName) {
+        // User has completed onboarding, go to dashboard
+        navigate('/advertise-with-us/dashboard');
+      } else {
+        // First time login, go to questionnaire
+        navigate('/advertise-with-us/questions');
+      }
     }, 1000);
   };
 

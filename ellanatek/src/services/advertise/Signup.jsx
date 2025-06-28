@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/OnboardingFlow.css';
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -30,6 +32,18 @@ const Signup = () => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
+      
+      // Create user data from form
+      const userData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone
+      };
+      
+      // Use the context login function (no advertiser data yet for new users)
+      login(userData);
+      
       // Navigate to questionnaire on successful signup
       navigate('/advertise-with-us/questions');
     }, 1000);

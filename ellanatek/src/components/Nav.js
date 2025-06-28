@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaHome, FaBullhorn, FaInfoCircle, FaEnvelope } from 'react-icons/fa';
+import { useAuth } from '../contexts/AuthContext';
 import '../styles/Nav.css';
 
 const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated, hasCompletedOnboarding, isLoading } = useAuth();
 
   const isActive = (path) => {
     if (path === '/' && location.pathname === '/') return true;
@@ -17,6 +19,26 @@ const Nav = () => {
 
   const handleNavClick = (path) => {
     navigate(path);
+  };
+
+  const handleAdvertiseClick = () => {
+    if (isLoading) {
+      // Wait for auth check to complete
+      return;
+    }
+
+    if (isAuthenticated) {
+      if (hasCompletedOnboarding()) {
+        // User is logged in and has completed onboarding, go to dashboard
+        navigate('/advertise-with-us/dashboard');
+      } else {
+        // User is logged in but hasn't completed onboarding, go to questionnaire
+        navigate('/advertise-with-us/questions');
+      }
+    } else {
+      // User is not logged in, go to onboarding page
+      navigate('/advertise-with-us');
+    }
   };
 
   return (
@@ -38,7 +60,7 @@ const Nav = () => {
         </div>
         <div 
           className={`nav-link ${isActive('/advertise-with-us') ? 'active' : ''}`}
-          onClick={() => handleNavClick('/advertise-with-us')}
+          onClick={handleAdvertiseClick}
         >
           <FaBullhorn className="nav-icon" />
           <h2 className="nav-link-label rubik-font">ADVERTISE</h2>

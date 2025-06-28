@@ -5,8 +5,10 @@ import Login from '../services/advertise/Login';
 import Signup from '../services/advertise/Signup';
 import Questionnaire from '../services/advertise/Questionnaire';
 import Dashboard from '../services/advertise/Dashboard';
+import Account from '../services/advertise/Account';
 import Payment from '../services/advertise/Payment';
 import Success from '../services/advertise/Success';
+import AuthGuard from '../services/advertise/AuthGuard';
 
 const AdvertiseWithUs = () => {
   return (
@@ -19,12 +21,13 @@ const AdvertiseWithUs = () => {
       <Route path="signup" element={<Signup />} />
       
       {/* Onboarding flow */}
-      <Route path="questions" element={<Questionnaire />} />
-      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="questions" element={<AuthGuard><Questionnaire /></AuthGuard>} />
+      <Route path="dashboard" element={<AuthGuard><Dashboard /></AuthGuard>} />
+      <Route path="account" element={<AuthGuard><Account /></AuthGuard>} />
       
       {/* Payment flow */}
-      <Route path="payment" element={<Payment />} />
-      <Route path="success" element={<Success />} />
+      <Route path="payment" element={<AuthGuard><Payment /></AuthGuard>} />
+      <Route path="success" element={<AuthGuard><Success /></AuthGuard>} />
       
       {/* Redirect to landing by default */}
       <Route path="*" element={<Navigate to="/advertise-with-us" replace />} />

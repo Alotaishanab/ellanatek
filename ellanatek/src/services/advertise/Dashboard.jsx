@@ -15,6 +15,7 @@ import {
   FaImage,
   FaVideo
 } from 'react-icons/fa';
+import { useAuth } from '../../contexts/AuthContext';
 import ContactMap from '../../components/ContactMap';
 import AdPreview from './components/AdPreview';
 import AdLibrary from './components/AdLibrary';
@@ -22,7 +23,7 @@ import '../../styles/OnboardingFlow.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [advertiserData, setAdvertiserData] = useState(null);
+  const { user, advertiserData, logout } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState('2weeks');
   const [adDetails, setAdDetails] = useState({
     title: '',
@@ -32,29 +33,16 @@ const Dashboard = () => {
   const [mapError, setMapError] = useState(false);
 
   useEffect(() => {
-    // Load advertiser data from localStorage
-    const data = localStorage.getItem('advertiserData');
-    if (data) {
-      const parsedData = JSON.parse(data);
-      // Set default region to 'khobar' if not specified
-      if (!parsedData.region) {
-        parsedData.region = 'khobar';
-      }
-      setAdvertiserData(parsedData);
-    } else {
-      // If no data exists, create default data with khobar region
-      setAdvertiserData({
-        businessName: 'Advertiser',
-        region: 'khobar',
-        industryType: 'other',
-        budgetRange: '1000-3000'
-      });
+    // Ensure we have default data if advertiser data is missing
+    if (!advertiserData || !advertiserData.region) {
+      // This handles the case where user is authenticated but hasn't completed questionnaire
+      console.log('No advertiser data found, user may need to complete questionnaire');
     }
-  }, []);
+  }, [advertiserData]);
 
   const handleLogout = () => {
-    localStorage.removeItem('advertiserData');
-    localStorage.removeItem('campaignData');
+    // Use the context logout function
+    logout();
     navigate('/advertise-with-us/login');
   };
 
@@ -88,7 +76,7 @@ const Dashboard = () => {
 
     // Create campaign data
     const campaignData = {
-      advertiserData,
+      advertiserData: safeAdvertiserData,
       selectedPlan,
       adDetails,
       timestamp: new Date().toISOString()
@@ -142,6 +130,14 @@ const Dashboard = () => {
     return regions[value] || value;
   };
 
+  // Provide fallback data if advertiserData is missing
+  const safeAdvertiserData = advertiserData || {
+    businessName: 'Your Business',
+    region: 'khobar',
+    industryType: 'other',
+    budgetRange: '1000-3000'
+  };
+
   const plans = [
     {
       id: '1week',
@@ -189,7 +185,7 @@ const Dashboard = () => {
         fontSize: '12px',
         fontWeight: '500'
       }}>
-        Campaign Region: {getRegionLabel(advertiserData?.region)}
+        Campaign Region: {getRegionLabel(safeAdvertiserData.region)}
       </div>
     </div>
   );
@@ -215,39 +211,73 @@ const Dashboard = () => {
         }}>
           <div className="dashboard-welcome">
             <h1 style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>
-              Welcome back, {advertiserData?.businessName || 'Advertiser'}!
+              Welcome back, {safeAdvertiserData.businessName || user?.firstName || 'Advertiser'}!
             </h1>
             <p style={{ fontSize: '16px', opacity: 0.8 }}>
               Your advertising journey starts here. Create your campaign and start reaching your audience.
             </p>
           </div>
-          <button
-            onClick={handleLogout}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              color: '#fff',
-              padding: '12px 16px',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              fontSize: '14px',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = 'rgba(255, 255, 255, 0.15)';
-              e.target.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'rgba(255, 255, 255, 0.1)';
-              e.target.style.transform = 'translateY(0)';
-            }}
-          >
-            <FaSignOutAlt size={14} />
-            Logout
-          </button>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <button
+              onClick={() => navigate('/advertise-with-us/account')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                color: '#fff',
+                padding: '12px 16px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              <FaUser size={14} />
+              Account
+            </button>
+            
+            <button
+              onClick={handleLogout}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'rgba(231, 76, 60, 0.2)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(231, 76, 60, 0.3)',
+                color: '#e74c3c',
+                padding: '12px 16px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'rgba(231, 76, 60, 0.3)';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'rgba(231, 76, 60, 0.2)';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              <FaSignOutAlt size={14} />
+              Logout
+            </button>
+          </div>
         </div>
 
         {advertiserData && (

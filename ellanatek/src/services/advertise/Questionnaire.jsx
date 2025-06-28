@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import '../../styles/OnboardingFlow.css';
 
 const Questionnaire = () => {
   const navigate = useNavigate();
+  const { updateAdvertiserData } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
     businessName: '',
@@ -93,8 +95,8 @@ const Questionnaire = () => {
   };
 
   const handleSubmit = () => {
-    // Store data in localStorage for dashboard
-    localStorage.setItem('advertiserData', JSON.stringify(formData));
+    // Update advertiser data using context
+    updateAdvertiserData(formData);
     navigate('/advertise-with-us/dashboard');
   };
 
