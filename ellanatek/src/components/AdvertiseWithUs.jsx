@@ -8,7 +8,6 @@ import Dashboard from '../services/advertise/Dashboard';
 import Account from '../services/advertise/Account';
 import Payment from '../services/advertise/Payment';
 import Success from '../services/advertise/Success';
-import AuthGuard from '../services/advertise/AuthGuard';
 
 const AdvertiseWithUs = () => {
   return (
@@ -19,6 +18,9 @@ const AdvertiseWithUs = () => {
       {/* Authentication routes */}
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<Signup />} />
+      
+      {/* Account page */}
+      <Route path="account" element={<Account />} />
       
       {/* Onboarding flow */}
       <Route path="questions" element={<AuthGuard><Questionnaire /></AuthGuard>} />
@@ -35,4 +37,4 @@ const AdvertiseWithUs = () => {
   );
 };
 
-export default AdvertiseWithUs; 
+export default AdvertiseWithUs;

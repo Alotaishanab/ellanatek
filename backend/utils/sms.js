@@ -1,29 +1,45 @@
 // backend/utils/sms.js
-//
-//  Minimal wrapper around any HTTP-based SMS gateway.
-//
-//  ENV REQUIRED
-//  ------------
-//    SMS_API_URL   – endpoint to POST the SMS request
-//    SMS_API_KEY   – your API key or token
-//    SMS_SENDER_ID – optional sender ID if your provider requires one
-//
-//  The function resolves when the HTTP call completes.
-//  Throwing an error will bubble to the caller so routes can
-//  return a 500 if the SMS cannot be sent.
-//
 
-const axios = require('axios');
+// Minimal wrapper around WhatsApp Cloud API (mocked for now)
+// Returns immediately, does NOT send a real SMS / WhatsApp message.
+// Always succeeds with static code 123456.
 
 module.exports = async function sendSMS(phone, text) {
-  if (!process.env.SMS_API_URL || !process.env.SMS_API_KEY) {
-    throw new Error('SMS provider ENV keys missing');
+  console.log(`Mock sendSMS called for ${phone} with text: ${text}`);
+
+  // Instead of sending actual SMS/WhatsApp message,
+  // just resolve successfully.
+  return Promise.resolve();
+
+  /*
+  // Uncomment this block when ready to integrate WhatsApp Cloud API
+
+  const axios = require('axios');
+
+  if (!process.env.WA_PHONE_ID || !process.env.WA_TOKEN || !process.env.WA_TEMPLATE_NS) {
+    throw new Error('WhatsApp Cloud API ENV keys missing');
   }
 
-  await axios.post(process.env.SMS_API_URL, {
+  await axios.post(`https://graph.facebook.com/v16.0/${process.env.WA_PHONE_ID}/messages`, {
+    messaging_product: 'whatsapp',
     to: phone,
-    body: text,
-    sender_id: process.env.SMS_SENDER_ID || 'ELLANATEK',
-    api_key: process.env.SMS_API_KEY
+    type: 'template',
+    template: {
+      name: 'your_template_name_here',
+      namespace: process.env.WA_TEMPLATE_NS,
+      language: { code: 'en_US' },
+      components: [
+        {
+          type: 'body',
+          parameters: [{ type: 'text', text: '123456' }] // static code for now
+        }
+      ]
+    }
+  }, {
+    headers: {
+      Authorization: `Bearer ${process.env.WA_TOKEN}`,
+      'Content-Type': 'application/json'
+    }
   });
+  */
 };
